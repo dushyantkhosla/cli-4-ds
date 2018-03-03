@@ -36,8 +36,8 @@ RUN apt update \
 	&& conda clean -i -l -t -y \
 	&& rm miniconda.sh \
   && /bin/bash -c "chmod +x /root/install-xsv-miller.sh" \
-  && /bin/bash -c "/root/install-xsv-miller.sh"
-  && /bin/bash -c "chmod +x /etc/init.d/start.sh"
+  && /bin/bash -c "/root/install-xsv-miller.sh" \
+  && /bin/bash -c "chmod +x /etc/init.d/start.sh" 
 
 # === INITIALIZE ===
 
