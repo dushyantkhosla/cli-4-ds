@@ -3,7 +3,7 @@ MAINTAINER Dushyant Khosla <dushyant.khosla@yahoo.com>
 
 # === COPY FILES ===
 
-COPY start.sh /etc/profile.d/
+COPY start.sh /etc/init.d/
 COPY install-xsv-miller.sh /root/
 
 # === SET ENVIRONMENT VARIABLES ===
@@ -18,6 +18,7 @@ WORKDIR /root
 RUN apt update \
   && apt install -y  wget \
                     bzip2 \
+                    dtrx \
                     gcc \
                     man \
                     make \
@@ -36,9 +37,10 @@ RUN apt update \
 	&& rm miniconda.sh \
   && /bin/bash -c "chmod +x /root/install-xsv-miller.sh" \
   && /bin/bash -c "/root/install-xsv-miller.sh"
-
+  && /bin/bash -c "chmod +x /etc/init.d/start.sh"
 
 # === INITIALIZE ===
+
 WORKDIR /home/
 EXPOSE 8888
 CMD ["bash"]
