@@ -27,6 +27,18 @@
   - Miniconda3
   - A conda environment configured with the PyData stack (pandas, scikit-learn ...)
 
+- Build the docker image like so
+
+```bash
+docker build -t cli4ds .
+```
+
+- Run a container with the image
+
+```bash
+docker run -it -v $(pwd):/home -p 8888:8888 -p 5000:5000 -p 3128:3128 cli4ds
+```
+
 - Learn how to use these tools using the notebooks in `tutorials/`
 
 - To generate data for these tutorials, run the `get-csvs.sh` script in `data/`
