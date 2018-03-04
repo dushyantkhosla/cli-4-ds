@@ -5,3 +5,7 @@
 *.csv
 *.db
 *.txt
+
+# Metabase folders
+hsperfdata_metabase
+hsperfdata_root
