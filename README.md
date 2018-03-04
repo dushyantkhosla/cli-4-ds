@@ -44,3 +44,11 @@ docker run -it -v $(pwd):/home -p 8888:8888 -p 5000:5000 -p 3128:3128 cli4ds
 - To generate data for these tutorials, run the `get-csvs.sh` script in `data/`
   - Instructions displayed when the container starts
   - PS: This will download ~1.5GB data
+
+
+- You might want to try out `Metabase`
+```
+docker pull metabase/metabase:v0.19.0
+```
+  - I recommend this version against the latest because it works with SQLite
+  - If you want to run other DBs like Postgresql, you can get the latest image instead
