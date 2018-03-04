@@ -5,6 +5,7 @@ MAINTAINER Dushyant Khosla <dushyant.khosla@yahoo.com>
 
 COPY start.sh /etc/init.d/
 COPY install-xsv-miller.sh /root/
+COPY get-fish /root/
 
 # === SET ENVIRONMENT VARIABLES ===
 
@@ -37,7 +38,9 @@ RUN apt update \
 	&& rm miniconda.sh \
   && /bin/bash -c "chmod +x /root/install-xsv-miller.sh" \
   && /bin/bash -c "/root/install-xsv-miller.sh" \
-  && /bin/bash -c "chmod +x /etc/init.d/start.sh" 
+  && /bin/bash -c "chmod +x /etc/init.d/start.sh" \
+  && /bin/bash -c "chmod +x /root/get-fish" \
+  && /bin/bash -c "/root/get-fish"
 
 # === INITIALIZE ===
 
