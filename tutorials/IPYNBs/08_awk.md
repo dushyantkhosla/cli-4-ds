@@ -1,7 +1,3 @@
-[TOC]
-
----
-
 ## 0 - Why `awk`
 
 Say a client handed you a `.csv` file with a few columns. You have to run basic descriptive statistics on these columns, and maybe a few group-by operations (okay, pivot-tables.) If the file is a few thousand rows (under 100MB in size), you will probably double-click on it straight away and run the analysis in Excel. Give yourself a pat on the back, you chose the right tool for the right job. _Who's a good analyst? Yes, you are!_
@@ -12,15 +8,15 @@ But what if the file was 6GB?
 
 15GB?
 
-If the word `Hadoop` is stuck in your throat, I implore you to swallow it. 
+If the word `Hadoop` is stuck in your throat, I implore you to swallow it.
 
 PS: Yes, there are tools that allow you to work with larger-than-RAM files on a single machine (`Spark`, `Dask` and perhaps some more), but we'll keep that for later.
 
 ## 1 - Introduction
 
-$awk$ is not *just a command line tool*. 
+`awk` is not *just a command line tool*.
 
-It is a tiny, but full-featured Turing-complete **programming language** modeled on C, used to **process up to GBs of structured data**. The benefits of awk are best realized when the data has some kind of <u>structure</u>.  It extends the idea of text editing into data processing, analysis, extraction and reporting. A typical example of an $awk$ program is one that transforms data into a formatted report, such as ingesting server log files. It extensively uses the string datatype, arrays indexed by key strings, and regular expressions.
+It is a tiny, but full-featured Turing-complete **programming language** modeled on C, used to **process up to GBs of structured data**. The benefits of awk are best realized when the data has some kind of <u>structure</u>.  It extends the idea of text editing into data processing, analysis, extraction and reporting. A typical example of an `awk` program is one that transforms data into a formatted report, such as ingesting server log files. It extensively uses the string datatype, arrays indexed by key strings, and regular expressions.
 
  It lets you do stuff on the command line which you never imagined. It's a self-contained **mini data analytics software**. And it is relatively easy to learn.
 
@@ -28,7 +24,7 @@ Quoting Wikipedia
 
 > *The AWK language is a **data-driven scripting language** consisting of a set of actions to be taken against streams of textual data – either run directly on files or used as part of a pipeline – for purposes of extracting or transforming text.*
 
-And quoting Alfred V., one of the creators of the language (the A in $awk$)
+And quoting Alfred V., one of the creators of the language (the A in `awk`)
 
 > *"**AWK** is a language for processing text files. A file is treated as a sequence of records, and by default each line is a record. Each line is broken up into a sequence of fields, so we can think of the first word in a line as the first field, the second word as the second field, and so on. An AWK program is a sequence of pattern-action statements. AWK reads the input a line at a time. A line is scanned for each pattern in the program, and for each pattern that matches, the associated action is executed."*
 
@@ -56,7 +52,7 @@ And quoting Alfred V., one of the creators of the language (the A in $awk$)
 
 ## 3 - Syntax and Execution Model
 
-An awk program consists of what we will call a **main input loop**. You don’t write this loop, it is given—it exists as the framework within which the code that you do write will be executed. The main input loop in awk is a routine that reads one line of input from a file and makes it available for processing. The actions you write to do the processing assume that there is a line of input available. In another programming language, you would have to create the main input loop as part of your program. It would have to open the input file and read one line at a time. 
+An awk program consists of what we will call a **main input loop**. You don’t write this loop, it is given—it exists as the framework within which the code that you do write will be executed. The main input loop in awk is a routine that reads one line of input from a file and makes it available for processing. The actions you write to do the processing assume that there is a line of input available. In another programming language, you would have to create the main input loop as part of your program. It would have to open the input file and read one line at a time.
 
 The main input loop is executed as many times as there are lines of input. It terminates when there is no mor e input to be read. . Inside the main input loop, your instructions are written as a series of pattern/action procedures. A pattern is a rule for testing the input line to determine whether or not the action should be applied to it. The actions, as we shall see, can be quite complex, consisting of statements, functions, and expressions.
 
@@ -64,7 +60,7 @@ The main thing to remember is that each pattern/action procedur e sits in the ma
 
 Awk allows you to write two special routines that can be executed before any input is read and after all input is read. These are the procedur es associated with **the BEGIN and END rules**, respectively. In other words, you can do some preprocessing before the main input loop is ever executed and you can do some postpr ocessing after the main input loop has terminated. The BEGIN and END procedures are optional.
 
-In summary, an $awk$ program consists of:
+In summary, an `awk` program consists of:
 
 - **`BEGIN` segment** (optional) : to initialize our variables before we even start reading input
 - **pattern + action pairs**: to process the input data, here we may place multiple pattern + action pairs to do multiple things with the same line.
@@ -87,27 +83,27 @@ awk 'BEGIN {initial actions} {processing actions} END {ending actions}' file.txt
 # NOTE
 # The 'pattern' is a regex or a boolean expression used to match rows, or special expressions like BEGIN and END
 # the 'action' is a series of awk commands applied to selected fields of rows that match the regex/where the boolean expression evaluates to True
-# can include function calls, variable assignments, calculations, or any combination thereof. 
+# can include function calls, variable assignments, calculations, or any combination thereof.
 ```
 
 
 
 ## 3.1 -  Execution
 
-For each line of input, `awk` attempts each pattern-matching rule given in the script. The lines matching a particular pattern become the object of an action. If no action is specified, the line that matches the pattern is printed. 
+For each line of input, `awk` attempts each pattern-matching rule given in the script. The lines matching a particular pattern become the object of an action. If no action is specified, the line that matches the pattern is printed.
 
-Note that  a line can match more than one rule. 
+Note that  a line can match more than one rule.
 You can write a stricter rule set to prevent a line from matching more than one rule.
 
-Every line of the document to scan will have to go through each of the patterns, one at a time. 
+Every line of the document to scan will have to go through each of the patterns, one at a time.
 
-- Line 1 of the text file will be compared against `Pattern1`, and if it matches, `Action1` will be executed. 
-- If it doesn't match, `Pattern2` will be checked, and `Action2` will or won't be executed. 
+- Line 1 of the text file will be compared against `Pattern1`, and if it matches, `Action1` will be executed.
+- If it doesn't match, `Pattern2` will be checked, and `Action2` will or won't be executed.
 - This will continue until the input has been read completely.
-- Note that either the *condition* or the *action* may be omitted. 
+- Note that either the *condition* or the *action* may be omitted.
   - The *condition* defaults to matching every record. The default *action* is to print the record.
 
-$awk$ statements can be run on the command-line, or inside a script
+`awk` statements can be run on the command-line, or inside a script
 
 ```bash
 awk [options] <pattern> <action> file(s)
@@ -148,22 +144,22 @@ awk '$1=="bar" {print $3+$4}' foo.txt
 
 ---
 
-## 4 - Data Types 
+## 4 - Data Types
 
 ### 4.1 - Strings, Numbers
 
-`awk` only has <u>two main data types</u>: **strings** and **numbers**. 
+`awk` only has <u>two main data types</u>: **strings** and **numbers**.
 
 And even then, Awk likes to convert them into each other. Numbers stored as strings are **implicitly converted.** If the string doesn't look like a numeral, it's `0`. String objects are enclosed within double quotes `""`
 
-For **string concatenation**, simply place two variables next to each other. 
+For **string concatenation**, simply place two variables next to each other.
 
 ### 4.2 - Variables
 
 Both types can be assigned to variables in the `ACTIONS` parts of your code with the `=` operator. Variables can be declared anywhere, at any time, and used even if they're not initialized (their default value is `""`, the empty string.
 
 >  NOTE
->  The *variables are all global*. 
+>  The *variables are all global*.
 >  Whatever variables you declare in a given block will be visible to other blocks, for each line
 
 
@@ -184,7 +180,7 @@ Both types can be assigned to variables in the `ACTIONS` parts of your code with
 
 ### 4.3 - Arrays
 
-Finally, $awk$ has arrays. They are **unidimensional associative arrays** that can be **started dynamically**. 'Associative' means that they may be indexed by strings or number and stores data in a key value format, like Python dictionaries.
+Finally, `awk` has arrays. They are **unidimensional associative arrays** that can be **started dynamically**. 'Associative' means that they may be indexed by strings or number and stores data in a key value format, like Python dictionaries.
 
 Their syntax is just `var[key] = value`.
 
@@ -192,27 +188,27 @@ Their syntax is just `var[key] = value`.
 
 ### 5.1 - Regular Expressions
 
-The regexes used with $awk$ are general expressions that you use everyday with `grep` and `sed`. N
+The regexes used with `awk` are general expressions that you use everyday with `grep` and `sed`. N
 ote that these regexs only exist to **match** lines, they do not capture fields where the match occurs.
 
 ```bash
-/foo/ { ... }     		# any line that contains 'foo' 
-/^foo/ { ... }		    # lines that begin with 'foo' 
-/foo$/ { ... }    		# lines that end with 'foo' 
+/foo/ { ... }     		# any line that contains 'foo'
+/^foo/ { ... }		    # lines that begin with 'foo'
+/foo$/ { ... }    		# lines that end with 'foo'
 /^[0-9.]+ / { ... } 	# lines beginning with series of numbers and/or periods
 /(foo|bar|baz)/ 		# lines that contain specific words
 ```
 
 ### 5.2 - Boolean Expressions
 
-These are constructed using any regular data types with the *comparison* operators like `==, !=, >, >=, < ` and `<= `. Note that `==` does fuzzy matching, such that `80=="80"` is `True`. 
+These are constructed using any regular data types with the *comparison* operators like `==, !=, >, >=, < ` and `<= `. Note that `==` does fuzzy matching, such that `80=="80"` is `True`.
 
 **Compound** expressions can be constructed using operators `&&` (AND), `||` (OR), and `!` (NOT).
 
 #### Note
 
 - Regexes and Booleans can be **mixed**, so the expression `/foo/ && '$3=="bar"'` is valid and will match rows that contain the string foo, and contain "bar" in their 3rd field
-- You can *modify the line* by assigning to its field. 
+- You can *modify the line* by assigning to its field.
   - For example, if you write `$1 = "foobar"` in one block, the next patterns will now operate on that line instead of the original one.
   - Could be used for *imputation* of missing data!
 
@@ -220,10 +216,10 @@ These are constructed using any regular data types with the *comparison* operato
 
 ### 5.3 - Special Patterns: BEGIN and END
 
-The first one, `BEGIN`, matches only *before* any line has been input to the file. 
+The first one, `BEGIN`, matches only *before* any line has been input to the file.
 This is basically where you can **initiate variables** (like declaring delimiters) and all other kinds of state in your script.
 
-`END` will match *after* the whole input has been handled. 
+`END` will match *after* the whole input has been handled.
 This lets you clean up or do some final output before exiting.
 
 ## 6 - Actions
