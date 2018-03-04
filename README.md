@@ -43,7 +43,7 @@ docker run -it -v $(pwd):/home -p 8888:8888 -p 5000:5000 -p 3128:3128 cli4ds
     - PS: This will download ~1.5GB data
   - Run the `make-data.py` to create a synthetic dataset with 10 million rows
 
-## SQL Analytics with Metabase
+## SQL Analytics with [Metabase](https://www.metabase.com/)
 
 - You might want to try out `Metabase`, which has a nice front-end for writing SQL
 
