@@ -37,7 +37,9 @@ RUN apt update \
   && conda install -n ds-py3 -y -c bioconda csvtk \
 	&& conda clean -i -l -t -y \
 	&& rm miniconda.sh \
+  && chmod +x install-xsv-miller.sh \
   && bash install-xsv-miller.sh \
+  && chmod +x install-fish.sh \
   && bash install-fish.sh
 
 # === INITIALIZE ===

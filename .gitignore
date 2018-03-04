@@ -2,5 +2,6 @@
 .ipynb_checkpoints
 
 # Ignore all data files
-data/*
 *.csv
+*.db
+*.txt
