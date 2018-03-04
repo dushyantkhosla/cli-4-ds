@@ -103,3 +103,11 @@ docker run -d -v $(pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
   - For now, here's something to munch on http://randyzwitch.com/gnu-parallel-medium-data/
+
+## Appendix
+
+- There are no rules, of thumb; but we can try
+
+|---|---|
+|Situation|Remedy|
+|---|---|
