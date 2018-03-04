@@ -17,17 +17,18 @@ ENV LANG en_US.UTF-8
 
 WORKDIR /root
 RUN apt update \
-  && apt install -y  wget \
-                    bzip2 \
+  && apt install -y bzip2 \
+                    datamash \
                     dtrx \
-                    gcc \
-                    man \
-                    make \
                     flex \
                     gawk \
-                    nano \
+                    gcc \
                     git \
-                    datamash \
+                    make \
+                    man \
+                    nano \
+                    tmux \
+                    wget \
 	&& wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh \
 	&& bash miniconda.sh  -b -p /miniconda \
 	&& conda config --append channels conda-forge \
@@ -36,11 +37,9 @@ RUN apt update \
   && conda install -n ds-py3 -y -c bioconda csvtk \
 	&& conda clean -i -l -t -y \
 	&& rm miniconda.sh \
-  && /bin/bash -c "chmod +x /root/install-xsv-miller.sh" \
-  && /bin/bash -c "/root/install-xsv-miller.sh" \
-  && /bin/bash -c "chmod +x /etc/init.d/start.sh" \
-  && /bin/bash -c "chmod +x /root/get-fish" \
-  && /bin/bash -c "/root/get-fish"
+  && chmod +x install-xsv-miller.sh \
+  && chmod +x get-fish \
+  && bash get-fish
 
 # === INITIALIZE ===
 
