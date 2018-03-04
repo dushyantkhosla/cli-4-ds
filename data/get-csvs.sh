@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 echo "Downloading the KDD Cup 1999"
 wget http://kdd.ics.uci.edu/databases/kddcup99/kddcup.names
