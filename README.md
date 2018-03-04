@@ -40,15 +40,30 @@ docker run -it -v $(pwd):/home -p 8888:8888 -p 5000:5000 -p 3128:3128 cli4ds
 ```
 
 - Learn how to use these tools using the notebooks in `tutorials/`
+- Run the `start.sh` script to see helpful messages
 
-- To generate data for these tutorials, run the `get-csvs.sh` script in `data/`
-  - Instructions displayed when the container starts
-  - PS: This will download ~1.5GB data
+## Get the Data
 
+- To generate data for these tutorials, `cd` into the `data/` directory and
+  - Run the `get-csvs.sh` script to download `flightDelays` and `KDDCup` datasets
+    - PS: This will download ~1.5GB data
+  - Run the `make-data.py` to create a synthetic dataset with 10 million rows
 
-- You might want to try out `Metabase`
+## SQL Analytics with Metabase
+
+- You might want to try out `Metabase`, which has a nice front-end for writing SQLite
+
 ```
 docker pull metabase/metabase:v0.19.0
 ```
   - I recommend this version against the latest because it works with SQLite
   - If you want to run other DBs like Postgresql, you can get the latest image instead
+
+- Then, run a container
+
+```
+docker run -d -v (pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
+```
+
+- The `-d` switch is for running the container in _detached_ mode
+- Navigate to `localhost:3000`, connect to a `.db` file or run another DB and connect to it
