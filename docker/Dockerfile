@@ -3,9 +3,9 @@ MAINTAINER Dushyant Khosla <dushyant.khosla@yahoo.com>
 
 # === COPY FILES ===
 
-COPY start.sh /etc/init.d/
-COPY install-xsv-miller.sh /root/
-COPY get-fish /root/
+COPY start.sh /root
+COPY install-xsv-miller.sh /root
+COPY install-fish.sh /root
 
 # === SET ENVIRONMENT VARIABLES ===
 
@@ -37,9 +37,8 @@ RUN apt update \
   && conda install -n ds-py3 -y -c bioconda csvtk \
 	&& conda clean -i -l -t -y \
 	&& rm miniconda.sh \
-  && chmod +x install-xsv-miller.sh \
-  && chmod +x get-fish \
-  && bash get-fish
+  && bash install-xsv-miller.sh \
+  && bash install-fish.sh
 
 # === INITIALIZE ===
 
