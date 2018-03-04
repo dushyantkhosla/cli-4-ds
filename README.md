@@ -4,7 +4,7 @@
 
   - [GNU Coreutils](https://www.gnu.org/software/coreutils/manual/coreutils.html) everyday tools like `grep`, `sed`, `cut`, `shuf` and `cat` for working on text-files
   - [GNU awk](https://www.gnu.org/software/gawk/manual/gawk.html), a _programming language_ designed for text processing and typically used as a data extraction and reporting tool
-  - [GNU Datamash]https://www.gnu.org/software/datamash/manual/html_node/Usage-Examples.html, a command-line program which performs basic numeric, textual and statistical operations on input textual data files.
+  - [GNU Datamash](https://www.gnu.org/software/datamash/manual/html_node/Usage-Examples.html), a command-line program which performs basic numeric, textual and statistical operations on input textual data files.
   - [xsv](https://github.com/BurntSushi/xsv), a fast CSV toolkit written in Rust
   - [csvkit](http://csvkit.readthedocs.io/en/1.0.2/), a suite of command-line tools for converting to and working with CSV. Written in Python
   - [Miller](http://johnkerl.org/miller/doc/) is like awk, sed, cut, join, and sort for _name-indexed data_ such as CSV, TSV, and tabular JSON. Written in C.
