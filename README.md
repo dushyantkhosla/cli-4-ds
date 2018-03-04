@@ -98,16 +98,29 @@ docker run -d -v $(pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
 - The `-d` switch is for running the container in _detached_ mode
 - Navigate to `localhost:3000`, connect to a `.db` file or run another DB and connect to it
 
+## Appendix
+
+- There are no rules, of thumb; but we can try
+
+Data Size|Remedy
+---|---
+up to 1GB | Pandas
+up to 10GB | Get more RAM for Pandas, use Spark in stand-alone
+up to 100GB | Use Postgres
+500GB+ | You're stuck with Hadoop
+
+## TL;DR
+
+- For filter/transform jobs, use 
+  - cli-tools or python scripts (line-by-line or stream processing)
+  - break files into chunks, use pandas (chunk processing)
+  
+- For reductions/groupby jobs,
+  - think deeply about your data, work with representative samples
+    - you're a better statistician than a programmer afterall, aren't you?
+  - use bootstrap/cross-validated measures to quantify uncertainty
 
 ## Further Reading
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
   - For now, here's something to munch on http://randyzwitch.com/gnu-parallel-medium-data/
-
-## Appendix
-
-- There are no rules, of thumb; but we can try
-
-|---|---|
-|Situation|Remedy|
-|---|---|
