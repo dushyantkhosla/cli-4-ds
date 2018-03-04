@@ -105,9 +105,9 @@ docker run -d -v $(pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
 Data Size|Remedy
 ---|---
 up to 1GB | Pandas
-up to 10GB | Get more RAM for Pandas, use Spark in stand-alone
-up to 100GB | Use Postgres
-500GB+ | You're stuck with Hadoop
+up to 10GB | Get more RAM. Try Spark/Dask.
+up to 100GB | Postgres
+500GB+ | Hadoop
 
 ## TL;DR
 
