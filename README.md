@@ -111,15 +111,24 @@ up to 100GB | Use Postgres
 
 ## TL;DR
 
+As long as your data fits-on-disk (ie, a few hundred GBs or less,)
+
 - For filter/transform jobs, use 
   - cli-tools or python scripts (line-by-line or stream processing)
   - break files into chunks, use pandas (chunk processing)
   
 - For reductions/groupby jobs,
-  - think deeply about your data, work with representative samples
+  - think deeply about your data, draw representative samples
     - you're a better statistician than a programmer afterall, aren't you?
-  - use bootstrap/cross-validated measures to quantify uncertainty
+  - use bootstrap measures to quantify uncertainty
+  
+- For machine-learning jobs,
+  - Cluster your data, then pull samples from each group. 
+  - Fit your first model on a 10% sample. 
+    - Build a Learning Curve.
+    - Use cross-validated measures to quantify uncertainty
 
+  
 ## Further Reading
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
