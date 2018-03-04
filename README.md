@@ -40,7 +40,14 @@ docker run -it -v $(pwd):/home -p 8888:8888 -p 5000:5000 -p 3128:3128 cli4ds
 
 - To generate data for these tutorials, `cd` into the `data/` directory and
   - Run the `get-csvs.sh` script to download `flightDelays` and `KDDCup` datasets
-    - PS: This will download ~1.5GB data
+  - PS: This will download ~1.5GB data
+
+```
+cd data/
+bash get-csvs.sh
+python make-data.py
+```
+    
   - Run the `make-data.py` to create a synthetic dataset with 10 million rows
 
 ## SQL Analytics with [Metabase](https://www.metabase.com/)
