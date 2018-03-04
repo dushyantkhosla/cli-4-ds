@@ -2,27 +2,29 @@
 
 - Use the `docker/` folder to build an image that contains the following tools
 
-  - **GNU Coreutils** (sed, awk, grep ...)
-    - [awk](https://www.gnu.org/software/gawk/manual/gawk.html) is a _programming language_ designed for text processing and typically used as a data extraction and reporting tool
-  - **GNU Datamash**, a command-line program which performs basic numeric,textual and statistical operations on input textual data files.
-  - **xsv**, A fast CSV toolkit written in Rust. [repo](https://github.com/BurntSushi/xsv), [installation](https://github.com/BurntSushi/xsv/releases/latest)
-  - **csvkit** is a suite of command-line tools for converting to and working with CSV. Written in Python. [docs](http://csvkit.readthedocs.io/en/1.0.2/)
-  - **Miller** Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV, and tabular JSON. Written in C. [repo](https://github.com/johnkerl/miller), [docs](http://johnkerl.org/miller/doc/)
-  - **csvtk** A cross-platform, efficient, practical and pretty CSV/TSV toolkit in Golang. [docs](http://bioinf.shenwei.me/csvtk/)
-  - **textql** Execute SQL against structured text like CSV or TSV. Written in Golang. [repo](https://github.com/dinedal/textql)
+  - [GNU Coreutils](https://www.gnu.org/software/coreutils/manual/coreutils.html) everyday tools like `grep`, `sed`, `cut`, `shuf` and `cat` for working on text-files
+  - [GNU awk](https://www.gnu.org/software/gawk/manual/gawk.html), a _programming language_ designed for text processing and typically used as a data extraction and reporting tool
+  - [GNU Datamash]https://www.gnu.org/software/datamash/manual/html_node/Usage-Examples.html, a command-line program which performs basic numeric, textual and statistical operations on input textual data files.
+  - [xsv](https://github.com/BurntSushi/xsv), a fast CSV toolkit written in Rust
+  - [csvkit](http://csvkit.readthedocs.io/en/1.0.2/), a suite of command-line tools for converting to and working with CSV. Written in Python
+  - [Miller](http://johnkerl.org/miller/doc/) is like awk, sed, cut, join, and sort for _name-indexed data_ such as CSV, TSV, and tabular JSON. Written in C.
+  - [csvtk](http://bioinf.shenwei.me/csvtk/) A cross-platform, efficient, practical and pretty CSV/TSV toolkit in Golang.
+  - [textql](https://github.com/dinedal/textql) Execute SQL against structured text like CSV or TSV. Written in Golang.
     - SQLlite-like [datetime](https://www.sqlite.org/lang_datefunc.html) support!
-  - **q** allows direct execution of SQL-like queries on CSVs/TSVs (and any other tabular text files).  [install](http://harelba.github.io/q/examples.html), [tutorial](http://harelba.github.io/q/tutorial.html)
+  - [q](http://harelba.github.io/q/examples.html) allows direct execution of SQL-like queries on CSVs/TSVs (and any other tabular text files)
 
 - Also contains
 
   - Miniconda3
   - A conda environment `ds-py3` configured with the PyData stack (`pandas`, `scikit-learn` ...)
 
-- Build the docker image like so
+- Build or pull the docker image
 
 ```
 cd docker/
 docker build -t cli4ds .
+# or
+docker pull dushyantkhosla/cli-4-ds:latest
 ```
 
 - Run a container with the image
