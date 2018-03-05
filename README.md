@@ -1,5 +1,3 @@
-## CLI tools for Data Science
-
 ## Why 
 
 - Because I've met too many 'data scientists' who
