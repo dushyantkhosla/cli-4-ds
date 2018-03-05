@@ -1,9 +1,30 @@
-## Why 
+## Introduction
+
+Say a you have a `.csv` file with a few columns. You have to run basic descriptive statistics on these columns, and maybe a few group-by operations (okay, pivot-tables.) If the file is a few thousand rows (under 100MB in size), you will probably double-click on it straight away and run the analysis in Excel.  
+
+Give yourself a pat on the back, you chose the right tool for the right job.  
+
+_Who's a good analyst? Yes, you are!_
+
+But what if the file was 750MB? Assuming you have enough RAM (8GB or more), of course you'll use `dplyr` in R, or `pandas` in Python or (gasp) write a data step in `SAS`.  
+
+_Right? Excellent._
+
+But what if the file was 6GB?
+
+15GB?
+
+If the word `Hadoop` is stuck in your throat, I implore you to swallow it.
+This repository focues on open-source command-line utilities that can do the same.
+
+Yes, there are Python libraries that allow you to work with larger-than-RAM files on a single machine (`Spark`, `Dask` and perhaps some more), but we'll keep that for later.
+
+## Why
 
 - Because I've met too many 'data scientists' who
   - have a complete lack of awareness of the limits of their own hardware.
     - See [Don't use Hadoop - your data isn't that big](https://www.chrisstucchio.com/blog/2013/hadoop_hatred.html)
-  - are forgetting Statistics! Sometimes you can fit a model on a (representative) _sample_ of data, and you might not need distributed ML. 
+  - are forgetting Statistics! Sometimes you can fit a model on a (representative) _sample_ of data, and you might not need distributed ML.
     - See [Don't use deep learning your data isn't that big](https://simplystatistics.org/2017/05/31/deeplearning-vs-leekasso/)
     - Also see [learning curves](http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html)
 - Because there is an entire ecosystem of wonderful open-source software for data analysis
@@ -18,7 +39,7 @@
 
 > "For workloads that process multi-GB rather than multi-TB, a big memory server will provide better performance-per-dollar than a cluster."
 
-## Tools 
+## Tools
 
   - [GNU Coreutils](https://www.gnu.org/software/coreutils/manual/coreutils.html) everyday tools like `grep`, `sed`, `cut`, `shuf` and `cat` for working on text-files
   - [GNU awk](https://www.gnu.org/software/gawk/manual/gawk.html), a _programming language_ designed for text processing and typically used as a data extraction and reporting tool
@@ -61,7 +82,7 @@ docker run -it \
 
 - Learn how to use these tools using the notebooks in `tutorials/`
   - There is a dedicated notebook for each of the tools above
-    
+
 - Run the `start.sh` script to see helpful messages
 
 ```
@@ -79,7 +100,7 @@ cd data/
 bash get-csvs.sh
 python make-data.py
 ```
-    
+
   - Run the `make-data.py` to create a synthetic dataset with 10 million rows
 
 ## SQL Analytics with [Metabase](https://www.metabase.com/)
@@ -116,22 +137,22 @@ up to 100GB | Postgres
 
 As long as your data fits-on-disk (ie, a few hundred GBs or less,)
 
-- For `filter` or `transform` jobs (like `WHERE` and `CASE WHEN`) , use 
+- For `filter` or `transform` jobs (like `WHERE` and `CASE WHEN`) , use
   - cli-tools or python scripts (line-by-line or stream processing)
   - break files into chunks, use pandas (chunk processing)
-  
+
 - For `reductions` or `groupby` jobs (like `AVERAGE` and `PIVOT`),
   - think deeply about your data, draw representative samples
     - _you're a better statistician than a programmer afterall, aren't you?_
   - use bootstrap measures to quantify uncertainty
-  
+
 - For `machine-learning` jobs,
   - Cluster your data, then pull samples from each group. (stratify)
-  - Fit your first model on a 10% sample. 
+  - Fit your first model on a 10% sample.
     - Build a Learning Curve.
     - Use cross-validated measures to quantify uncertainty
 
-  
+
 ## Further Reading
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
