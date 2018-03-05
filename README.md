@@ -9,7 +9,7 @@
 - Because there is an entire ecosystem of wonderful open-source software for data analysis
 - Because renting servers with more RAM or more cores is now easier and cheaper than ever.
 - Because too many businesses do not have massive data and are spending money and resources trying to solve their problems with the wrong (and expensive) tools
-  - The closes analogy I can think of is someone trying to break a pebble with a sledgehammer. Of course, the pebble will break, but wouldn't you rather first try using the hammer hanging in your toolshed?  
+  - The closest analogy I can think of is someone trying to break a pebble with a sledgehammer. Of course, the pebble will break, but wouldn't you rather first try using the hammer hanging in your toolshed?  
 - But mostly, because I like to teach! 😇
 
 ## Some Quotes
@@ -43,7 +43,7 @@
 
 ```
 cd docker/
-docker build -t cli4ds .
+docker build -t cli-4-ds .
 # or
 docker pull dushyantkhosla/cli-4-ds:latest
 ```
@@ -51,11 +51,16 @@ docker pull dushyantkhosla/cli-4-ds:latest
 - Run a container with the image
 
 ```
-docker run -it -v $(pwd):/home -p 8888:8888 -p 5000:5000 -p 3128:3128 cli4ds
+docker run -it \
+           -v $(pwd):/home \
+           -p 8888:8888 \
+           -p 5000:5000 \
+           -p 3128:3128 \
+           dushyantkhosla/cli-4-ds:latest
 ```
 
 - Learn how to use these tools using the notebooks in `tutorials/`
-  - There is a dedicated notebook for each of the tools above
+  - There is a dedicated notebook for each of the tools above
     
 - Run the `start.sh` script to see helpful messages
 
@@ -111,17 +116,17 @@ up to 100GB | Postgres
 
 As long as your data fits-on-disk (ie, a few hundred GBs or less,)
 
-- For filter/transform jobs, use 
+- For `filter` or `transform` jobs (like `WHERE` and `CASE WHEN`) , use 
   - cli-tools or python scripts (line-by-line or stream processing)
   - break files into chunks, use pandas (chunk processing)
   
-- For reductions/groupby jobs,
+- For `reductions` or `groupby` jobs (like `AVERAGE` and `PIVOT`),
   - think deeply about your data, draw representative samples
-    - you're a better statistician than a programmer afterall, aren't you?
+    - _you're a better statistician than a programmer afterall, aren't you?_
   - use bootstrap measures to quantify uncertainty
   
-- For machine-learning jobs,
-  - Cluster your data, then pull samples from each group. 
+- For `machine-learning` jobs,
+  - Cluster your data, then pull samples from each group. (stratify)
   - Fit your first model on a 10% sample. 
     - Build a Learning Curve.
     - Use cross-validated measures to quantify uncertainty
