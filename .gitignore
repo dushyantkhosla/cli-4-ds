@@ -1,5 +1,8 @@
+# Temp Files
 .DS_Store
 .ipynb_checkpoints
+Untitled.ipynb
+
 
 # Ignore all data files
 *.csv
@@ -9,3 +12,6 @@
 # Metabase folders
 hsperfdata_metabase
 hsperfdata_root
+
+
+dask-worker-space/
