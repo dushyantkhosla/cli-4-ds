@@ -72,7 +72,7 @@ docker pull dushyantkhosla/cli-4-ds:latest
 - Run a container with the image
 
 ```
-docker run -it \
+docker run -it --privileged \
            -v $(pwd):/home \
            -p 8888:8888 \
            -p 5000:5000 \
