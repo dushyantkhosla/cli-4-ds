@@ -19,7 +19,7 @@ wget http://stat-computing.org/dataexpo/2009/2007.csv.bz2
 echo "Uncompressing Flights Data"
 echo "-----------------------------------------------------------------"
 dtrx 2007.csv.bz2
-
+mv 2007.csv flights.csv
 
 echo "Done. Removing the compressed files"
 echo "-----------------------------------------------------------------"

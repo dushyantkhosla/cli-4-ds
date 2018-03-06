@@ -3,10 +3,10 @@
 .ipynb_checkpoints
 Untitled.ipynb
 
-
 # Ignore all data files
 *.csv
 *.db
+*.db-journal
 *.txt
 
 # Metabase folders
