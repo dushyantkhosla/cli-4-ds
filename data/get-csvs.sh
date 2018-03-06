@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir kdd_flights
+cd kdd_flights
+
 echo "Downloading the KDD Cup 1999"
 echo "-----------------------------------------------------------------"
 wget http://kdd.ics.uci.edu/databases/kddcup99/kddcup.names
@@ -25,7 +28,8 @@ rm kddcup.data.gz
 
 echo "Cleaning up the KDD dataset"
 echo "-----------------------------------------------------------------"
-python clean-kdd.py
+
+python ../clean-kdd.py
 cat kddcup.data >> kdd.csv
 rm kddcup.data
 rm kddcup.names
