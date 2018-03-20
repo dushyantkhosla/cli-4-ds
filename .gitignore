@@ -8,6 +8,8 @@ Untitled.ipynb
 *.db
 *.db-journal
 *.txt
+*.xml
+*.sql
 
 # Metabase folders
 hsperfdata_metabase
