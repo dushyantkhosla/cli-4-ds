@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
 
 Say a you have a `.csv` file with a few columns. You have to run basic descriptive statistics on these columns, and maybe a few group-by operations (okay, pivot-tables.) If the file is a few thousand rows (under 100MB in size), you will probably double-click on it straight away and run the analysis in Excel.  
 
@@ -19,7 +19,7 @@ This repository focues on open-source command-line utilities that can do the sam
 
 Yes, there are Python libraries that allow you to work with larger-than-RAM files on a single machine (`Spark`, `Dask` and perhaps some more), but we'll keep that for later.
 
-## Why
+# Why
 
 - Because I've met too many 'data scientists' who
   - have a complete lack of awareness of the limits of their own hardware.
@@ -33,13 +33,13 @@ Yes, there are Python libraries that allow you to work with larger-than-RAM file
   - The closest analogy I can think of is someone trying to break a pebble with a sledgehammer. Of course, the pebble will break, but wouldn't you rather first try using the hammer hanging in your toolshed?  
 - But mostly, because I like to teach! 😇
 
-## Some Quotes
+# Some Quotes
 
 > "At Facebook, 90% of the jobs have input sizes under 100GB."
 
 > "For workloads that process multi-GB rather than multi-TB, a big memory server will provide better performance-per-dollar than a cluster."
 
-## Tools
+# Tools
 
   - [GNU Coreutils](https://www.gnu.org/software/coreutils/manual/coreutils.html) everyday tools like `grep`, `sed`, `cut`, `shuf` and `cat` for working on text-files
   - [GNU awk](https://www.gnu.org/software/gawk/manual/gawk.html), a _programming language_ designed for text processing and typically used as a data extraction and reporting tool
@@ -52,17 +52,16 @@ Yes, there are Python libraries that allow you to work with larger-than-RAM file
     - SQLlite-like [datetime](https://www.sqlite.org/lang_datefunc.html) support!
   - [q](http://harelba.github.io/q/examples.html) allows direct execution of SQL-like queries on CSVs/TSVs (and any other tabular text files)
 
-
-## Docker Image
+# Docker Image
 
 - I've created a Docker image with all of these tools, and tutorials on how to use them.
 - It also contains
   - Miniconda3
   - A conda environment `ds-py3` configured with the PyData stack (`pandas`, `scikit-learn` ...)
-
 - Build (or pull) the docker image
 
 ```
+# clone this repo, and 
 cd docker/
 docker build -t cli-4-ds .
 # or
@@ -89,7 +88,7 @@ docker run -it --privileged \
 bash /root/start.sh
 ```
 
-## Get the Data
+# Get the Data
 
 - To generate data for these tutorials, `cd` into the `data/` directory and
   - Run the `get-csvs.sh` script to download `flightDelays` and `KDDCup` datasets
@@ -103,7 +102,9 @@ python make-data.py
 
   - Run the `make-data.py` to create a synthetic dataset with 10 million rows
 
-## SQL Analytics with [Metabase](https://www.metabase.com/)
+---
+
+# Part 2: SQL Analytics with [Metabase](https://www.metabase.com/)
 
 - You might want to try out `Metabase`, which has a nice front-end for writing SQL
 
@@ -122,7 +123,9 @@ docker run -d -v $(pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
 - The `-d` switch is for running the container in _detached_ mode
 - Navigate to `localhost:3000`, connect to a `.db` file or run another DB and connect to it
 
-## Appendix
+---
+
+# Appendix
 
 - There are no rules, of thumb; but we can try
 
@@ -133,7 +136,9 @@ up to 10GB | Get more RAM. Try Spark/Dask.
 up to 100GB | Postgres
 500GB+ | Hadoop
 
-## TL;DR
+---
+
+# tl;dr
 
 As long as your data fits-on-disk (ie, a few hundred GBs or less,)
 
@@ -152,8 +157,9 @@ As long as your data fits-on-disk (ie, a few hundred GBs or less,)
     - Build a Learning Curve.
     - Use cross-validated measures to quantify uncertainty
 
+---
 
-## Further Reading
+# Further Reading
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
   - For now, [here's](http://randyzwitch.com/gnu-parallel-medium-data/) something to munch on 
