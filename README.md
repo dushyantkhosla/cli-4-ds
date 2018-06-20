@@ -156,4 +156,4 @@ As long as your data fits-on-disk (ie, a few hundred GBs or less,)
 ## Further Reading
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
-  - For now, here's something to munch on http://randyzwitch.com/gnu-parallel-medium-data/
+  - For now, [here's](http://randyzwitch.com/gnu-parallel-medium-data/) something to munch on 
