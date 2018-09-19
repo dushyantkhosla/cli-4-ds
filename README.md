@@ -35,6 +35,8 @@ Yes, there are Python libraries that allow you to work with larger-than-RAM file
 
 # Some Quotes
 
+> In forecasting applications, we **never** observe the whole population. The problem is to forecast from _a finite sample._ Hence statistics such as means and standard deviations must be estimated with error.
+
 > "At Facebook, 90% of the jobs have input sizes under 100GB."
 
 > "For workloads that process multi-GB rather than multi-TB, a big memory server will provide better performance-per-dollar than a cluster."
