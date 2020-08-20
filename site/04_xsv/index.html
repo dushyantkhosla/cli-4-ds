@@ -1,0 +1,1205 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
+      
+      
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/04_xsv/">
+      
+      
+        <meta name="author" content="Dushyant Khosla">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>XSV - CLI Tools and Tricks for Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#xsv" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-header-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CLI Tools and Tricks for Data Science
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              XSV
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
+          Unix Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../02_csvkit/" class="md-tabs__link md-tabs__link--active">
+          CLI Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
+          Databases
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CLI Tools and Tricks for Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Unix Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Unix Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Unix Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+      Coreutils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+      AWK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+      Bash Programming
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
+      Datamash
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      CLI Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="CLI Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        CLI Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
+      CSVKit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
+      CSVTK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        XSV
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="XSV" class="md-nav__link md-nav__link--active">
+      XSV
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+    <nav class="md-nav" aria-label="Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-sampling" class="md-nav__link">
+    Random Sampling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-tables" class="md-nav__link">
+    Frequency Tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-rows" class="md-nav__link">
+    Filter rows
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joins" class="md-nav__link">
+    Joins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
+      Miller
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
+      Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+      Larger Than RAM
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Databases
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Databases" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Databases
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+      Example 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+      Example 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+      Example 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+      CLI-Fu
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    Install
+  </a>
+  
+    <nav class="md-nav" aria-label="Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-sampling" class="md-nav__link">
+    Random Sampling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-tables" class="md-nav__link">
+    Frequency Tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-rows" class="md-nav__link">
+    Filter rows
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#joins" class="md-nav__link">
+    Joins
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/04_xsv.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="xsv"><strong><code>xsv</code></strong><a class="headerlink" href="#xsv" title="Permanent link">&para;</a></h1>
+<ul>
+<li><em>A fast CSV toolkit written in Rust.</em> <a href="https://github.com/BurntSushi/xsv">repo</a></li>
+</ul>
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>cat         Concatenate by row or column
+count       Count records
+fixlengths  Makes all records have same length
+flatten     Show one field per line
+fmt         Format CSV output (change field delimiter)
+frequency   Show frequency tables
+headers     Show header names
+help        Show this usage message.
+index       Create CSV index for faster access
+input       Read CSV data with special quoting rules
+join        Join CSV files
+sample      Randomly sample CSV data
+search      Search CSV data with regexes
+select      Select columns from CSV
+slice       Slice records from CSV
+sort        Sort CSV data
+split       Split CSV data into many files
+stats       Compute basic statistics
+table       Align CSV data into columns
+</code></pre></div>
+
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># run</span>
+wget https://goo.gl/iZMmzX
+<span class="c1"># or download the tar file from &#39;https://github.com/BurntSushi/xsv/releases/latest&#39;</span>
+
+<span class="c1"># untar</span>
+tar -xzvf xsv-0.11.0-x86_64-unknown-linux-musl.tar.gz
+
+<span class="c1"># move the executable to the binaries folder</span>
+mv xsv /usr/bin/xsv
+
+<span class="c1"># run from anywhere</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">### 0. View formatted</span>
+<span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">10</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">table</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Year  Month  DayofMonth  DayOfWeek  DepTime  CRSDepTime  ArrTime  CRSArrTime  UniqueCarrier  FlightNum
+2007  1      1           1          1232     1225        1341     1340        WN             2891
+2007  1      1           1          1918     1905        2043     2035        WN             462
+2007  1      1           1          2206     2130        2334     2300        WN             1229
+2007  1      1           1          1230     1200        1356     1330        WN             1355
+2007  1      1           1          831      830         957      1000        WN             2278
+2007  1      1           1          1430     1420        1553     1550        WN             2386
+2007  1      1           1          1936     1840        2217     2130        WN             409
+2007  1      1           1          944      935         1223     1225        WN             1131
+2007  1      1           1          1537     1450        1819     1735        WN             1212
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">### 1. Count Rows (MUCH faster than `wc -l`, uses more CPU, excludes header)</span>
+<span class="err">!</span><span class="n">xsv</span> <span class="n">count</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>7453215
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">### 2. Get Column names</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="err">!</span><span class="n">xsv</span> <span class="n">headers</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+<span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[&#39;Year&#39;,
+ &#39;Month&#39;,
+ &#39;DayofMonth&#39;,
+ &#39;DayOfWeek&#39;,
+ &#39;DepTime&#39;,
+ &#39;CRSDepTime&#39;,
+ &#39;ArrTime&#39;,
+ &#39;CRSArrTime&#39;,
+ &#39;UniqueCarrier&#39;,
+ &#39;FlightNum&#39;,
+ &#39;TailNum&#39;,
+ &#39;ActualElapsedTime&#39;,
+ &#39;CRSElapsedTime&#39;,
+ &#39;AirTime&#39;,
+ &#39;ArrDelay&#39;,
+ &#39;DepDelay&#39;,
+ &#39;Origin&#39;,
+ &#39;Dest&#39;,
+ &#39;Distance&#39;,
+ &#39;TaxiIn&#39;,
+ &#39;TaxiOut&#39;,
+ &#39;Cancelled&#39;,
+ &#39;CancellationCode&#39;,
+ &#39;Diverted&#39;,
+ &#39;CarrierDelay&#39;,
+ &#39;WeatherDelay&#39;,
+ &#39;NASDelay&#39;,
+ &#39;SecurityDelay&#39;,
+ &#39;LateAircraftDelay&#39;]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">### 5. Subset Columns</span>
+<span class="err">!</span><span class="n">xsv</span> <span class="n">select</span> <span class="n">Month</span><span class="p">,</span><span class="n">DayofMonth</span><span class="p">,</span><span class="n">UniqueCarrier</span><span class="p">,</span><span class="n">FlightNum</span><span class="p">,</span><span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|--------+------------+---------------+-----------+--------+-------|
+|  Month | DayofMonth | UniqueCarrier | FlightNum | Origin | Dest  |
+|--------+------------+---------------+-----------+--------+-------|
+|  1     | 1          | WN            | 2891      | SMF    | ONT   |
+|  1     | 1          | WN            | 462       | SMF    | PDX   |
+|  1     | 1          | WN            | 1229      | SMF    | PDX   |
+|  1     | 1          | WN            | 1355      | SMF    | PDX   |
+|  1     | 1          | WN            | 2278      | SMF    | PDX   |
+|  1     | 1          | WN            | 2386      | SMF    | PDX   |
+|  1     | 1          | WN            | 409       | SMF    | PHX   |
+|  1     | 1          | WN            | 1131      | SMF    | PHX   |
+|  1     | 1          | WN            | 1212      | SMF    | PHX   |
+|--------+------------+---------------+-----------+--------+-------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">### 3. Create an index</span>
+<span class="err">!</span><span class="n">xsv</span> <span class="n">index</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">*.</span><span class="n">idx</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>flights.csv.idx
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">### 4. Get Summary Stats (MUCH faster than `csvstat`)</span>
+<span class="err">!</span><span class="n">xsv</span> <span class="n">stats</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">--</span><span class="n">everything</span> <span class="o">|</span> \
+<span class="n">xsv</span> <span class="n">select</span> <span class="n">field</span><span class="p">,</span><span class="nb">type</span><span class="p">,</span><span class="nb">min</span><span class="p">,</span><span class="n">median</span><span class="p">,</span><span class="nb">max</span><span class="p">,</span><span class="n">mean</span><span class="p">,</span><span class="n">stddev</span><span class="p">,</span><span class="n">mode</span> <span class="o">|</span> \
+<span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|--------------------+---------+-------+--------+--------+-----------------------+---------------------+-------|
+|  field             | type    | min   | median | max    | mean                  | stddev              | mode  |
+|--------------------+---------+-------+--------+--------+-----------------------+---------------------+-------|
+|  Year              | Integer | 2007  | 2007   | 2007   | 2007                  | 0                   | 2007  |
+|  Month             | Integer | 1     | 7      | 12     | 6.514876197721434     | 3.425117169491096   | 8     |
+|  DayofMonth        | Integer | 1     | 16     | 31     | 15.72588876075652     | 8.781153183533013   | 26    |
+|  DayOfWeek         | Integer | 1     | 4      | 7      | 3.9338042710427263    | 1.9922668348832397  | 1     |
+|  DepTime           | Unicode | 1     | 1255   | NA     |                       |                     | NA    |
+|  CRSDepTime        | Integer | 0     | 1322   | 2359   | 1330.5963490923104    | 464.70792314976785  | 600   |
+|  ArrTime           | Unicode | 1     | 1430   | NA     |                       |                     | NA    |
+|  CRSArrTime        | Integer | 0     | 1520   | 2400   | 1495.391906714091     | 481.59020392608437  | 1930  |
+|  UniqueCarrier     | Unicode | 9E    |        | YV     |                       |                     | WN    |
+|  FlightNum         | Integer | 1     | 1509   | 9602   | 2188.0992893670827    | 1971.9575313097869  | 16    |
+|  TailNum           | Unicode | 0     |        | NHZOAL |                       |                     | 0     |
+|  ActualElapsedTime | Unicode | 100   | 115    | NA     |                       |                     | NA    |
+|  CRSElapsedTime    | Unicode | -1240 | 100    | NA     |                       |                     | 75    |
+|  AirTime           | Unicode | 0     | 94     | NA     |                       |                     | NA    |
+|  ArrDelay          | Unicode | -1    | -2     | NA     |                       |                     | -5    |
+|  DepDelay          | Unicode | -1    | 1      | NA     |                       |                     | 0     |
+|  Origin            | Unicode | ABE   |        | YUM    |                       |                     | ATL   |
+|  Dest              | Unicode | ABE   |        | YUM    |                       |                     | ATL   |
+|  Distance          | Integer | 11    | 569    | 4962   | 719.805789045388      | 562.3050870976227   | 337   |
+|  TaxiIn            | Integer | 0     | 5      | 545    | 6.6919844657641026    | 5.151350775045749   | 4     |
+|  TaxiOut           | Integer | 0     | 14     | 530    | 16.300146178528344    | 11.833958552477231  | 10    |
+|  Cancelled         | Integer | 0     | 0      | 1      | 0.021567605389083436  | 0.14526680208108242 | 0     |
+|  CancellationCode  | Unicode | A     |        | D      |                       |                     |       |
+|  Diverted          | Integer | 0     | 0      | 1      | 0.0023049113704622683 | 0.04795413177231553 | 0     |
+|  CarrierDelay      | Integer | 0     | 0      | 2580   | 3.865235874719842     | 20.842403385965035  | 0     |
+|  WeatherDelay      | Integer | 0     | 0      | 1429   | 0.7700903569801583    | 9.619546393361475   | 0     |
+|  NASDelay          | Integer | 0     | 0      | 1386   | 3.783702200996463     | 16.176702958825693  | 0     |
+|  SecurityDelay     | Integer | 0     | 0      | 382    | 0.023735528895919497  | 1.084995425472959   | 0     |
+|  LateAircraftDelay | Integer | 0     | 0      | 1031   | 5.099133997878817     | 21.277529347496895  | 0     |
+|--------------------+---------+-------+--------+--------+-----------------------+---------------------+-------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr />
+<h3 id="random-sampling">Random Sampling<a class="headerlink" href="#random-sampling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Randomly samples CSV data uniformly using memory proportional to the size of the sample.</li>
+<li><strong>When an index is present</strong>, this command will use random indexing if the sample size is less than 10% of the total number of records. <ul>
+<li>This allows for efficient sampling such that the entire CSV file is not parsed.</li>
+</ul>
+</li>
+<li>Allows a user to work with <strong>a CSV data set that is too big to fit into memory</strong> (for example, for use with commands like <code>xsv frequency</code> or <code>xsv stats</code>). </li>
+</ul>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code>xsv sample [options] &lt;sample-size&gt; [&lt;input&gt;]
+xsv sample --help
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span> <span class="n">select</span> <span class="n">Month</span><span class="p">,</span><span class="n">DayofMonth</span><span class="p">,</span><span class="n">UniqueCarrier</span><span class="p">,</span><span class="n">FlightNum</span><span class="p">,</span><span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">sample</span> <span class="mi">10</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|--------+------------+---------------+-----------+--------+-------|
+|  Month | DayofMonth | UniqueCarrier | FlightNum | Origin | Dest  |
+|--------+------------+---------------+-----------+--------+-------|
+|  1     | 21         | OH            | 5315      | CVG    | PIT   |
+|  5     | 17         | WN            | 629       | LAS    | SMF   |
+|  3     | 27         | WN            | 962       | LAX    | TUS   |
+|  8     | 15         | FL            | 44        | SFO    | ATL   |
+|  11    | 4          | AQ            | 45        | ITO    | HNL   |
+|  1     | 31         | WN            | 57        | DAL    | HOU   |
+|  9     | 4          | OO            | 3790      | MSP    | ATL   |
+|  9     | 18         | AA            | 1411      | BOS    | ORD   |
+|  2     | 18         | OO            | 5766      | PDX    | RDM   |
+|  1     | 18         | OO            | 3873      | SLC    | MFR   |
+|--------+------------+---------------+-----------+--------+-------|
+</code></pre></div>
+
+<hr />
+<h3 id="frequency-tables">Frequency Tables<a class="headerlink" href="#frequency-tables" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Computes a frequency table on CSV data formatted as <code>field,value,count</code> </li>
+<li>The order and number of values can be tweaked with <code>--asc</code> and <code>--limit</code> respectively.</li>
+<li>memory proportional to the cardinality of each column is required.</li>
+</ul>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code>xsv frequency [options] [&lt;input&gt;]
+</code></pre></div>
+
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>-s, --select &lt;arg&gt;     Select a subset of columns to compute frequencies
+-l, --limit &lt;arg&gt;      Limit the frequency table to the N most common items. [default: 10]
+-a, --asc              Sort the frequency tables in ascending order by count. [default: descending]
+--no-nulls             Don&#39;t include NULLs in the frequency table.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># For all columns</span>
+<span class="err">!</span><span class="n">xsv</span> <span class="n">frequency</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">--</span><span class="n">limit</span> <span class="mi">5</span> <span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">15</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|-------------+-------+----------|
+|  field      | value | count    |
+|-------------+-------+----------|
+|  Year       | 2007  | 7453215  |
+|  Month      | 8     | 653279   |
+|  Month      | 7     | 648560   |
+|  Month      | 3     | 639209   |
+|  Month      | 5     | 631609   |
+|  Month      | 10    | 629992   |
+|  DayofMonth | 26    | 250136   |
+|  DayofMonth | 19    | 250092   |
+|  DayofMonth | 12    | 249773   |
+|  DayofMonth | 16    | 249034   |
+|  DayofMonth | 9     | 248415   |
+|  DayOfWeek  | 1     | 1112474  |
+|  DayOfWeek  | 5     | 1101689  |
+|  DayOfWeek  | 4     | 1097738  |
+|-------------+-------+----------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># For particular column(s)</span>
+<span class="err">!</span><span class="n">xsv</span> <span class="n">frequency</span> <span class="o">--</span><span class="n">select</span> <span class="n">Origin</span> <span class="o">--</span><span class="n">limit</span> <span class="mi">5</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+-------+---------|
+|  field  | value | count   |
+|---------+-------+---------|
+|  Origin | ATL   | 413851  |
+|  Origin | ORD   | 375784  |
+|  Origin | DFW   | 297345  |
+|  Origin | DEN   | 240928  |
+|  Origin | LAX   | 237597  |
+|---------+-------+---------|
+</code></pre></div>
+
+<hr />
+<h3 id="filter-rows">Filter rows<a class="headerlink" href="#filter-rows" title="Permanent link">&para;</a></h3>
+<p>Filters CSV data by whether the given regex matches a row.</p>
+<p>The regex is applied to each field in each row, and if any field matches,
+then the row is written to the output. The columns to search can be limited
+with the '--select' flag (but the full row is still written to the output if
+there is a match).</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code>xsv search [options] &lt;regex&gt; [&lt;input&gt;]
+xsv search --help
+</code></pre></div>
+
+<p>search options:</p>
+<div class="highlight"><pre><span></span><code>-i, --ignore-case      Case insensitive search. This is equivalent to
+                       prefixing the regex with &#39;(?i)&#39;.
+-s, --select &lt;arg&gt;     Select the columns to search. See &#39;xsv select -h&#39;
+                       for the full syntax.
+-v, --invert-match     Select only rows that did not match
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span> <span class="n">search</span> <span class="o">-</span><span class="n">s</span> <span class="n">Origin</span> <span class="s1">&#39;ATL&#39;</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">xsv</span> <span class="n">select</span> <span class="n">Month</span><span class="p">,</span><span class="n">DayofMonth</span><span class="p">,</span><span class="n">UniqueCarrier</span><span class="p">,</span><span class="n">FlightNum</span><span class="p">,</span><span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> \
+<span class="o">|</span> <span class="n">xsv</span> <span class="n">sample</span> <span class="mi">10</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|--------+------------+---------------+-----------+--------+-------|
+|  Month | DayofMonth | UniqueCarrier | FlightNum | Origin | Dest  |
+|--------+------------+---------------+-----------+--------+-------|
+|  6     | 26         | AA            | 1756      | ATL    | LGA   |
+|  8     | 1          | DL            | 522       | ATL    | LGA   |
+|  2     | 8          | DL            | 1253      | ATL    | DEN   |
+|  2     | 17         | DL            | 688       | ATL    | DCA   |
+|  8     | 22         | EV            | 4417      | ATL    | SDF   |
+|  2     | 15         | EV            | 4544      | ATL    | VLD   |
+|  2     | 10         | FL            | 163       | ATL    | TPA   |
+|  9     | 8          | DL            | 829       | ATL    | JAC   |
+|  9     | 27         | DL            | 1512      | ATL    | DTW   |
+|  11    | 20         | AA            | 1197      | ATL    | DFW   |
+|--------+------------+---------------+-----------+--------+-------|
+</code></pre></div>
+
+<hr />
+<h3 id="joins">Joins<a class="headerlink" href="#joins" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Joins two sets of CSV data on the specified columns.</li>
+<li>The default join operation is an 'inner' join. </li>
+<li>Joins are always done by ignoring leading and trailing whitespace. </li>
+<li>By default, joins are done case sensitively, but this can be disabled with the <code>--no-case</code> flag.</li>
+<li>The <code>columns</code> arguments specify the columns to join for each input. <ul>
+<li>Columns can be referenced by name or index, starting at 1. </li>
+<li>Specify multiple columns by separating them with a comma. </li>
+<li>Specify a range of columns with <code>-</code>. </li>
+<li>Both columns1 and columns2 must specify exactly the same number of columns.</li>
+</ul>
+</li>
+</ul>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code>xsv join [options] &lt;columns1&gt; &lt;input1&gt; &lt;columns2&gt; &lt;input2&gt;
+xsv join --help
+</code></pre></div>
+
+<p>join options:</p>
+<div class="highlight"><pre><span></span><code>--no-case              When set, joins are done case insensitively.
+--left                 Do a &#39;left outer&#39; join. 
+--right                Do a &#39;right outer&#39; join.
+--nulls                When set, joins will work on empty fields.
+                       Otherwise, empty fields are completely ignored.
+                       (In fact, any row that has an empty field in the
+                       key specified is ignored.)
+</code></pre></div>
+
+<p>Get data</p>
+<div class="highlight"><pre><span></span><code>!wget http://burntsushi.net/stuff/worldcitiespop.csv
+!wget https://gist.githubusercontent.com/anonymous/063cb470e56e64e98cf1/raw/98e2589b801f6ca3ff900b01a87fbb7452eb35c7/countrynames.csv
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span> <span class="n">join</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">case</span>  <span class="n">Country</span> <span class="n">worldcitiespop</span><span class="o">.</span><span class="n">csv</span> <span class="n">Abbrev</span> <span class="n">countrynames</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">sample</span> <span class="mi">10</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------+-------------------+-------------------+--------+------------+-----------+------------+--------+--------------|
+|  Country | City              | AccentCity        | Region | Population | Latitude  | Longitude  | Abbrev | Country      |
+|----------+-------------------+-------------------+--------+------------+-----------+------------+--------+--------------|
+|  kr      | upori             | Upori             | 12     |            | 37.239167 | 126.105833 | KR     | South Korea  |
+|  id      | kaninggiduku      | Kaninggiduku      | 18     |            | -9.6191   | 119.3201   | ID     | Indonesia    |
+|  ua      | ivanovsk          | Ivanovsk          | 04     |            | 48.533572 | 34.158659  | UA     | Ukraine      |
+|  nl      | riscado           | Riscado           | 00     |            | 12.233333 | -68.366667 | NL     | Netherlands  |
+|  gr      | plazumista        | Plazumísta        | 09     |            | 40.3      | 21.2666667 | GR     | Greece       |
+|  pl      | myslowka          | Myslowka          | 74     |            | 52.028306 | 19.415481  | PL     | Poland       |
+|  hu      | csem              | Csém              | 12     |            | 47.685903 | 18.098287  | HU     | Hungary      |
+|  cn      | tungshan          | Tungshan          | 05     |            | 41.648889 | 127.275833 | CN     | China        |
+|  ir      | gilavard-e bozorg | Gilavard-e Bozorg | 35     |            | 36.585273 | 53.588776  | IR     | Iran         |
+|  be      | toutefays         | Toutefays         | 08     |            | 50.983333 | 3.666667   | BE     | Belgium      |
+|----------+-------------------+-------------------+--------+------------+-----------+------------+--------+--------------|
+</code></pre></div>
+
+<p>We have two columns named <code>Country</code>. Use <code>select</code> to get rid of it.</p>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span> <span class="n">join</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">case</span>  <span class="n">Country</span> <span class="n">worldcitiespop</span><span class="o">.</span><span class="n">csv</span> <span class="n">Abbrev</span> <span class="n">countrynames</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">xsv</span> <span class="n">select</span> <span class="s1">&#39;Country[1],AccentCity,Population&#39;</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">search</span> <span class="o">-</span><span class="n">s</span> <span class="n">Population</span> <span class="s1">&#39;[0-9]&#39;</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">sample</span> <span class="mi">5</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------+-------------------+-------------|
+|  Country | AccentCity        | Population  |
+|----------+-------------------+-------------|
+|  Mexico  | Cosoleacaque      | 20372       |
+|  Mexico  | Acolman           | 4998        |
+|  Turkey  | Amasya            | 82939       |
+|  Brazil  | Coração de Jesus  | 12410       |
+|  Brazil  | Ribeira do Pombal | 28236       |
+|----------+-------------------+-------------|
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../03_csvtk/" title="CSVTK" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                CSVTK
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../05_miller/" title="Miller" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Miller
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Dushyant Khosla
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/dushyantkhosla" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://hub.docker.com/u/dushyantkhosla" target="_blank" rel="noopener" title="hub.docker.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<dushyantkhosla320@gmail.com>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.linkedin.com/in/dushyant-khosla/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://instagram.com/dushyantkhosla" target="_blank" rel="noopener" title="instagram.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

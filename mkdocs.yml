@@ -1,3 +1,95 @@
-site_name: My Docs
+site_name: CLI Tools and Tricks for Data Science
+site_url: https://dushyantkhosla.github.io/cli4ds/
+site_author: Dushyant Khosla
+site_description: >-
+  Learn how to crunch fits-on-disk data using Open Source CLI Tools!
+repo_name: dushyantkhosla/cli4ds
+repo_url: https://github.com/dushyantkhosla/cli4ds
+
+copyright: Copyright &copy; 2020 Dushyant Khosla
+
 theme:
   name: material
+  include_search_page: false
+  search_index_only: true
+  language: en
+  features:
+    - tabs
+  # palette:
+  #   primary: deep orange
+  #   scheme: default
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Unix Tools:
+    - Coreutils: 01_UnixCoreutils.md
+    - AWK: 08_awk.md
+    - Bash Programming: 01-Bash-Programming.md
+    - Datamash: 07_datamash.md
+  - CLI Tools:
+    - CSVKit: 02_csvkit.md
+    - CSVTK: 03_csvtk.md
+    - XSV: 04_xsv.md
+    - Miller: 05_miller.md
+    - Q: 06_q_textql.md
+  - Larger Than RAM: Python__FilesLargerThanRAM_PandasDaskSpark.md
+  - Databases:
+    - Example 1: 00_dbs_catalogue-of-life.md
+    - Example 2: 00_dbs_flights_kdd.md
+    - Example 3: 00_dbs_sqllite_nyc_taxi.md
+  - CLI-Fu: CLI-Fu.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dushyantkhosla
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/u/dushyantkhosla
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:<dushyantkhosla320@gmail.com>
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/dushyant-khosla/
+    - icon: fontawesome/brands/instagram
+      link: https://instagram.com/dushyantkhosla
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde

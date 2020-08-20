@@ -1,0 +1,2101 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
+      
+      
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/01_UnixCoreutils/">
+      
+      
+        <meta name="author" content="Dushyant Khosla">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Coreutils - CLI Tools and Tricks for Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gnu-coreutils" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-header-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CLI Tools and Tricks for Data Science
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Coreutils
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Unix Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../02_csvkit/" class="md-tabs__link">
+          CLI Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
+          Databases
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CLI Tools and Tricks for Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Unix Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Unix Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Unix Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Coreutils
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Coreutils" class="md-nav__link md-nav__link--active">
+      Coreutils
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    Getting Help
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#know-your-system" class="md-nav__link">
+    Know your system
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shortcuts" class="md-nav__link">
+    Shortcuts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-coreutils" class="md-nav__link">
+    Why Coreutils?
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Coreutils?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-util-options" class="md-nav__link">
+    Common Util Options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cat-tac" class="md-nav__link">
+    cat, tac
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    cat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nl" class="md-nav__link">
+    nl
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#head-tail" class="md-nav__link">
+    head, tail
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#split" class="md-nav__link">
+    split
+  </a>
+  
+    <nav class="md-nav" aria-label="split">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csplit" class="md-nav__link">
+    csplit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    wc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cut" class="md-nav__link">
+    cut
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    sort
+  </a>
+  
+    <nav class="md-nav" aria-label="sort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sorting-large-files" class="md-nav__link">
+    Sorting Large Files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shuf" class="md-nav__link">
+    shuf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uniq" class="md-nav__link">
+    uniq
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comm" class="md-nav__link">
+    comm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paste" class="md-nav__link">
+    paste
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numfmt" class="md-nav__link">
+    numfmt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatting-floating-point-numbers" class="md-nav__link">
+    Formatting floating point numbers
+  </a>
+  
+    <nav class="md-nav" aria-label="Formatting floating point numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#looping-over-files-in-bash" class="md-nav__link">
+    Looping over files in Bash
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+      AWK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+      Bash Programming
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
+      Datamash
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CLI Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="CLI Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        CLI Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
+      CSVKit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
+      CSVTK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
+      XSV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
+      Miller
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
+      Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+      Larger Than RAM
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Databases
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Databases" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Databases
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+      Example 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+      Example 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+      Example 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+      CLI-Fu
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    Getting Help
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#know-your-system" class="md-nav__link">
+    Know your system
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shortcuts" class="md-nav__link">
+    Shortcuts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-coreutils" class="md-nav__link">
+    Why Coreutils?
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Coreutils?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-util-options" class="md-nav__link">
+    Common Util Options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cat-tac" class="md-nav__link">
+    cat, tac
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    cat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nl" class="md-nav__link">
+    nl
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#head-tail" class="md-nav__link">
+    head, tail
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#split" class="md-nav__link">
+    split
+  </a>
+  
+    <nav class="md-nav" aria-label="split">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csplit" class="md-nav__link">
+    csplit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    wc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cut" class="md-nav__link">
+    cut
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    sort
+  </a>
+  
+    <nav class="md-nav" aria-label="sort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sorting-large-files" class="md-nav__link">
+    Sorting Large Files
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shuf" class="md-nav__link">
+    shuf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uniq" class="md-nav__link">
+    uniq
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comm" class="md-nav__link">
+    comm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paste" class="md-nav__link">
+    paste
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numfmt" class="md-nav__link">
+    numfmt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatting-floating-point-numbers" class="md-nav__link">
+    Formatting floating point numbers
+  </a>
+  
+    <nav class="md-nav" aria-label="Formatting floating point numbers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#looping-over-files-in-bash" class="md-nav__link">
+    Looping over files in Bash
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/01_UnixCoreutils.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data/&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
+<span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+<span class="n">run_on_bash</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h1 id="gnu-coreutils">GNU Coreutils<a class="headerlink" href="#gnu-coreutils" title="Permanent link">&para;</a></h1>
+<hr />
+<p>These constitute one of most useful of all <a href="https://en.wikipedia.org/wiki/List_of_GNU_packages">GNU Packages</a> that are a intergral part of the daily work of millions of programmers/scientists. <br>(Other well known packages include <code>grep</code>, <code>screen</code>, <code>gzip</code>, <code>tar</code>, <code>time</code> etc. Oh, and the <code>R</code> programming language.)</p>
+<blockquote>
+<p>"<em>The GNU Core Utilities are the basic file, shell and <strong>text manipulation</strong> utilities of the GNU operating system.These are the core utilities which are expected to <strong>exist on every OS</strong>.</em>"</p>
+</blockquote>
+<p>Examples include</p>
+<table>
+<thead>
+<tr>
+<th>Manipulate</th>
+<th>Utils</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>files</td>
+<td><code>chgrp, chown, chmod, cp, dd, df, dir, du, ln, ls, mkdir, mkfifo, mknod, mv, rm</code> etc.</td>
+</tr>
+<tr>
+<td>text</td>
+<td><code>cat, cksum, head, tail, md5sum, nl, od, pr, tsort, join, wc, tac, paste</code> etc.</td>
+</tr>
+<tr>
+<td>shell</td>
+<td><code>basename, chroot, date, dirname, echo, env, groups, hostname, nice, nohup, printf, sleep</code> etc.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<p>Documentation is built-in, so whenever you can't remember something, look it up using </p>
+<div class="highlight"><pre><span></span><code>COMMAND --help
+<span class="c1"># or</span>
+man COMMAND
+</code></pre></div>
+
+<hr />
+<h2 id="know-your-system">Know your system<a class="headerlink" href="#know-your-system" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># Kernel Info </span>
+
+uname -a <span class="c1"># all </span>
+uname -r <span class="c1"># exact</span>
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># Linux Version</span>
+
+lsb_release -a    <span class="c1"># all</span>
+lsb_release -r    <span class="c1"># exact</span>
+lsb_release -a -u <span class="c1"># for derived distros like elementary</span>
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># HDD Partition Info</span>
+
+fdisk -l 
+lsblk -o NAME,SIZE <span class="c1"># human readable tree</span>
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># LOCALE</span>
+
+<span class="c1"># List what locales currently defined for the current user </span>
+locale
+
+<span class="c1"># if needed, generate missing locale and reconfigure</span>
+sudo locale-gen <span class="s2">&quot;en_US.UTF-8&quot;</span>
+sudo dpkg-reconfigure locales
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># ENVIRONMENT VARIABLES</span>
+
+env
+<span class="c1"># this will list all active variables</span>
+
+EXPORT <span class="nv">ENV_VAR</span><span class="o">=</span>val
+<span class="c1"># will add a new variable to the list</span>
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># PATH</span>
+
+<span class="nb">echo</span> <span class="nv">$PATH</span>
+<span class="c1"># will list the programs on the path</span>
+
+<span class="c1"># add optional binary to the end of the path</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/opt/bin
+
+<span class="c1"># add something ot the beginning</span>
+<span class="nv">PATH</span><span class="o">=</span>~/opt/bin:<span class="nv">$PATH</span>
+
+
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># The very basics</span>
+
+$ mkdir d <span class="o">&amp;&amp;</span> <span class="nb">cd</span> d
+</code></pre></div>
+
+<hr />
+<h2 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl + U</code></td>
+<td>Clears the line from the cursor point back to the beginning.</td>
+</tr>
+<tr>
+<td><code>Ctrl + A</code></td>
+<td>Moves the cursor to the beginning of the line.</td>
+</tr>
+<tr>
+<td><code>Ctrl + E</code></td>
+<td>Moves the cursor to the end of the line.</td>
+</tr>
+<tr>
+<td><code>Ctrl + R</code></td>
+<td>Allows you to search through the previous commands</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="why-coreutils">Why Coreutils?<a class="headerlink" href="#why-coreutils" title="Permanent link">&para;</a></h2>
+<p>The basic tenet of UNIX philosophy is to </p>
+<blockquote>
+<p><em>"create programs (or processes) that do one thing, and do that one thing well."</em> <br><br>
+It is a philosophy demanding careful thought about interfaces and ways of <em>joining these smaller (hopefully more simple) processes together to create useful results</em>. </p>
+</blockquote>
+<p>Normally text data flows between these interfaces. More advanced text processing tools and languages (like perl, python, and ruby) have been developed, which though very capable in their own right, <strong>are not always available, especially in a production environment.</strong></p>
+<p>These coreutils therefore become an indespensable tool in the data scientist's toolbox if he wants to build systems that work beyond his laptop.</p>
+<hr />
+<h3 id="common-util-options">Common Util Options<a class="headerlink" href="#common-util-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li>can appear in any order (recommended: <code>options</code> before <code>operands</code>)</li>
+<li>options can be long (begin with <code>--</code>) or abbreviated (begin wiht <code>-</code>)</li>
+<li>available to all programs (eg. <code>--help</code>, <code>--version</code>) </li>
+</ul>
+<blockquote>
+<p><em>Nearly every command invocation yields an integral <strong>exit status</strong> that can be used to change how other commands work. For the vast majority of commands, an exit status of <strong>zero indicates success, nonzero indicates failure</strong>.</em></p>
+</blockquote>
+<p>Alright, enough talk, let's dive in. Like most things on the internet these days, our story begins with a ... </p>
+<hr />
+<h2 id="cat-tac">cat, tac<a class="headerlink" href="#cat-tac" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Copies file/stdin to file/stdout (careful with large files!!)</li>
+<li>Useful in piping text to other programns, and to write output to files</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: cat [OPTION]... [FILE]...
+Concatenate FILE(s) to standard output.
+
+With no FILE, or when FILE is -, read standard input.
+
+  -A, --show-all           equivalent to -vET
+  -b, --number-nonblank    number nonempty output lines, overrides -n
+  -e                       equivalent to -vE
+  -E, --show-ends          display $ at end of each line
+  -n, --number             number all output lines
+  -s, --squeeze-blank      suppress repeated empty output lines
+  -t                       equivalent to -vT
+  -T, --show-tabs          display TAB characters as ^I
+  -u                       (ignored)
+  -v, --show-nonprinting   use ^ and M- notation, except for LFD and TAB
+      --help     display this help and exit
+      --version  output version information and exit
+
+Examples:
+  cat f - g  Output f&#39;s contents, then standard input, then g&#39;s contents.
+  cat        Copy standard input to standard output.
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/cat&gt;
+or available locally via: info &#39;(coreutils) cat invocation&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span>
+
+<span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
+
+
+<span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Writing f01.txt
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># create an index</span>
+<span class="err">!</span><span class="n">cat</span> <span class="o">-</span><span class="n">n</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>     1  1 2 3
+     2  4 5 6
+     3  
+     4  7 8 9
+     5  
+     6  
+     7  10 11 12
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># create index for nonmissing</span>
+<span class="err">!</span><span class="n">cat</span> <span class="o">-</span><span class="n">b</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>     1  1 2 3
+     2  4 5 6
+
+     3  7 8 9
+
+
+     4  10 11 12
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># squeeze multiple blank lines to 1</span>
+<span class="err">!</span><span class="n">cat</span> <span class="o">-</span><span class="n">bs</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>     1  1 2 3
+     2  4 5 6
+
+     3  7 8 9
+
+     4  10 11 12
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># reverse rows</span>
+<span class="err">!</span><span class="n">tac</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>10 11 12
+
+7 8 9
+
+4 5 6
+1 2 3
+</code></pre></div>
+
+<h2 id="cat">cat<a class="headerlink" href="#cat" title="Permanent link">&para;</a></h2>
+<p>** To append Structured Files **</p>
+<ul>
+<li>Concatenating files (same number of columns in the same order, no headers)</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code>cat f1.csv f2.csv f3.csv &gt; f1_f2_f3.csv
+</code></pre></div>
+- Appending a file to an existing file using the <code>&gt;&gt;</code> operator, removing headers from subsequent files</p>
+<div class="highlight"><pre><span></span><code>cat f1.csv &gt; concatenated.csv
+cat f2.csv <span class="p">|</span> sed <span class="s2">&quot;1 d&quot;</span> &gt;&gt; concatenated.csv
+cat f3.csv <span class="p">|</span> sed <span class="s2">&quot;1 d&quot;</span> &gt;&gt; concatenated.csv
+</code></pre></div>
+
+<ul>
+<li>Create a new file with the last few records of an existing file</li>
+</ul>
+<div class="highlight"><pre><span></span><code>head -n <span class="m">1</span> foo.csv &gt; new_foo.csv
+tail -n <span class="m">9</span> foo.csv &gt;&gt; new_foo.csv
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># row binding</span>
+<span class="err">!</span><span class="n">seq</span> <span class="mi">10</span> <span class="mi">21</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span> <span class="o">-</span> <span class="o">&gt;</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+<span class="err">!</span><span class="n">seq</span> <span class="mi">80</span> <span class="mi">89</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span> <span class="o">-</span> <span class="o">&gt;</span> <span class="n">f02</span><span class="o">.</span><span class="n">txt</span><span class="err">`</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span> <span class="n">f02</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>10,11
+12,13
+14,15
+16,17
+18,19
+20,21
+80,81
+82,83
+84,85
+86,87
+88,89
+</code></pre></div>
+
+<hr />
+<h2 id="nl">nl<a class="headerlink" href="#nl" title="Permanent link">&para;</a></h2>
+<ul>
+<li>add line numbers (generate and <em>index</em> like in <code>pandas</code>)</li>
+<li>see options with <code>nl --help</code></li>
+<li><code>-s</code> to specify delimiter</li>
+<li><code>-b</code> to use regexs </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># for a csv</span>
+cat flights.csv <span class="p">|</span> nl -s, <span class="p">|</span> tail
+
+<span class="c1"># for a pipe-delimited file</span>
+cat sample_2.txt <span class="p">|</span> nl -s<span class="s1">&#39;|&#39;</span> <span class="p">|</span> tail
+</code></pre></div>
+
+<hr />
+<h2 id="head-tail">head, tail<a class="headerlink" href="#head-tail" title="Permanent link">&para;</a></h2>
+<ul>
+<li>display the first or last <code>n</code> rows (<code>n=10</code> by default) of a file (or many files)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">3</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Origin,Dest,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
+2007,1,1,1,1232,1225,1341,1340,WN,2891,N351,69,75,54,1,7,SMF,ONT,389,4,11,0,,0,0,0,0,0,0
+2007,1,1,1,1918,1905,2043,2035,WN,462,N370,85,90,74,8,13,SMF,PDX,479,5,6,0,,0,0,0,0,0,0
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">tail</span> <span class="o">-</span><span class="n">n</span> <span class="mi">3</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>2007,12,15,6,1024,1025,1750,1735,DL,61,N623DL,266,250,233,15,-1,LAX,ATL,1946,14,19,0,,0,0,0,15,0,0
+2007,12,15,6,1353,1315,1658,1622,DL,62,N970DL,125,127,100,36,38,DFW,ATL,732,11,14,0,,0,0,0,0,0,36
+2007,12,15,6,1824,1800,2001,1928,DL,63,N628DL,97,88,61,33,24,ATL,MCO,403,10,26,0,,0,24,0,9,0,0
+</code></pre></div>
+
+<hr />
+<h2 id="split">split<a class="headerlink" href="#split" title="Permanent link">&para;</a></h2>
+<ul>
+<li>creates output files containing consecutive or interleaved sections (1000 lines by default) of input</li>
+<li>files created are saved in the cd, named as PREFIXSUFFIX<ul>
+<li>PREFIX is supplied with the call</li>
+<li>SUFFIX length is supplied (defaults to 2, so generates codes like <code>xaa, xab, xac</code> ...)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">split</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: split [OPTION]... [FILE [PREFIX]]
+Output pieces of FILE to PREFIXaa, PREFIXab, ...;
+default size is 1000 lines, and default PREFIX is &#39;x&#39;.
+
+With no FILE, or when FILE is -, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --suffix-length=N   generate suffixes of length N (default 2)
+      --additional-suffix=SUFFIX  append an additional SUFFIX to file names
+  -b, --bytes=SIZE        put SIZE bytes per output file
+  -C, --line-bytes=SIZE   put at most SIZE bytes of records per output file
+  -d                      use numeric suffixes starting at 0, not alphabetic
+      --numeric-suffixes[=FROM]  same as -d, but allow setting the start value
+  -e, --elide-empty-files  do not generate empty output files with &#39;-n&#39;
+      --filter=COMMAND    write to shell COMMAND; file name is $FILE
+  -l, --lines=NUMBER      put NUMBER lines/records per output file
+  -n, --number=CHUNKS     generate CHUNKS output files; see explanation below
+  -t, --separator=SEP     use SEP instead of newline as the record separator;
+                            &#39;\0&#39; (zero) specifies the NUL character
+  -u, --unbuffered        immediately copy input to output with &#39;-n r/...&#39;
+      --verbose           print a diagnostic just before each
+                            output file is opened
+      --help     display this help and exit
+      --version  output version information and exit
+
+The SIZE argument is an integer and optional unit (example: 10K is 10*1024).
+Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000).
+
+CHUNKS may be:
+  N       split into N files based on size of input
+  K/N     output Kth of N to stdout
+  l/N     split into N files without splitting lines/records
+  l/K/N   output Kth of N to stdout without splitting lines/records
+  r/N     like &#39;l&#39; but use round robin distribution
+  r/K/N   likewise but only output Kth of N to stdout
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/split&gt;
+or available locally via: info &#39;(coreutils) split invocation&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">tail</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">&gt;</span> <span class="n">flights_1k</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">split</span> <span class="o">-</span><span class="n">n</span> <span class="mi">3</span> <span class="n">flights_1k</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;xa&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>xaa
+xab
+xac
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># provide prefix</span>
+<span class="err">!</span><span class="n">split</span> <span class="o">-</span><span class="n">n</span> <span class="mi">3</span> <span class="n">flights_1k</span><span class="o">.</span><span class="n">csv</span> <span class="n">flights_1k_split_</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;split&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>flights_1k_split_aa
+flights_1k_split_ab
+flights_1k_split_ac
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># provide longer suffix if there are going to be many parts</span>
+<span class="err">!</span> <span class="n">split</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> <span class="o">-</span><span class="n">a</span> <span class="mi">4</span> <span class="n">flights_1k</span><span class="o">.</span><span class="n">csv</span> <span class="n">Part_</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;^Part_&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Part_aaaa
+Part_aaab
+Part_aaac
+Part_aaad
+Part_aaae
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Cleaning up</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;_split_&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">rm</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;Part_&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">rm</span> 
+<span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;xa&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">rm</span>
+</code></pre></div>
+
+<h3 id="csplit">csplit<a class="headerlink" href="#csplit" title="Permanent link">&para;</a></h3>
+<ul>
+<li>for <em>copy-till-you-see-this</em> kind of splits</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csplit</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: csplit [OPTION]... FILE PATTERN...
+Output pieces of FILE separated by PATTERN(s) to files &#39;xx00&#39;, &#39;xx01&#39;, ...,
+and output byte counts of each piece to standard output.
+
+Read standard input if FILE is -
+
+Mandatory arguments to long options are mandatory for short options too.
+  -b, --suffix-format=FORMAT  use sprintf FORMAT instead of %02d
+  -f, --prefix=PREFIX        use PREFIX instead of &#39;xx&#39;
+  -k, --keep-files           do not remove output files on errors
+      --suppress-matched     suppress the lines matching PATTERN
+  -n, --digits=DIGITS        use specified number of digits instead of 2
+  -s, --quiet, --silent      do not print counts of output file sizes
+  -z, --elide-empty-files    remove empty output files
+      --help     display this help and exit
+      --version  output version information and exit
+
+Each PATTERN may be:
+  INTEGER            copy up to but not including specified line number
+  /REGEXP/[OFFSET]   copy up to but not including a matching line
+  %REGEXP%[OFFSET]   skip to, but not including a matching line
+  {INTEGER}          repeat the previous pattern specified number of times
+  {*}                repeat the previous pattern as many times as possible
+
+A line OFFSET is a required &#39;+&#39; or &#39;-&#39; followed by a positive integer.
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/csplit&gt;
+or available locally via: info &#39;(coreutils) csplit invocation&#39;
+</code></pre></div>
+
+<hr />
+<h2 id="wc">wc<a class="headerlink" href="#wc" title="Permanent link">&para;</a></h2>
+<ul>
+<li>counts the Number of bytes, characters, whitespace-separated words, and newlines</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">wc</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: wc [OPTION]... [FILE]...
+  or:  wc [OPTION]... --files0-from=F
+Print newline, word, and byte counts for each FILE, and a total line if
+more than one FILE is specified.  A word is a non-zero-length sequence of
+characters delimited by white space.
+
+With no FILE, or when FILE is -, read standard input.
+
+The options below may be used to select which counts are printed, always in
+the following order: newline, word, character, byte, maximum line length.
+  -c, --bytes            print the byte counts
+  -m, --chars            print the character counts
+  -l, --lines            print the newline counts
+      --files0-from=F    read input from the files specified by
+                           NUL-terminated names in file F;
+                           If F is - then read names from standard input
+  -L, --max-line-length  print the maximum display width
+  -w, --words            print the word counts
+      --help     display this help and exit
+      --version  output version information and exit
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/wc&gt;
+or available locally via: info &#39;(coreutils) wc invocation&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># count and filename</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">csv</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>   7453216 flights.csv
+        37 get-csvs.sh
+   4898432 kdd.csv
+  12351685 total
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s1">&#39;ls | grep csv | xargs wc -l&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>   7453216 flights.csv
+        37 get-csvs.sh
+   4898432 kdd.csv
+  12351685 total
+</code></pre></div>
+
+<h2 id="cut">cut<a class="headerlink" href="#cut" title="Permanent link">&para;</a></h2>
+<ul>
+<li>select columns by position (comma separated list or hyphenated ranges)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>OPTIONS
+
+-d, --delimiter<span class="o">=</span>DELIM   use DELIM instead of TAB <span class="k">for</span> field delimiter
+-f, --fields<span class="o">=</span>LIST       <span class="k">select</span> only these fields
+-s, --only-delimited    <span class="k">do</span> not print lines not containing delimiters
+    --output-delimiter<span class="o">=</span>STRING  use STRING as the output delimiter
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> <span class="n">kdd</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">42</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>duration,protocol_type,service,flag,src_bytes,dst_bytes
+0,tcp,http,SF,215,45076,normal.
+0,tcp,http,SF,162,4528,normal.
+0,tcp,http,SF,236,1228,normal.
+0,tcp,http,SF,233,2032,normal.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s1">&#39;head -n 5 flights.csv | cut -d, -f9-10,15-18 | csvlook&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| UniqueCarrier | FlightNum | ArrDelay | DepDelay | Origin | Dest |
+| ------------- | --------- | -------- | -------- | ------ | ---- |
+| WN            |     2,891 |        1 |        7 | SMF    | ONT  |
+| WN            |       462 |        8 |       13 | SMF    | PDX  |
+| WN            |     1,229 |       34 |       36 | SMF    | PDX  |
+| WN            |     1,355 |       26 |       30 | SMF    | PDX  |
+</code></pre></div>
+
+<hr />
+<h2 id="sort">sort<a class="headerlink" href="#sort" title="Permanent link">&para;</a></h2>
+<p><code>sort</code> is quite versatile, and can be used to sort, sort &amp; merge, randomize, and, deduplicate files.</p>
+<ul>
+<li>Useful <code>sort</code> options <br><ul>
+<li>case insensitive with <code>-f</code></li>
+<li>numbers with <code>-n</code></li>
+<li>descending order with <code>-r</code></li>
+<li>if lines have leading blanks <code>-b</code></li>
+<li>sort by values in column 5 .... <code>-k5</code> (use <code>-t</code> for delimiter here)</li>
+<li>sort in random order with <code>-R</code></li>
+<li>merge (sorted) multiple files with <code>-m</code></li>
+<li>remove dups with <code>-u</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Note <br> when using <code>-k</code> the syntax is <code>-km,n</code> where <code>m</code> is the starting key and <code>n</code> is the ending key. <br> If the sorting is on the 5<sup>th</sup> field alone (for ex.), we speciy <code>-k5,5</code>  <br><br> Environment variables such as LC_ALL, LC_COLLATE, or LANG can affect the output of sort and other commands. </p>
+</blockquote>
+<p><strong>Example</strong><br> To sort a csv file numerically on the 2<sup>nd</sup> field in reverse order we'd use</p>
+<div class="highlight"><pre><span></span><code>sort -t<span class="s2">&quot;,&quot;</span> -k2nr,2 file
+</code></pre></div>
+
+<p>More examples <a href="https://www.gnu.org/software/coreutils/manual/coreutils.html#Operating-on-sorted-files">here</a></p>
+<h3 id="sorting-large-files">Sorting Large Files<a class="headerlink" href="#sorting-large-files" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><em>The sort that you find on Linux comes from the coreutils package and implements an External R-Way merge. It splits up the data into chunks that it can handle in memory, stores them on disc and then merges them. The chunks are done in parallel, if the machine has the processors for that. So if there was to be a limit, it is the free disc space that sort can use to store the temporary files it has to merge, combined with the result.</em>
+<a href="https://unix.stackexchange.com/questions/279096/scalability-of-sort-u-for-gigantic-files">source</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">sort</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: sort [OPTION]... [FILE]...
+  or:  sort [OPTION]... --files0-from=F
+Write sorted concatenation of all FILE(s) to standard output.
+
+With no FILE, or when FILE is -, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+Ordering options:
+
+  -b, --ignore-leading-blanks  ignore leading blanks
+  -d, --dictionary-order      consider only blanks and alphanumeric characters
+  -f, --ignore-case           fold lower case to upper case characters
+  -g, --general-numeric-sort  compare according to general numerical value
+  -i, --ignore-nonprinting    consider only printable characters
+  -M, --month-sort            compare (unknown) &lt; &#39;JAN&#39; &lt; ... &lt; &#39;DEC&#39;
+  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)
+  -n, --numeric-sort          compare according to string numerical value
+  -R, --random-sort           shuffle, but group identical keys.  See shuf(1)
+      --random-source=FILE    get random bytes from FILE
+  -r, --reverse               reverse the result of comparisons
+      --sort=WORD             sort according to WORD:
+                                general-numeric -g, human-numeric -h, month -M,
+                                numeric -n, random -R, version -V
+  -V, --version-sort          natural sort of (version) numbers within text
+
+Other options:
+
+      --batch-size=NMERGE   merge at most NMERGE inputs at once;
+                            for more use temp files
+  -c, --check, --check=diagnose-first  check for sorted input; do not sort
+  -C, --check=quiet, --check=silent  like -c, but do not report first bad line
+      --compress-program=PROG  compress temporaries with PROG;
+                              decompress them with PROG -d
+      --debug               annotate the part of the line used to sort,
+                              and warn about questionable usage to stderr
+      --files0-from=F       read input from the files specified by
+                            NUL-terminated names in file F;
+                            If F is - then read names from standard input
+  -k, --key=KEYDEF          sort via a key; KEYDEF gives location and type
+  -m, --merge               merge already sorted files; do not sort
+  -o, --output=FILE         write result to FILE instead of standard output
+  -s, --stable              stabilize sort by disabling last-resort comparison
+  -S, --buffer-size=SIZE    use SIZE for main memory buffer
+  -t, --field-separator=SEP  use SEP instead of non-blank to blank transition
+  -T, --temporary-directory=DIR  use DIR for temporaries, not $TMPDIR or /tmp;
+                              multiple options specify multiple directories
+      --parallel=N          change the number of sorts run concurrently to N
+  -u, --unique              with -c, check for strict ordering;
+                              without -c, output only the first of an equal run
+  -z, --zero-terminated     line delimiter is NUL, not newline
+      --help     display this help and exit
+      --version  output version information and exit
+
+KEYDEF is F[.C][OPTS][,F[.C][OPTS]] for start and stop position, where F is a
+field number and C a character position in the field; both are origin 1, and
+the stop position defaults to the line&#39;s end.  If neither -t nor -b is in
+effect, characters in a field are counted from the beginning of the preceding
+whitespace.  OPTS is one or more single-letter ordering options [bdfgiMhnRrV],
+which override global ordering options for that key.  If no key is given, use
+the entire line as the key.  Use --debug to diagnose incorrect key usage.
+
+SIZE may be followed by the following multiplicative suffixes:
+% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.
+
+*** WARNING ***
+The locale specified by the environment affects sort order.
+Set LC_ALL=C to get the traditional sort order that uses
+native byte values.
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/sort&gt;
+or available locally via: info &#39;(coreutils) sort invocation&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># sort listing of all files in a directory by their size (human-readable)</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">-</span><span class="n">lh</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">k5</span><span class="p">,</span><span class="mi">5</span> <span class="o">-</span><span class="n">h</span> <span class="o">-</span><span class="n">r</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-rw------- 1 root root 709M Mar  4 01:00 kddcup.data
+-rw------- 1 root root 671M Mar  4 01:05 flights.csv
+-rw-r--r-- 1 root root  94K Mar  4 01:26 flights_1k.csv
+-rw-r--r-- 1 root root 1.3K Mar  4 01:13 kddcup-names
+-rw-r--r-- 1 root root 1.2K Mar  4 01:01 get-csvs.sh
+total 1.4G
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># top 10 durations in the kdd data</span>
+<span class="c1"># Note</span>
+<span class="c1"># sed &#39;1d&#39; removes the header</span>
+<span class="c1"># cut is for retaining the first few columns</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">nr</span> <span class="o">-</span><span class="n">k1</span><span class="p">,</span><span class="mi">1</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">6</span> <span class="o">|</span> <span class="n">head</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>58329,udp,domain_u,SF,42,44
+42908,tcp,private,RSTR,1,0
+42888,tcp,private,RSTR,1,0
+42862,tcp,private,RSTR,1,0
+42837,tcp,private,RSTR,1,0
+42804,tcp,private,RSTR,1,0
+42778,tcp,private,RSTR,1,0
+42746,tcp,echo,RSTR,1,0
+42723,tcp,private,RSTR,1,0
+42699,tcp,discard,RSTR,1,0
+cut: write error: Broken pipe
+</code></pre></div>
+
+<blockquote>
+<p><code>sort</code> has a <code>-u</code> flag that removes duplicate rows so a sorted listing of unique rows is produced.<br><br> <strong>Note</strong> <br>The commands sort -u and sort | uniq are equivalent, but this equivalence does not extend to arbitrary sort options. For example, sort -n -u inspects only the value of the initial numeric string when checking for uniqueness, whereas sort -n | uniq inspects the entire line. </p>
+</blockquote>
+<hr />
+<h2 id="shuf"><code>shuf</code><a class="headerlink" href="#shuf" title="Permanent link">&para;</a></h2>
+<ul>
+<li>useful for <strong>permutations</strong> and <strong>random sampling</strong></li>
+<li>with or without <strong>replacement</strong> (<em>bootstrapped</em> samples, anyone?)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">shuf</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: shuf [OPTION]... [FILE]
+  or:  shuf -e [OPTION]... [ARG]...
+  or:  shuf -i LO-HI [OPTION]...
+Write a random permutation of the input lines to standard output.
+
+With no FILE, or when FILE is -, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -e, --echo                treat each ARG as an input line
+  -i, --input-range=LO-HI   treat each number LO through HI as an input line
+  -n, --head-count=COUNT    output at most COUNT lines
+  -o, --output=FILE         write result to FILE instead of standard output
+      --random-source=FILE  get random bytes from FILE
+  -r, --repeat              output lines can be repeated
+  -z, --zero-terminated     line delimiter is NUL, not newline
+      --help     display this help and exit
+      --version  output version information and exit
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/shuf&gt;
+or available locally via: info &#39;(coreutils) shuf invocation&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># without replacement</span>
+<span class="err">!</span><span class="n">shuf</span> <span class="o">-</span><span class="n">i1</span><span class="o">-</span><span class="mi">9</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>8
+9
+5
+2
+3
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Simulate a coin flip (with replacement)</span>
+<span class="err">!</span><span class="n">shuf</span> <span class="o">-</span><span class="n">i0</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span>  
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>0
+1
+0
+1
+0
+0
+1
+1
+0
+1
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># random sample from a file</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">6</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">shuf</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>0,icmp,ecr_i,SF,1032,0
+0,icmp,ecr_i,SF,1032,0
+0,icmp,ecr_i,SF,1032,0
+0,icmp,ecr_i,SF,1032,0
+0,icmp,ecr_i,SF,1032,0
+</code></pre></div>
+
+<h2 id="uniq">uniq<a class="headerlink" href="#uniq" title="Permanent link">&para;</a></h2>
+<ul>
+<li>typically used to uniquely list lines from an input source</li>
+<li>find/remove duplicate rows in a file</li>
+<li>frequency tables</li>
+</ul>
+<div class="highlight"><pre><span></span><code>OPTIONS
+
+-u, --unique          only print unique lines
+-c, --count           prefix lines by the number of occurrences
+-d, --repeated        only print duplicate lines, one <span class="k">for</span> each group
+
+-D                    print all duplicate lines
+    --all-repeated<span class="o">[=</span>METHOD<span class="o">]</span>  like -D, but allow separating groups with an empty line<span class="p">;</span>
+                             <span class="nv">METHOD</span><span class="o">={</span>none<span class="o">(</span>default<span class="o">)</span>,prepend,separate<span class="o">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>To operate properly, duplicate lines must be contiguously positioned in the input. 
+<br> So, normally the <strong>input</strong> to the <code>uniq</code> command <strong>is first sorted.</strong></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># number of uniuqe rows for columns 1-6, 42 in the kdd data</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">42</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">u</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>198175
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># these rows have duplicates</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f3</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">42</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">d</span> <span class="o">|</span> <span class="n">head</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>IRC,RSTO,0,0,normal.
+IRC,RSTR,1010,6365,normal.
+IRC,RSTR,4420,7766,normal.
+IRC,RSTR,62,116,normal.
+IRC,RSTR,73,16,normal.
+IRC,RSTR,76,18,normal.
+IRC,RSTR,77,18,normal.
+IRC,S1,0,0,normal.
+IRC,SF,66,17,normal.
+IRC,SF,66,18,normal.
+uniq: write error: Broken pipe
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># frequency table</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f42</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">c</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">nr</span> <span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>2807886 smurf.
+1072017 neptune.
+ 972780 normal.
+  15892 satan.
+  12481 ipsweep.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># most number of flights?</span>
+<span class="err">!</span><span class="n">cat</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f9</span><span class="p">,</span><span class="mi">17</span><span class="o">-</span><span class="mi">18</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">c</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">nr</span> <span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>   9658 WN,HOU,DAL
+   9631 WN,DAL,HOU
+   7496 WN,LAX,OAK
+   7467 WN,OAK,LAX
+   7339 HA,OGG,HNL
+sort: write failed: standard output: Broken pipe
+sort: write error
+</code></pre></div>
+
+<h2 id="comm">comm<a class="headerlink" href="#comm" title="Permanent link">&para;</a></h2>
+<ul>
+<li>for comparing sorted files FILE1 and FILE2 line by line.</li>
+<li>With no options, produce three-column output.  <ul>
+<li>Column one contains lines unique to FILE1, </li>
+<li>column two contains lines unique to FILE2,</li>
+<li>and column three contains lines common to both files.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>OPTIONS
+
+  -1              suppress column <span class="m">1</span> <span class="o">(</span>lines unique to FILE1<span class="o">)</span>
+  -2              suppress column <span class="m">2</span> <span class="o">(</span>lines unique to FILE2<span class="o">)</span>
+  -3              suppress column <span class="m">3</span> <span class="o">(</span>lines that appear in both files<span class="o">)</span>
+
+EXAMPLES
+
+comm -12 file1 file2  
+<span class="c1"># Print only lines present in both file1 and file2.</span>
+
+comm -3 file1 file2  
+<span class="c1"># Print lines in file1 not in file2, and vice versa.    </span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># pull a random sample of 10k rows</span>
+<span class="err">!</span><span class="n">shuf</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">kdd_10k</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># keep the first 7.5k rows as the train set</span>
+<span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">7500</span> <span class="n">kdd_10k</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">kdd_10k_train</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># keep the other 2.5k as the test set</span>
+<span class="err">!</span><span class="n">comm</span> <span class="o">-</span><span class="mi">3</span> <span class="n">kdd_10k</span><span class="o">.</span><span class="n">csv</span> <span class="n">kdd_10k_train</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">&gt;</span> <span class="n">kdd_10k_test</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># check no. of rows</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;_10k&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>  10000 kdd_10k.csv
+   2500 kdd_10k_test.csv
+   7500 kdd_10k_train.csv
+  20000 total
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># see if we made a mistake</span>
+<span class="err">!</span><span class="n">comm</span> <span class="o">-</span><span class="mi">12</span> <span class="n">kdd_10k_train</span><span class="o">.</span><span class="n">csv</span> <span class="n">kdd_10k_test</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>0
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># delete created files</span>
+<span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="s1">&#39;_10k&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">rm</span>
+</code></pre></div>
+
+<hr />
+<h2 id="paste">paste<a class="headerlink" href="#paste" title="Permanent link">&para;</a></h2>
+<ul>
+<li>naive, brute force long-to-wide!</li>
+<li>concat files (column binding)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">paste</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: paste [OPTION]... [FILE]...
+Write lines consisting of the sequentially corresponding lines from
+each FILE, separated by TABs, to standard output.
+
+With no FILE, or when FILE is -, read standard input.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -d, --delimiters=LIST   reuse characters from LIST instead of TABs
+  -s, --serial            paste one file at a time instead of in parallel
+  -z, --zero-terminated    line delimiter is NUL, not newline
+      --help     display this help and exit
+      --version  output version information and exit
+
+GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+Full documentation at: &lt;http://www.gnu.org/software/coreutils/paste&gt;
+or available locally via: info &#39;(coreutils) paste invocation&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># join consecutive lines into a csv</span>
+<span class="err">!</span><span class="n">shuf</span> <span class="o">-</span><span class="n">i0</span><span class="o">-</span><span class="mi">99</span> <span class="o">-</span><span class="n">rn</span> <span class="mi">25</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>54,58,50,44,6
+25,67,88,11,52
+94,75,7,77,83
+95,56,82,46,44
+2,58,28,18,90
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># fold data any which way</span>
+<span class="err">!</span><span class="n">seq</span> <span class="mi">12</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span> <span class="o">-</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="s1">&#39;:&#39;</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>1,2:3,4:5,6
+7,8:9,10:11,12
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># column binding!</span>
+<span class="err">!</span><span class="n">seq</span> <span class="mi">10</span> <span class="mi">21</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span> <span class="o">-</span> <span class="o">&gt;</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
+<span class="err">!</span><span class="n">seq</span> <span class="mi">80</span> <span class="mi">89</span> <span class="o">|</span> <span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span> <span class="o">-</span> <span class="o">&gt;</span> <span class="n">f02</span><span class="o">.</span><span class="n">txt</span>
+<span class="err">!</span><span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span> <span class="n">f02</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>10,11,80,81
+12,13,82,83
+14,15,84,85
+16,17,86,87
+18,19,88,89
+20,21,
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">paste</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span> <span class="n">f02</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>10,11,12,13,14,15,16,17,18,19,20,21
+80,81,82,83,84,85,86,87,88,89
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">rm</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span> <span class="n">f02</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">-</span><span class="n">lh</span> <span class="o">--</span><span class="n">block</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="n">MB</span> <span class="o">.</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>total 1446MB
+-rw------- 1 root root 703MB Mar  4 01:05 flights.csv
+-rw-r--r-- 1 root root   1MB Mar  4 01:26 flights_1k.csv
+-rw-r--r-- 1 root root   1MB Mar  4 01:01 get-csvs.sh
+-rw-r--r-- 1 root root   1MB Mar  4 01:13 kddcup-names
+-rw------- 1 root root 743MB Mar  4 01:00 kddcup.data
+</code></pre></div>
+
+<h2 id="numfmt"><a href="https://www.gnu.org/software/coreutils/manual/html_node/numfmt-invocation.html#numfmt-invocation">numfmt</a><a class="headerlink" href="#numfmt" title="Permanent link">&para;</a></h2>
+<ul>
+<li>numfmt reads numbers in various representations and reformats them as requested</li>
+<li>numfmt can optionally extract numbers from specific columns, maintaining proper line padding and alignment.</li>
+</ul>
+<h2 id="formatting-floating-point-numbers">Formatting floating point numbers<a class="headerlink" href="#formatting-floating-point-numbers" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="n">Sales</span><span class="o">.</span><span class="n">txt</span>  <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="s1">&#39;|&#39;</span> <span class="o">-</span><span class="n">f12</span><span class="o">-</span><span class="mi">15</span> <span class="o">|</span> <span class="n">tr</span> <span class="s1">&#39;,&#39;</span> <span class="s1">&#39;.&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="o">-</span><span class="n">d</span><span class="s1">&#39;|&#39;</span> <span class="n">numfmt</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%0.4f</span><span class="s2">&quot;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="o">-</span><span class="n">n4</span> <span class="o">|</span> <span class="n">tr</span> <span class="s1">&#39; &#39;</span> <span class="s1">&#39;,&#39;</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">table</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>17.3224                  20.9600  9.9800   7.3424
+43.38017000000000000000  52.4900  35.8600  7.5202
+6.60331000000000000000   7.9900   5.2100   1.3934
+24.78512000000000000000  29.9900  12.2300  12.5552
+12.38843000000000000000  14.9900  6.3400   6.0485
+.94340000000000000000    1.0000   0.4800   0.4634
+2.22314000000000000000   2.6900   0.9400   1.2832
+10.70248000000000000000  12.9500  5.6000   5.1025
+3.29752000000000000000   3.9900   0.9300   2.3676
+</code></pre></div>
+
+<h3 id="looping-over-files-in-bash">Looping over files in Bash<a class="headerlink" href="#looping-over-files-in-bash" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> f in *<span class="p">;</span> 
+<span class="k">do</span>  
+<span class="c1"># do something, for example</span>
+<span class="c1"># wc -l &quot;$f&quot;</span>
+<span class="p">;</span> 
+<span class="k">done</span>
+</code></pre></div>
+
+<hr />
+<h1 id="also-see">Also see<a class="headerlink" href="#also-see" title="Permanent link">&para;</a></h1>
+<p>The <strong>tee command</strong> copies standard input to standard output and also to any files given as arguments. This is useful when you want not only to send some data down a pipe, but also to save a copy.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." title="Home" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../08_awk_v2/" title="AWK" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                AWK
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Dushyant Khosla
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/dushyantkhosla" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://hub.docker.com/u/dushyantkhosla" target="_blank" rel="noopener" title="hub.docker.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<dushyantkhosla320@gmail.com>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.linkedin.com/in/dushyant-khosla/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://instagram.com/dushyantkhosla" target="_blank" rel="noopener" title="instagram.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1509 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
+      
+      
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/02_csvkit/">
+      
+      
+        <meta name="author" content="Dushyant Khosla">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>CSVKit - CLI Tools and Tricks for Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#csvkit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-header-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CLI Tools and Tricks for Data Science
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              CSVKit
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
+          Unix Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          CLI Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
+          Databases
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CLI Tools and Tricks for Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Unix Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Unix Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Unix Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+      Coreutils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+      AWK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+      Bash Programming
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
+      Datamash
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      CLI Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="CLI Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        CLI Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        CSVKit
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="CSVKit" class="md-nav__link md-nav__link--active">
+      CSVKit
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#csvlook" class="md-nav__link">
+    csvlook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvcut" class="md-nav__link">
+    csvcut
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvgrep" class="md-nav__link">
+    csvgrep
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvsort" class="md-nav__link">
+    csvsort
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvstat" class="md-nav__link">
+    csvstat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvstack" class="md-nav__link">
+    csvstack
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvsql" class="md-nav__link">
+    csvsql
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
+      CSVTK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
+      XSV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
+      Miller
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
+      Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+      Larger Than RAM
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Databases
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Databases" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Databases
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+      Example 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+      Example 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+      Example 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+      CLI-Fu
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#csvlook" class="md-nav__link">
+    csvlook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvcut" class="md-nav__link">
+    csvcut
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvgrep" class="md-nav__link">
+    csvgrep
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvsort" class="md-nav__link">
+    csvsort
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvstat" class="md-nav__link">
+    csvstat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvstack" class="md-nav__link">
+    csvstack
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csvsql" class="md-nav__link">
+    csvsql
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/02_csvkit.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="o">--</span><span class="n">block</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="n">MB</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>total 1446MB
+-rw------- 1 root root 703MB Mar  4 01:05 flights.csv
+-rw-r--r-- 1 root root   1MB Mar  4 01:26 flights_1k.csv
+-rw-r--r-- 1 root root   1MB Mar  4 01:01 get-csvs.sh
+-rw-r--r-- 1 root root   1MB Mar  4 01:13 kddcup-names
+-rw------- 1 root root 743MB Mar  4 01:00 kddcup.data
+</code></pre></div>
+
+<h1 id="csvkit"><a href="http://csvkit.readthedocs.io/latest/">csvkit</a><a class="headerlink" href="#csvkit" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="csvlook">csvlook<a class="headerlink" href="#csvlook" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f5</span><span class="o">-</span><span class="mi">12</span> <span class="o">|</span>  <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| DepTime | CRSDepTime | ArrTime | CRSArrTime | UniqueCarrier | FlightNum | TailNum | ActualElapsedTime |
+| ------- | ---------- | ------- | ---------- | ------------- | --------- | ------- | ----------------- |
+|   1,232 |      1,225 |   1,341 |      1,340 | WN            |     2,891 | N351    |                69 |
+|   1,918 |      1,905 |   2,043 |      2,035 | WN            |       462 | N370    |                85 |
+|   2,206 |      2,130 |   2,334 |      2,300 | WN            |     1,229 | N685    |                88 |
+|   1,230 |      1,200 |   1,356 |      1,330 | WN            |     1,355 | N364    |                86 |
+|     831 |        830 |     957 |      1,000 | WN            |     2,278 | N480    |                86 |
+|   1,430 |      1,420 |   1,553 |      1,550 | WN            |     2,386 | N611SW  |                83 |
+|   1,936 |      1,840 |   2,217 |      2,130 | WN            |       409 | N482    |               101 |
+|     944 |        935 |   1,223 |      1,225 | WN            |     1,131 | N749SW  |                99 |
+|   1,537 |      1,450 |   1,819 |      1,735 | WN            |     1,212 | N451    |               102 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Again, but with an index</span>
+<span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f5</span><span class="o">-</span><span class="mi">12</span> <span class="o">|</span>  <span class="n">csvlook</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| line_numbers | DepTime | CRSDepTime | ArrTime | CRSArrTime | UniqueCarrier | FlightNum | TailNum | ActualElapsedTime |
+| ------------ | ------- | ---------- | ------- | ---------- | ------------- | --------- | ------- | ----------------- |
+|            1 |   1,232 |      1,225 |   1,341 |      1,340 | WN            |     2,891 | N351    |                69 |
+|            2 |   1,918 |      1,905 |   2,043 |      2,035 | WN            |       462 | N370    |                85 |
+|            3 |   2,206 |      2,130 |   2,334 |      2,300 | WN            |     1,229 | N685    |                88 |
+|            4 |   1,230 |      1,200 |   1,356 |      1,330 | WN            |     1,355 | N364    |                86 |
+|            5 |     831 |        830 |     957 |      1,000 | WN            |     2,278 | N480    |                86 |
+|            6 |   1,430 |      1,420 |   1,553 |      1,550 | WN            |     2,386 | N611SW  |                83 |
+|            7 |   1,936 |      1,840 |   2,217 |      2,130 | WN            |       409 | N482    |               101 |
+|            8 |     944 |        935 |   1,223 |      1,225 | WN            |     1,131 | N749SW  |                99 |
+|            9 |   1,537 |      1,450 |   1,819 |      1,735 | WN            |     1,212 | N451    |               102 |
+</code></pre></div>
+
+<hr />
+<h2 id="csvcut">csvcut<a class="headerlink" href="#csvcut" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>For column subsetting</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>Options
+
+  -n, --names           Display column names and indices from the input CSV
+                        and exit.
+  -c COLUMNS, --columns COLUMNS
+                        A comma separated list of column indices or names to
+                        be extracted. Defaults to all columns.
+  -C NOT_COLUMNS, --not-columns NOT_COLUMNS
+                        A comma separated list of column indices or names to
+                        be excluded. Defaults to no columns.
+  -x, --delete-empty-rows
+                        After cutting, delete rows which are completely empty.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Get column names and positions</span>
+<span class="err">!</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">n</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">head</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>  1: Year
+  2: Month
+  3: DayofMonth
+  4: DayOfWeek
+  5: DepTime
+  6: CRSDepTime
+  7: ArrTime
+  8: CRSArrTime
+  9: UniqueCarrier
+ 10: FlightNum
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># subset columns by name with -c</span>
+<span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="n">FlightNum</span><span class="p">,</span><span class="n">UniqueCarrier</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| FlightNum | UniqueCarrier |
+| --------- | ------------- |
+|     2,891 | WN            |
+|       462 | WN            |
+|     1,229 | WN            |
+|     1,355 | WN            |
+|     2,278 | WN            |
+|     2,386 | WN            |
+|       409 | WN            |
+|     1,131 | WN            |
+|     1,212 | WN            |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># or by positions</span>
+<span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|  Year | Month | CRSDepTime | CRSArrTime |
+| ----- | ----- | ---------- | ---------- |
+| 2,007 |  True |      1,225 |      1,340 |
+| 2,007 |  True |      1,905 |      2,035 |
+| 2,007 |  True |      2,130 |      2,300 |
+| 2,007 |  True |      1,200 |      1,330 |
+| 2,007 |  True |        830 |      1,000 |
+| 2,007 |  True |      1,420 |      1,550 |
+| 2,007 |  True |      1,840 |      2,130 |
+| 2,007 |  True |        935 |      1,225 |
+| 2,007 |  True |      1,450 |      1,735 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># drop columns with -C, by name or position</span>
+<span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">10</span><span class="o">-</span><span class="mi">15</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">C</span> <span class="n">TailNum</span><span class="p">,</span><span class="n">CRSElapsedTime</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| FlightNum | ActualElapsedTime | AirTime | ArrDelay |
+| --------- | ----------------- | ------- | -------- |
+|     2,891 |                69 |      54 |        1 |
+|       462 |                85 |      74 |        8 |
+|     1,229 |                88 |      73 |       34 |
+|     1,355 |                86 |      75 |       26 |
+|     2,278 |                86 |      74 |       -3 |
+|     2,386 |                83 |      74 |        3 |
+|       409 |               101 |      89 |       47 |
+|     1,131 |                99 |      86 |       -2 |
+|     1,212 |               102 |      90 |       44 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Combinations work too</span>
+<span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">FlightNum</span><span class="p">,</span><span class="n">ArrDelay</span>\
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|  Year | Month | FlightNum | ArrDelay |
+| ----- | ----- | --------- | -------- |
+| 2,007 |  True |     2,891 |        1 |
+| 2,007 |  True |       462 |        8 |
+| 2,007 |  True |     1,229 |       34 |
+| 2,007 |  True |     1,355 |       26 |
+| 2,007 |  True |     2,278 |       -3 |
+| 2,007 |  True |     2,386 |        3 |
+| 2,007 |  True |       409 |       47 |
+| 2,007 |  True |     1,131 |       -2 |
+| 2,007 |  True |     1,212 |       44 |
+</code></pre></div>
+
+<hr />
+<h2 id="csvgrep">csvgrep<a class="headerlink" href="#csvgrep" title="Permanent link">&para;</a></h2>
+<p>** Subset Rows **</p>
+<div class="highlight"><pre><span></span><code>Options
+
+  -c COLUMNS, --columns COLUMNS
+                        A comma separated list of column indices or names to
+                        be searched.
+  -m PATTERN, --match PATTERN
+                        The string to search for.
+  -r REGEX, --regex REGEX
+                        If specified, must be followed by a regular expression
+                        which will be tested against the specified columns.
+  -f MATCHFILE, --file MATCHFILE
+                        If specified, must be the path to a file. For each
+                        tested row, if any line in the file (stripped of line
+                        separators) is an exact match for the cell value, the
+                        row will pass.
+  -i, --invert-match    If specified, select non-matching instead of matching
+                        rows.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="n">Origin</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">head</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Origin
+SMF
+SMF
+SMF
+SMF
+SMF
+SMF
+SMF
+SMF
+SMF
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Filter for rows where origin is San Francisco</span>
+<span class="err">!</span><span class="n">csvgrep</span> <span class="o">-</span><span class="n">c</span> <span class="n">Origin</span> <span class="o">-</span><span class="n">m</span> <span class="n">SFO</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">17</span><span class="o">-</span><span class="mi">22</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| Origin | Dest | Distance | TaxiIn | TaxiOut | Cancelled |
+| ------ | ---- | -------- | ------ | ------- | --------- |
+| SFO    | PHX  |      651 |      4 |       4 |     False |
+| SFO    | PHX  |      651 |      7 |      21 |     False |
+| SFO    | PHX  |      651 |      7 |      13 |     False |
+| SFO    | PHX  |      651 |      5 |      16 |     False |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Filter for rows where Origin is not SFO</span>
+<span class="err">!</span><span class="n">csvgrep</span> <span class="o">-</span><span class="n">ic</span> <span class="n">Origin</span> <span class="o">-</span><span class="n">m</span> <span class="n">SFO</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">17</span><span class="o">-</span><span class="mi">22</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| Origin | Dest | Distance | TaxiIn | TaxiOut | Cancelled |
+| ------ | ---- | -------- | ------ | ------- | --------- |
+| SMF    | ONT  |      389 |      4 |      11 |     False |
+| SMF    | PDX  |      479 |      5 |       6 |     False |
+| SMF    | PDX  |      479 |      6 |       9 |     False |
+| SMF    | PDX  |      479 |      3 |       8 |     False |
+</code></pre></div>
+
+<hr />
+<h2 id="csvsort">csvsort<a class="headerlink" href="#csvsort" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Options
+
+  -c COLUMNS, --columns COLUMNS
+                        A comma separated list of column indices or names to
+                        sort by. Defaults to all columns.
+  -r, --reverse         Sort in descending order.
+  --no-inference        Disable type inference when parsing the input.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># ascending</span>
+<span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">csvsort</span> <span class="o">-</span><span class="n">c</span> <span class="n">ArrDelay</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">14</span><span class="o">-</span><span class="mi">20</span> \
+<span class="o">|</span> <span class="n">head</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| AirTime | ArrDelay | DepDelay | Origin | Dest | Distance | TaxiIn |
+| ------- | -------- | -------- | ------ | ---- | -------- | ------ |
+|     230 |      -51 |       -6 | CLE    | LAS  |    1,825 |      4 |
+|     202 |      -39 |        0 | BNA    | LAS  |    1,588 |      4 |
+|     290 |      -39 |        5 | BWI    | SAN  |    2,295 |      3 |
+|     208 |      -37 |       -3 | BNA    | LAS  |    1,588 |      3 |
+|     227 |      -37 |        2 | BNA    | LAX  |    1,797 |      8 |
+|     219 |      -37 |        3 | BNA    | SAN  |    1,751 |      2 |
+|     251 |      -37 |       -1 | BUF    | LAS  |    1,987 |      5 |
+|     224 |      -36 |       -4 | BNA    | ONT  |    1,751 |      5 |
+|     301 |      -36 |       -1 | BWI    | SAN  |    2,295 |      3 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># descending</span>
+<span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">csvsort</span> <span class="o">-</span><span class="n">rc</span> <span class="n">ArrDelay</span> \
+<span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">14</span><span class="o">-</span><span class="mi">20</span> \
+<span class="o">|</span> <span class="n">head</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| AirTime | ArrDelay | DepDelay | Origin | Dest | Distance | TaxiIn |
+| ------- | -------- | -------- | ------ | ---- | -------- | ------ |
+|         |          |          | SNA    | LAS  |      226 |      0 |
+|         |          |          | AUS    | DAL  |      189 |      0 |
+|         |          |          | DAL    | AUS  |      189 |      0 |
+|         |          |          | DAL    | HOU  |      239 |      0 |
+|         |          |          | DAL    | HOU  |      239 |      0 |
+|         |          |          | DAL    | HOU  |      239 |      0 |
+|      51 |      219 |      229 | CMH    | MDW  |      284 |      4 |
+|      50 |      165 |      162 | SNA    | LAS  |      226 |      4 |
+|      49 |      133 |      138 | BWI    | ALB  |      288 |      3 |
+</code></pre></div>
+
+<hr />
+<h2 id="csvstat">csvstat<a class="headerlink" href="#csvstat" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Outputs the statistical summary of all/particular columns</li>
+<li>Default action is to provide a lot of information (you can choose either all or one.</li>
+</ul>
+<blockquote>
+<ul>
+<li>Tells you if there are nulls ina a column (will hog the memory - maybe run inside Docker?)</li>
+<li>Gives you info on the dtypes</li>
+<li>Frequency table for free!</li>
+<li>!!!---painfully slow---!!! (I would crontab this to run overnight)</li>
+</ul>
+</blockquote>
+<p><br></p>
+<div class="highlight"><pre><span></span><code>Options
+
+  --max                 Only output max.
+  --min                 Only output min.
+  --sum                 Only output sum.
+  --mean                Only output mean.
+  --median              Only output median.
+  --stdev               Only output standard deviation.
+  --nulls               Only output whether column contains nulls.
+  --unique              Only output unique values.
+  --freq                Only output frequent values.
+  --len                 Only output max value length.
+  --count               Only output row count
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvstat</span> <span class="o">-</span><span class="n">c</span> <span class="n">src_bytes</span><span class="p">,</span><span class="n">dst_bytes</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Killed
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Returns top 5 by default</span>
+<span class="err">!</span><span class="n">csvstat</span> <span class="o">-</span><span class="n">c</span> <span class="n">Origin</span> <span class="o">--</span><span class="n">freq</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Killed
+</code></pre></div>
+
+<hr />
+<h2 id="csvstack">csvstack<a class="headerlink" href="#csvstack" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Options
+
+  -g GROUPS, --groups GROUPS
+                        A comma-seperated list of values to add as &quot;grouping
+                        factors&quot;, one for each CSV being stacked. These will
+                        be added to the stacked CSV as a new column. You may
+                        specify a name for the grouping column using the -n
+                        flag.
+  -n GROUP_NAME, --group-name GROUP_NAME
+                        A name for the grouping column, e.g. &quot;year&quot;. Only used
+                        when also specifying -g.
+  --filenames           Use the filename of each input file as its grouping
+                        value. When specified, -g will be ignored.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create files (only one should have the header)</span>
+<span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">&gt;</span> <span class="n">flights_01</span><span class="o">.</span><span class="n">csv</span>
+<span class="err">!</span><span class="n">tail</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">&gt;</span> <span class="n">flights_02</span><span class="o">.</span><span class="n">csv</span>
+
+<span class="err">!</span><span class="n">csvstack</span> <span class="n">flights_01</span><span class="o">.</span><span class="n">csv</span> <span class="n">flights_02</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">15</span><span class="o">-</span><span class="mi">20</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| ArrDelay | DepDelay | Origin | Dest | Distance | TaxiIn |
+| -------- | -------- | ------ | ---- | -------- | ------ |
+|        1 |        7 | SMF    | ONT  |      389 |      4 |
+|        8 |       13 | SMF    | PDX  |      479 |      5 |
+|       34 |       36 | SMF    | PDX  |      479 |      6 |
+|       26 |       30 | SMF    | PDX  |      479 |      3 |
+|       -3 |        1 | SMF    | PDX  |      479 |      3 |
+|        3 |       10 | SMF    | PDX  |      479 |      2 |
+|       47 |       56 | SMF    | PHX  |      647 |      5 |
+|       -2 |        9 | SMF    | PHX  |      647 |      4 |
+|       44 |       47 | SMF    | PHX  |      647 |      5 |
+|       24 |       45 | ATL    | SFO  |    2,139 |     10 |
+|        1 |        6 | SLC    | CVG  |    1,449 |      8 |
+|       -9 |        1 | CVG    | SLC  |    1,449 |      6 |
+|        9 |       -1 | CVG    | ATL  |      373 |     13 |
+|       13 |       -7 | MCO    | ATL  |      403 |     14 |
+|        5 |       11 | ATL    | SLC  |    1,589 |      6 |
+|       15 |       -1 | LAX    | ATL  |    1,946 |     14 |
+|       36 |       38 | DFW    | ATL  |      732 |     11 |
+|       33 |       24 | ATL    | MCO  |      403 |     10 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># globbing allowed</span>
+<span class="err">!</span><span class="n">csvstack</span> <span class="n">flights_</span><span class="o">*.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">15</span><span class="o">-</span><span class="mi">20</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span><span class="n">csvlook</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| ArrDelay | DepDelay | Origin | Dest | Distance | TaxiIn |
+| -------- | -------- | ------ | ---- | -------- | ------ |
+|        1 |        7 | SMF    | ONT  |      389 |      4 |
+|        8 |       13 | SMF    | PDX  |      479 |      5 |
+|       34 |       36 | SMF    | PDX  |      479 |      6 |
+|       26 |       30 | SMF    | PDX  |      479 |      3 |
+|       -3 |        1 | SMF    | PDX  |      479 |      3 |
+|        3 |       10 | SMF    | PDX  |      479 |      2 |
+|       47 |       56 | SMF    | PHX  |      647 |      5 |
+|       -2 |        9 | SMF    | PHX  |      647 |      4 |
+|       44 |       47 | SMF    | PHX  |      647 |      5 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Keep track of things</span>
+<span class="err">!</span><span class="n">csvstack</span> <span class="o">-</span><span class="n">g</span> <span class="n">head</span><span class="p">,</span><span class="n">tail</span> <span class="o">-</span><span class="n">n</span> <span class="n">source_dataframe</span> <span class="n">flights_0</span><span class="o">*</span> <span class="o">|</span> <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span><span class="p">,</span><span class="mi">15</span><span class="o">-</span><span class="mi">20</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">csvlook</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| source_dataframe | AirTime | ArrDelay | DepDelay | Origin | Dest | Distance |
+| ---------------- | ------- | -------- | -------- | ------ | ---- | -------- |
+| head             |      54 |        1 |        7 | SMF    | ONT  |      389 |
+| head             |      74 |        8 |       13 | SMF    | PDX  |      479 |
+| head             |      73 |       34 |       36 | SMF    | PDX  |      479 |
+| head             |      75 |       26 |       30 | SMF    | PDX  |      479 |
+| head             |      74 |       -3 |        1 | SMF    | PDX  |      479 |
+| head             |      74 |        3 |       10 | SMF    | PDX  |      479 |
+| head             |      89 |       47 |       56 | SMF    | PHX  |      647 |
+| head             |      86 |       -2 |        9 | SMF    | PHX  |      647 |
+| head             |      90 |       44 |       47 | SMF    | PHX  |      647 |
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvstack</span> <span class="o">--</span><span class="n">filenames</span> <span class="n">flights_0</span><span class="o">*</span> <span class="o">|</span>  <span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="mi">1</span><span class="p">,</span><span class="mi">15</span><span class="o">-</span><span class="mi">20</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">csvlook</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>| group          | AirTime | ArrDelay | DepDelay | Origin | Dest | Distance |
+| -------------- | ------- | -------- | -------- | ------ | ---- | -------- |
+| flights_01.csv |      54 |        1 |        7 | SMF    | ONT  |      389 |
+| flights_01.csv |      74 |        8 |       13 | SMF    | PDX  |      479 |
+| flights_01.csv |      73 |       34 |       36 | SMF    | PDX  |      479 |
+| flights_01.csv |      75 |       26 |       30 | SMF    | PDX  |      479 |
+| flights_01.csv |      74 |       -3 |        1 | SMF    | PDX  |      479 |
+| flights_01.csv |      74 |        3 |       10 | SMF    | PDX  |      479 |
+| flights_01.csv |      89 |       47 |       56 | SMF    | PHX  |      647 |
+| flights_01.csv |      86 |       -2 |        9 | SMF    | PHX  |      647 |
+| flights_01.csv |      90 |       44 |       47 | SMF    | PHX  |      647 |
+</code></pre></div>
+
+<hr />
+<h2 id="csvsql">csvsql<a class="headerlink" href="#csvsql" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Generate SQL CREATE TABLE statements for one or more CSV files (<strong>very useful!</strong>)<ul>
+<li>Execute these statements directly on a database</li>
+</ul>
+</li>
+<li>Execute one or more SQL queries.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>OPTIONS
+
+-i {access,sybase,sqlite,informix,firebird,mysql,oracle,maxdb,postgresql,mssql}, --dialect {access,sybase,sqlite,informix,firebird,mysql,oracle,maxdb,postgresql,mssql}
+                        Dialect of SQL to generate. Only valid when --db is
+                        not specified.
+  --db CONNECTION_STRING
+                        If present, a sqlalchemy connection string to use to
+                        directly execute generated SQL on a database.
+  --query QUERY         Execute one or more SQL queries delimited by &quot;;&quot; and
+                        output the result of the last query as CSV.
+  --insert              In addition to creating the table, also insert the
+                        data into the table. Only valid when --db is
+                        specified.
+  --tables TABLE_NAMES  Specify one or more names for the tables to be
+                        created. If omitted, the filename (minus extension) or
+                        &quot;stdin&quot; will be used.
+  --no-constraints      Generate a schema without length limits or null
+                        checks. Useful when sampling big tables.
+  --no-create           Skip creating a table. Only valid when --insert is
+                        specified.
+  --blanks              Do not coerce empty strings to NULL values.
+  --no-inference        Disable type inference when parsing the input.
+  --db-schema DB_SCHEMA
+                        Optional name of database schema to create table(s)
+                        in.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvsql</span> <span class="o">-</span><span class="n">i</span> <span class="n">sqlite</span> <span class="o">.</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+[Errno 21] Is a directory: &#39;.&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvsql</span> <span class="o">-</span><span class="n">i</span> <span class="n">postgresql</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+CREATE TABLE stdin (
+    &quot;Year&quot; DECIMAL NOT NULL, 
+    &quot;Month&quot; BOOLEAN NOT NULL, 
+    &quot;DayofMonth&quot; DECIMAL NOT NULL, 
+    &quot;DayOfWeek&quot; DECIMAL NOT NULL, 
+    &quot;DepTime&quot; DECIMAL, 
+    &quot;CRSDepTime&quot; DECIMAL NOT NULL, 
+    &quot;ArrTime&quot; DECIMAL, 
+    &quot;CRSArrTime&quot; DECIMAL NOT NULL, 
+    &quot;UniqueCarrier&quot; VARCHAR(2) NOT NULL, 
+    &quot;FlightNum&quot; DECIMAL NOT NULL, 
+    &quot;TailNum&quot; VARCHAR(6) NOT NULL, 
+    &quot;ActualElapsedTime&quot; DECIMAL, 
+    &quot;CRSElapsedTime&quot; DECIMAL NOT NULL, 
+    &quot;AirTime&quot; DECIMAL, 
+    &quot;ArrDelay&quot; DECIMAL, 
+    &quot;DepDelay&quot; DECIMAL, 
+    &quot;Origin&quot; VARCHAR(3) NOT NULL, 
+    &quot;Dest&quot; VARCHAR(3) NOT NULL, 
+    &quot;Distance&quot; DECIMAL NOT NULL, 
+    &quot;TaxiIn&quot; DECIMAL NOT NULL, 
+    &quot;TaxiOut&quot; DECIMAL NOT NULL, 
+    &quot;Cancelled&quot; BOOLEAN NOT NULL, 
+    &quot;CancellationCode&quot; VARCHAR(1), 
+    &quot;Diverted&quot; BOOLEAN NOT NULL, 
+    &quot;CarrierDelay&quot; DECIMAL NOT NULL, 
+    &quot;WeatherDelay&quot; DECIMAL NOT NULL, 
+    &quot;NASDelay&quot; DECIMAL NOT NULL, 
+    &quot;SecurityDelay&quot; DECIMAL NOT NULL, 
+    &quot;LateAircraftDelay&quot; DECIMAL NOT NULL
+);
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1000</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> \
+<span class="o">|</span> <span class="n">csvsql</span> <span class="o">--</span><span class="n">query</span> <span class="s2">&quot;&quot;&quot;SELECT distinct(interaction_type), count(*) </span><span class="se">\</span>
+<span class="s2">                   FROM kdd </span><span class="se">\</span>
+<span class="s2">                   WHERE src_bytes &gt; 1000 </span><span class="se">\</span>
+<span class="s2">                   GROUP BY 1 </span><span class="se">\</span>
+<span class="s2">                   ORDER BY 2 DESC&quot;&quot;&quot;</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/importlib/_bootstrap_external.py:426: ImportWarning: Not importing directory /miniconda/envs/ds-py3/lib/python3.6/site-packages/mpl_toolkits: missing __init__
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_2&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_3&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_4&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_5&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_6&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_7&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_8&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_9&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_10&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_11&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_12&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_13&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_14&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_15&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_16&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;1&quot; already exists in Table. Column will be renamed to &quot;1_2&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;1&quot; already exists in Table. Column will be renamed to &quot;1_3&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_2&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_3&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_4&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_5&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_6&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_17&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0&quot; already exists in Table. Column will be renamed to &quot;0_18&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_7&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_8&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_9&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_10&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_11&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_12&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_13&quot;.
+/miniconda/envs/ds-py3/lib/python3.6/site-packages/agate/utils.py:291: DuplicateColumnWarning: Column name &quot;0.00&quot; already exists in Table. Column will be renamed to &quot;0.00_14&quot;.
+(sqlite3.OperationalError) no such table: kdd [SQL: &#39;SELECT distinct(interaction_type), count(*)                    FROM kdd                    WHERE src_bytes &gt; 1000                    GROUP BY 1                    ORDER BY 2 DESC&#39;] (Background on this error at: http://sqlalche.me/e/e3q8)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a table and import data from the CSV directly into Postgres:</span>
+<span class="c1"># to be tested</span>
+<span class="err">!</span><span class="n">createdb</span> <span class="n">test</span>
+<span class="err">!</span><span class="n">csvsql</span> <span class="o">--</span><span class="n">db</span> <span class="n">postgresql</span><span class="p">:</span><span class="o">///</span><span class="n">test</span> <span class="o">--</span><span class="n">table</span> <span class="n">fy09</span> <span class="o">--</span><span class="n">insert</span> <span class="n">examples</span><span class="o">/</span><span class="n">realdata</span><span class="o">/</span><span class="n">FY09_EDU_Recipients_by_State</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create tables for an entire folder of CSVs and import data from those files directly into Postgres:</span>
+<span class="c1"># to be tested</span>
+<span class="err">!</span><span class="n">createdb</span> <span class="n">test</span>
+<span class="err">!</span><span class="n">csvsql</span> <span class="o">--</span><span class="n">db</span> <span class="n">postgresql</span><span class="p">:</span><span class="o">///</span><span class="n">test</span> <span class="o">--</span><span class="n">insert</span> <span class="n">examples</span><span class="o">/*.</span><span class="n">csv</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../07_datamash/" title="Datamash" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Datamash
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../03_csvtk/" title="CSVTK" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                CSVTK
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Dushyant Khosla
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/dushyantkhosla" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://hub.docker.com/u/dushyantkhosla" target="_blank" rel="noopener" title="hub.docker.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<dushyantkhosla320@gmail.com>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.linkedin.com/in/dushyant-khosla/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://instagram.com/dushyantkhosla" target="_blank" rel="noopener" title="instagram.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

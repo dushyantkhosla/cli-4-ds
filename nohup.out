@@ -1,0 +1,34 @@
+[W 12:49:57.068 LabApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 12:49:57.370 LabApp] JupyterLab extension loaded from /Users/dkhosla/miniconda/envs/pyds/lib/python3.8/site-packages/jupyterlab
+[I 12:49:57.371 LabApp] JupyterLab application directory is /Users/dkhosla/miniconda/envs/pyds/share/jupyter/lab
+[I 12:49:57.635 LabApp] Serving notebooks from local directory: /Users/dkhosla/dk-git-repos/cli4ds
+[I 12:49:57.635 LabApp] The Jupyter Notebook is running at:
+[I 12:49:57.635 LabApp] http://PMINLBOZL13008:8003/?token=00ee965cdd1e178d9625ebf00b2e4c9684ab63a73dcf24fe
+[I 12:49:57.635 LabApp]  or http://127.0.0.1:8003/?token=00ee965cdd1e178d9625ebf00b2e4c9684ab63a73dcf24fe
+[I 12:49:57.635 LabApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 12:49:57.644 LabApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///Users/dkhosla/Library/Jupyter/runtime/nbserver-72302-open.html
+    Or copy and paste one of these URLs:
+        http://PMINLBOZL13008:8003/?token=00ee965cdd1e178d9625ebf00b2e4c9684ab63a73dcf24fe
+     or http://127.0.0.1:8003/?token=00ee965cdd1e178d9625ebf00b2e4c9684ab63a73dcf24fe
+[I 12:50:09.870 LabApp] 302 GET /?token=00ee965cdd1e178d9625ebf00b2e4c9684ab63a73dcf24fe (::1) 2.95ms
+[I 12:50:12.384 LabApp] Build is up to date
+[W 12:50:12.630 LabApp] 404 GET /api/contents/src?1597920612618 (::1): No such file or directory: src
+[W 12:50:12.630 LabApp] No such file or directory: src
+[W 12:50:12.631 LabApp] 404 GET /api/contents/src?1597920612618 (::1) 2.34ms referer=http://localhost:8003/lab
+[W 12:50:12.631 LabApp] 404 GET /api/contents/scripts/interpret-segments-gt.ipynb?content=0&1597920612620 (::1): No such file or directory: scripts/interpret-segments-gt.ipynb
+[W 12:50:12.632 LabApp] No such file or directory: scripts/interpret-segments-gt.ipynb
+[W 12:50:12.632 LabApp] 404 GET /api/contents/scripts/interpret-segments-gt.ipynb?content=0&1597920612620 (::1) 2.77ms referer=http://localhost:8003/lab
+[W 12:50:12.633 LabApp] 404 GET /api/contents/scripts/01-GT-Explore.py?content=0&1597920612620 (::1): No such file or directory: scripts/01-GT-Explore.py
+[W 12:50:12.634 LabApp] No such file or directory: scripts/01-GT-Explore.py
+[W 12:50:12.635 LabApp] 404 GET /api/contents/scripts/01-GT-Explore.py?content=0&1597920612620 (::1) 2.89ms referer=http://localhost:8003/lab
+[W 12:50:12.639 LabApp] 404 GET /api/contents/scripts/2020-07-28-GT-Clusters.py?content=0&1597920612624 (::1): No such file or directory: scripts/2020-07-28-GT-Clusters.py
+[W 12:50:12.640 LabApp] No such file or directory: scripts/2020-07-28-GT-Clusters.py
+[W 12:50:12.640 LabApp] 404 GET /api/contents/scripts/2020-07-28-GT-Clusters.py?content=0&1597920612624 (::1) 4.10ms referer=http://localhost:8003/lab
+[W 12:51:19.877 LabApp] Notebook tutorials/IPYNBs/01_UnixCoreutils.ipynb is not trusted
+[I 12:51:22.116 LabApp] Kernel started: 6d18b263-24c4-4cd1-b4e8-74ba1096510b
+[W 12:51:24.409 LabApp] Got events for closed stream None
+[I 12:51:32.368 LabApp] Saving file at /tutorials/IPYNBs/01_UnixCoreutils.ipynb
+[I 13:05:43.365 LabApp] Starting buffering for 6d18b263-24c4-4cd1-b4e8-74ba1096510b:7d856d9f-f5cf-42ac-a495-fe37f8bc7c6d

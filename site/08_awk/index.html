@@ -1,0 +1,1199 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
+      
+      
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/08_awk/">
+      
+      
+        <meta name="author" content="Dushyant Khosla">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>08 awk - CLI Tools and Tricks for Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-header-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CLI Tools and Tricks for Data Science
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              08 awk
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
+          Unix Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../02_csvkit/" class="md-tabs__link">
+          CLI Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
+          Databases
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CLI Tools and Tricks for Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Unix Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Unix Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Unix Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+      Coreutils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+      AWK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+      Bash Programming
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
+      Datamash
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CLI Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="CLI Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        CLI Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
+      CSVKit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
+      CSVTK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
+      XSV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
+      Miller
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
+      Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+      Larger Than RAM
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Databases
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Databases" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Databases
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+      Example 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+      Example 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+      Example 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+      CLI-Fu
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    1 - Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-features" class="md-nav__link">
+    2 - Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-syntax-and-execution-model" class="md-nav__link">
+    3 - Syntax and Execution Model
+  </a>
+  
+    <nav class="md-nav" aria-label="3 - Syntax and Execution Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-awk-programs" class="md-nav__link">
+    Running awk programs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-execution" class="md-nav__link">
+    3.1 -  Execution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-examples" class="md-nav__link">
+    3.2 - Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-types" class="md-nav__link">
+    4 - Data Types
+  </a>
+  
+    <nav class="md-nav" aria-label="4 - Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-strings-numbers" class="md-nav__link">
+    4.1 - Strings, Numbers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-variables" class="md-nav__link">
+    4.2 - Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-variables" class="md-nav__link">
+    Built-in Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-arrays" class="md-nav__link">
+    4.3 - Arrays
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-patterns" class="md-nav__link">
+    5 - Patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="5 - Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-regular-expressions" class="md-nav__link">
+    5.1 - Regular Expressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-boolean-expressions" class="md-nav__link">
+    5.2 - Boolean Expressions
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 - Boolean Expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-special-patterns-begin-and-end" class="md-nav__link">
+    5.3 - Special Patterns: BEGIN and END
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-actions" class="md-nav__link">
+    6 - Actions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-functions" class="md-nav__link">
+    7 - Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-sources-of-errors" class="md-nav__link">
+    8 - Sources of Errors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-applications" class="md-nav__link">
+    9 - Applications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-references" class="md-nav__link">
+    10 - References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/08_awk.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>08 awk</h1>
+                
+                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
+<span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<h2 id="1-introduction">1 - Introduction<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
+<p>awk is not <em>just a command line tool</em>.</p>
+<p>It is a tiny, but full-featured Turing-complete <strong>programming language</strong> modeled on C, used to <strong>process up to GBs of structured data</strong>. The benefits of awk are best realized when the data has some kind of <u>structure</u>.  It extends the idea of text editing into data processing, analysis, extraction and reporting. A typical example of an awk program is one that transforms data into a formatted report, such as ingesting server log files. It extensively uses the string datatype, arrays indexed by key strings, and regular expressions.</p>
+<p>It lets you do stuff on the command line which you never imagined. It's a self-contained <strong>mini data analytics software</strong>. And it is relatively easy to learn.</p>
+<p>Quoting Wikipedia</p>
+<blockquote>
+<p><em>The AWK language is a **data-driven scripting language*</em> consisting of a set of actions to be taken against streams of textual data – either run directly on files or used as part of a pipeline – for purposes of extracting or transforming text.*</p>
+</blockquote>
+<p>And quoting Alfred V., one of the creators of the language (the A in awk)</p>
+<blockquote>
+<p><em>"**AWK*</em> is a language for processing text files. A file is treated as a sequence of records, and by default each line is a record. Each line is broken up into a sequence of fields, so we can think of the first word in a line as the first field, the second word as the second field, and so on. An AWK program is a sequence of pattern-action statements. AWK reads the input a line at a time. A line is scanned for each pattern in the program, and for each pattern that matches, the associated action is executed."*</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s2">&quot;python -c &#39;import this&#39; &gt; zen.txt&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s2">&quot;awk &#39;</span><span class="si">{print}</span><span class="s2">&#39; zen.txt&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren&#39;t special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you&#39;re Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it&#39;s a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let&#39;s do more of those!
+</code></pre></div>
+
+<hr />
+<h2 id="2-features">2 - Features<a class="headerlink" href="#2-features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>View</strong> a text file as a textual database made up of records and fields.</p>
+</li>
+<li>
+<p>Use variables to <strong>manipulate</strong> the database.</p>
+</li>
+<li>
+<p>Use <strong>arithmetic</strong> and <strong>string</strong> operators.</p>
+</li>
+<li>
+<p>Use common programming constructs such as <strong>loops and conditionals</strong>.</p>
+</li>
+<li>
+<p>Generate <strong>formatted</strong> reports.</p>
+</li>
+<li>
+<p>Define <strong>functions</strong>.</p>
+</li>
+<li>
+<p><strong>Execute UNIX commands</strong> from a script.</p>
+</li>
+<li>
+<p>Process the result of UNIX commands.</p>
+</li>
+<li>
+<p>Process command-line arguments more gracefully.</p>
+</li>
+<li>
+<p>Work more easily with <strong>multiple input streams.</strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="3-syntax-and-execution-model">3 - Syntax and Execution Model<a class="headerlink" href="#3-syntax-and-execution-model" title="Permanent link">&para;</a></h2>
+<p>An awk program consists of what we will call a <strong>main input loop</strong>. You don’t write this loop, it is given—it exists as the framework within which the code that you do write will be executed. The main input loop in awk is a routine that reads one line of input from a file and makes it available for processing. The actions you write to do the processing assume that there is a line of input available. In another programming language, you would have to create the main input loop as part of your program. It would have to open the input file and read one line at a time.</p>
+<ul>
+<li>The main input loop is executed as many times as there are lines of input. It terminates when there is no more input to be read.</li>
+<li>Inside the main input loop, your instructions are written as a series of <strong>pattern/action</strong> procedures. These procedures that you write will be applied to each input line, one line at a time.<ul>
+<li>A <strong>pattern</strong> is a rule for testing the input line to determine whether or not the action should be applied to it.<ul>
+<li>Usually a regex or a boolean expression used to match rows, or special expressions like BEGIN and END</li>
+</ul>
+</li>
+<li>The <strong>actions</strong> can be quite complex, consisting of statements, functions, and expressions.<ul>
+<li>Usually a series of awk commands applied to selected fields of rows that match the regex/where the boolean expression evaluates to True</li>
+<li>can include function calls, variable assignments, calculations, or any combination thereof.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Awk allows you to write <strong>two special routines</strong> that can be executed before any input is read and after all input is read. These are the procedur es associated with <strong>the BEGIN and END rules</strong>, respectively. In other words, you can do some preprocessing before the main input loop is ever executed and you can do some post-processing after the main input loop has terminated. The BEGIN and END procedures are <em>optional</em>.</p>
+<p>In summary, an awk program consists of:</p>
+<ul>
+<li><strong><code>BEGIN</code> segment</strong> (optional) : to initialize our variables before we even start reading input</li>
+<li><strong>pattern + action pairs</strong>: to process the input data, here we may place multiple pattern + action pairs to do multiple things with the same line.</li>
+<li><strong><code>END</code> segment</strong>: actions for when the EOF is reached, typically used to print results</li>
+</ul>
+<h3 id="running-awk-programs">Running awk programs<a class="headerlink" href="#running-awk-programs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># as a file saved with the .awk extension</span>
+BEGIN <span class="o">{</span>actions<span class="p">;</span><span class="o">}</span>
+pattern <span class="o">{</span>actions<span class="p">;</span><span class="o">}</span>
+pattern <span class="o">{</span>actions<span class="p">;</span><span class="o">}</span>
+.
+.
+.
+pattern <span class="o">{</span> actions<span class="p">;</span><span class="o">}</span>
+END <span class="o">{</span>actions<span class="p">;</span><span class="o">}</span>
+
+<span class="c1"># or on a line</span>
+awk <span class="s1">&#39;BEGIN {initial actions} {processing actions} END {ending actions}&#39;</span> file.txt
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s2">&quot;awk &#39;/better/ </span><span class="si">{print}</span><span class="s2">&#39; zen.txt&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Now is better than never.
+Although never is often better than *right* now.
+</code></pre></div>
+
+<hr />
+<h2 id="31-execution">3.1 -  Execution<a class="headerlink" href="#31-execution" title="Permanent link">&para;</a></h2>
+<p>For each line of input, awk attempts each pattern-matching rule given in the script. The lines matching a particular pattern become the object of an action. If no action is specified, the line that matches the pattern is printed.</p>
+<p>In pseudocode, here's how a program runs</p>
+<div class="highlight"><pre><span></span><code>1.    Perform BEGIN action
+2.    Read one line from file, check against all procedures
+3.    If a PATTERN matches, apply corresponding ACTION else pass
+4.    Read next line. Repeat 2-4 till EOF.
+5.    Perform END action
+</code></pre></div>
+
+<p>Note that  a line can match more than one rule.
+You can write a stricter rule set to prevent a line from matching more than one rule.</p>
+<p>Every line of the document to scan will have to go through each of the patterns, one at a time.</p>
+<ul>
+<li>Line 1 of the text file will be compared against <code>Pattern1</code>, and if it matches, <code>Action1</code> will be executed.</li>
+<li>If it doesn't match, <code>Pattern2</code> will be checked, and <code>Action2</code> will or won't be executed.</li>
+<li>This will continue until the input has been read completely.</li>
+<li>Note that either the <em>condition</em> or the <em>action</em> may be omitted.</li>
+<li>The <em>condition</em> defaults to matching every record. The default <em>action</em> is to print the record.</li>
+</ul>
+<p>awk statements can be run on the command-line, or inside a script</p>
+<div class="highlight"><pre><span></span><code>awk <span class="o">[</span>options<span class="o">]</span> &lt;pattern&gt; &lt;action&gt; file<span class="o">(</span>s<span class="o">)</span>
+<span class="c1"># statements are separated by ;</span>
+
+awk <span class="o">[</span>options<span class="o">]</span> -f awk-script file<span class="o">(</span>s<span class="o">)</span>
+
+<span class="c1"># OPTIONS</span>
+<span class="c1"># -f   precedes name of awk script</span>
+<span class="c1"># -F   changes delimiter</span>
+<span class="c1"># -v   precedes assignment var=value</span>
+</code></pre></div>
+
+<hr />
+<h2 id="32-examples">3.2 - Examples<a class="headerlink" href="#32-examples" title="Permanent link">&para;</a></h2>
+<p>Here we look at a few examples, from super simple ones to some basic ones</p>
+<div class="highlight"><pre><span></span><code>awk <span class="s1">&#39;{ print $1 }&#39;</span> foo.txt
+<span class="c1"># no pattern; print the first field (use default delimiter) of every line in foo</span>
+
+awk <span class="s1">&#39;/regex/&#39;</span> foo.txt
+<span class="c1"># no action; print matching lines in foo</span>
+
+awk <span class="s1">&#39;/regex/ { print $1 }&#39;</span> foo.txt
+<span class="c1"># print the first field of each record that matches the regex</span>
+
+awk -F, <span class="s1">&#39;{ print $1; print $2}&#39;</span> foo.txt
+<span class="c1"># -F changes the delimiter to comma</span>
+<span class="c1"># for each record in foo, print the 1st and 2nd fields on their own lines</span>
+
+awk <span class="s1">&#39;{print $3+$4}&#39;</span> foo.txt
+<span class="c1"># return the sum of columns 3 and 4</span>
+
+awk <span class="s1">&#39;$1==&quot;bar&quot; {print $3+$4}&#39;</span> foo.txt
+<span class="c1"># return the sum of columns 3 and 4 for rows where field 1 equals bar</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-data-types">4 - Data Types<a class="headerlink" href="#4-data-types" title="Permanent link">&para;</a></h2>
+<h3 id="41-strings-numbers">4.1 - Strings, Numbers<a class="headerlink" href="#41-strings-numbers" title="Permanent link">&para;</a></h3>
+<p>awk only has <u>two main data types</u>: <strong>strings</strong> and <strong>numbers</strong>.</p>
+<ul>
+<li>And even then, Awk likes to convert them into each other. </li>
+<li>Numbers stored as strings are <strong>implicitly converted.</strong> If the string doesn't look like a numeral, it's <code>0</code>. </li>
+<li>String objects are enclosed within double quotes <code>""</code></li>
+</ul>
+<p>For <strong>string concatenation</strong>, simply place two variables next to each other.</p>
+<h3 id="42-variables">4.2 - Variables<a class="headerlink" href="#42-variables" title="Permanent link">&para;</a></h3>
+<p>Both types can be assigned to variables in the <code>ACTIONS</code> parts of your code with the <code>=</code> operator. Variables can be declared anywhere, at any time, and used even if they're not initialized (their default value is <code>""</code>, the empty string.</p>
+<blockquote>
+<p>NOTE
+ The <em>variables are all global</em>.
+ Whatever variables you declare in a given block will be visible to other blocks, for each line</p>
+</blockquote>
+<h3 id="built-in-variables">Built-in Variables<a class="headerlink" href="#built-in-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$0</code></td>
+<td>represents the entire record</td>
+</tr>
+<tr>
+<td><code>$1, $2, $3 ...</code></td>
+<td>access respective fields</td>
+</tr>
+<tr>
+<td><code>NR</code></td>
+<td>row number of the current record</td>
+</tr>
+<tr>
+<td><code>NF</code></td>
+<td>number of fields in the current record (<code>$NF</code> accesses the last field)</td>
+</tr>
+<tr>
+<td><code>FILENAME</code></td>
+<td>contains the name of the current input-file</td>
+</tr>
+<tr>
+<td><code>FS</code></td>
+<td>field-separator (default is whitespace(s), includes tabs) can be regex</td>
+</tr>
+<tr>
+<td><code>RS</code></td>
+<td>record-separator (default: <code>newline</code>)</td>
+</tr>
+<tr>
+<td><code>OFS</code>, <code>ORS</code></td>
+<td>output delimiter (default: space), record separator (default: newline)</td>
+</tr>
+<tr>
+<td><code>OFMT</code></td>
+<td>format for numeric output. The default format is "%.6g".</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-arrays">4.3 - Arrays<a class="headerlink" href="#43-arrays" title="Permanent link">&para;</a></h3>
+<p>Finally, awk has arrays. They are <strong>unidimensional associative arrays</strong> that can be <strong>started dynamically</strong>. 'Associative' means that they may be indexed by strings or number and stores data in a key value format, like Python dictionaries.</p>
+<p>Their syntax is just <code>var[key] = value</code>.</p>
+<hr />
+<h2 id="5-patterns">5 - Patterns<a class="headerlink" href="#5-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="51-regular-expressions">5.1 - Regular Expressions<a class="headerlink" href="#51-regular-expressions" title="Permanent link">&para;</a></h3>
+<p>The regexes used with awk are general expressions that you use everyday with <code>grep</code> and <code>sed</code>. N
+ote that these regexs only exist to <strong>match</strong> lines, they do not capture fields where the match occurs.</p>
+<div class="highlight"><pre><span></span><code>/foo/ <span class="o">{</span> ... <span class="o">}</span>           <span class="c1"># any line that contains &#39;foo&#39;</span>
+/^foo/ <span class="o">{</span> ... <span class="o">}</span>          <span class="c1"># lines that begin with &#39;foo&#39;</span>
+/foo$/ <span class="o">{</span> ... <span class="o">}</span>          <span class="c1"># lines that end with &#39;foo&#39;</span>
+/^<span class="o">[</span><span class="m">0</span>-9.<span class="o">]</span>+ / <span class="o">{</span> ... <span class="o">}</span>     <span class="c1"># lines beginning with series of numbers and/or periods</span>
+/<span class="o">(</span>foo<span class="p">|</span>bar<span class="p">|</span>baz<span class="o">)</span>/         <span class="c1"># lines that contain specific words</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># test for integer, string or empty line. </span>
+/<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>+/ <span class="o">{</span> print <span class="s2">&quot;That is an integer&quot;</span> <span class="o">}</span> 
+/<span class="o">[</span>A-Za-z<span class="o">]</span>+/ <span class="o">{</span> print <span class="s2">&quot;This is a string&quot;</span> <span class="o">}</span>
+/ˆ$/ <span class="o">{</span> print <span class="s2">&quot;This is a blank line.&quot;</span> <span class="o">}</span>
+</code></pre></div>
+
+<h3 id="52-boolean-expressions">5.2 - Boolean Expressions<a class="headerlink" href="#52-boolean-expressions" title="Permanent link">&para;</a></h3>
+<p>These are constructed using any regular data types with the <em>comparison</em> operators like <code>==, !=, &gt;, &gt;=, &lt;</code> and <code>&lt;=</code>. Note that <code>==</code> does fuzzy matching, such that <code>80=="80"</code> is <code>True</code>.</p>
+<p><strong>Compound</strong> expressions can be constructed using operators <code>&amp;&amp;</code> (AND), <code>||</code> (OR), and <code>!</code> (NOT).</p>
+<h4 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Regexes and Booleans can be <strong>mixed</strong>, so the expression <code>/foo/ &amp;&amp; '$3=="bar"'</code> is valid and will match rows that contain the string foo, and contain "bar" in their 3<sup>rd</sup> field</li>
+<li>You can <em>modify the line</em> by assigning to its field.</li>
+<li>For example, if you write <code>$1 = "foobar"</code> in one block, the next patterns will now operate on that line instead of the original one.</li>
+<li>Could be used for <em>imputation</em> of missing data!</li>
+</ul>
+<h3 id="53-special-patterns-begin-and-end">5.3 - Special Patterns: BEGIN and END<a class="headerlink" href="#53-special-patterns-begin-and-end" title="Permanent link">&para;</a></h3>
+<p>The first one, <code>BEGIN</code>, matches only <em>before</em> any line has been input to the file.
+This is basically where you can <strong>initiate variables</strong> (like declaring delimiters) and all other kinds of state in your script.</p>
+<p><code>END</code> will match <em>after</em> the whole input has been handled.
+This lets you clean up or do some final output before exiting.</p>
+<hr />
+<h2 id="6-actions">6 - Actions<a class="headerlink" href="#6-actions" title="Permanent link">&para;</a></h2>
+<p>The most useful ones are listed here</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># basics</span>
+<span class="o">{</span> print <span class="nv">$0</span><span class="p">;</span> <span class="o">}</span>       <span class="c1"># prints $0. In this case, equivalent to &#39;print&#39; alone</span>
+<span class="o">{</span> exit<span class="p">;</span> <span class="o">}</span>           <span class="c1"># ends the program</span>
+<span class="o">{</span> next<span class="p">;</span> <span class="o">}</span>           <span class="c1"># skips to the next line of input</span>
+
+<span class="c1"># assignments</span>
+<span class="o">{</span> <span class="nv">a</span><span class="o">=</span><span class="nv">$1</span><span class="p">;</span> <span class="nv">b</span><span class="o">=</span><span class="nv">$0</span> <span class="o">}</span>      <span class="c1"># variable assignment</span>
+<span class="o">{</span> c<span class="o">[</span><span class="nv">$1</span><span class="o">]</span> <span class="o">=</span> <span class="nv">$2</span> <span class="o">}</span>      <span class="c1"># variable assignment (array)</span>
+
+<span class="c1"># conditional processing</span>
+<span class="o">{</span> <span class="k">if</span> <span class="o">(</span>BOOLEAN<span class="o">)</span> <span class="o">{</span> ACTION <span class="o">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="o">(</span>BOOLEAN<span class="o">)</span> <span class="o">{</span> ACTION <span class="o">}</span>
+  <span class="k">else</span> <span class="o">{</span> ACTION <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1"># loops</span>
+<span class="o">{</span> <span class="k">for</span> <span class="o">(</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> i&lt;x<span class="p">;</span> i++<span class="o">)</span> <span class="o">{</span> ACTION <span class="o">}</span> <span class="o">}</span>
+<span class="o">{</span> <span class="k">for</span> <span class="o">(</span>item in c<span class="o">)</span> <span class="o">{</span> ACTION <span class="o">}</span> <span class="o">}</span>
+</code></pre></div>
+
+<p>Examples</p>
+<div class="highlight"><pre><span></span><code>awk <span class="s1">&#39;/system/ {count+=1} END {print count}&#39;</span> temp.txt
+<span class="c1"># find the number of rows that contain &#39;system&#39;</span>
+
+awk <span class="s1">&#39;{sum+=$1; count+=1} END {print sum/count}&#39;</span> foo
+<span class="c1"># print the mean of field 1</span>
+
+<span class="c1"># mean can also be found using the in-built row counter NR</span>
+awk <span class="s1">&#39;BEGIN{ sum=0; FS=&quot;,&quot;} {sum+=$1} END {print sum/NR}&#39;</span> foo.csv
+</code></pre></div>
+
+<hr />
+<h2 id="7-functions">7 - Functions<a class="headerlink" href="#7-functions" title="Permanent link">&para;</a></h2>
+<p>Functions can be called with the following syntax:</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span> somecall<span class="o">(</span><span class="nv">$2</span><span class="o">)</span> <span class="o">}</span>
+</code></pre></div>
+
+<p>There is a somewhat restricted set of built-in functions available, so I like to point to <a href="https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html#Built_002din">regular documentation</a> for these.</p>
+<p>User-defined functions are also fairly simple:</p>
+<div class="highlight"><pre><span></span><code># function arguments are call-by-value
+function name(parameter-list) {
+     ACTIONS; # same actions as usual
+}
+
+# return is a valid keyword
+function add1(val) {
+     return val+1;
+}
+</code></pre></div>
+
+<hr />
+<h2 id="8-sources-of-errors">8 - Sources of Errors<a class="headerlink" href="#8-sources-of-errors" title="Permanent link">&para;</a></h2>
+<p>Can be caused by any of the following:</p>
+<ul>
+<li>Not enclosing a procedur e within braces <code>{}</code></li>
+<li>Not surrounding the instructions within single quotes <code>''</code></li>
+<li>Not enclosing regular expressions within slashes <code>//</code></li>
+</ul>
+<hr />
+<h2 id="9-applications">9 - Applications<a class="headerlink" href="#9-applications" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/32364102/finding-a-uniq-c-substitute-for-big-files">a uniq -c substitute for big files</a></li>
+<li><a href="http://stackoverflow.com/questions/11173868/efficient-sort-uniq-for-the-case-of-a-large-number-of-duplicates">big files with lots of dupes</a></li>
+</ul>
+<hr />
+<h2 id="10-references">10 - References<a class="headerlink" href="#10-references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="http://ferd.ca/awk-in-20-minutes.html">awk in 20 minutes</a></li>
+</ul>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Dushyant Khosla
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/dushyantkhosla" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://hub.docker.com/u/dushyantkhosla" target="_blank" rel="noopener" title="hub.docker.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<dushyantkhosla320@gmail.com>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.linkedin.com/in/dushyant-khosla/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://instagram.com/dushyantkhosla" target="_blank" rel="noopener" title="instagram.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
