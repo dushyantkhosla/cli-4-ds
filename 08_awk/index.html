@@ -21,18 +21,12 @@
     
     
       
-        <title>08 awk - CLI Tools and Tricks for Data Science</title>
+        <title>AWK - CLI Tools and Tricks for Data Science</title>
       
     
     
       <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#ff7043">
       
     
     
@@ -52,10 +46,7 @@
   </head>
   
   
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+    <body dir="ltr">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -64,7 +55,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-introduction" class="md-skip">
+        <a href="#awk" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +83,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              08 awk
+              AWK
             
           </span>
         </div>
@@ -154,14 +145,16 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href=".." class="md-tabs__link md-tabs__link--active">
+      <a href=".." class="md-tabs__link">
         Home
       </a>
     
@@ -173,7 +166,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../01_UnixCoreutils/" class="md-tabs__link">
+        <a href="../01_UnixCoreutils/" class="md-tabs__link md-tabs__link--active">
           Unix Tools
         </a>
       
@@ -265,10 +258,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Unix Tools
@@ -302,11 +297,217 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        AWK
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="AWK" class="md-nav__link md-nav__link--active">
       AWK
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    1 - Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-features" class="md-nav__link">
+    2 - Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-syntax-and-execution-model" class="md-nav__link">
+    3 - Syntax and Execution Model
+  </a>
+  
+    <nav class="md-nav" aria-label="3 - Syntax and Execution Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-awk-programs" class="md-nav__link">
+    Running awk programs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-execution" class="md-nav__link">
+    3.1 -  Execution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-examples" class="md-nav__link">
+    3.2 - Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-types" class="md-nav__link">
+    4 - Data Types
+  </a>
+  
+    <nav class="md-nav" aria-label="4 - Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-strings-numbers" class="md-nav__link">
+    4.1 - Strings, Numbers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-variables" class="md-nav__link">
+    4.2 - Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-variables" class="md-nav__link">
+    Built-in Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-arrays" class="md-nav__link">
+    4.3 - Arrays
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-patterns" class="md-nav__link">
+    5 - Patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="5 - Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-regular-expressions" class="md-nav__link">
+    5.1 - Regular Expressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-boolean-expressions" class="md-nav__link">
+    5.2 - Boolean Expressions
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 - Boolean Expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-special-patterns-begin-and-end" class="md-nav__link">
+    5.3 - Special Patterns: BEGIN and END
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-actions" class="md-nav__link">
+    6 - Actions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-functions" class="md-nav__link">
+    7 - Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-sources-of-errors" class="md-nav__link">
+    8 - Sources of Errors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-applications" class="md-nav__link">
+    9 - Applications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-references" class="md-nav__link">
+    10 - References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -533,6 +734,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon">
@@ -733,15 +936,43 @@
                   
                 
                 
-                  <h1>08 awk</h1>
-                
-                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
-<span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
-</code></pre></div>
-
+                <h1 id="awk">AWK<a class="headerlink" href="#awk" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#awk">AWK</a><ul>
+<li><a href="#1-introduction">1 - Introduction</a></li>
+<li><a href="#2-features">2 - Features</a></li>
+<li><a href="#3-syntax-and-execution-model">3 - Syntax and Execution Model</a><ul>
+<li><a href="#running-awk-programs">Running awk programs</a></li>
+</ul>
+</li>
+<li><a href="#31-execution">3.1 -  Execution</a></li>
+<li><a href="#32-examples">3.2 - Examples</a></li>
+<li><a href="#4-data-types">4 - Data Types</a><ul>
+<li><a href="#41-strings-numbers">4.1 - Strings, Numbers</a></li>
+<li><a href="#42-variables">4.2 - Variables</a></li>
+<li><a href="#built-in-variables">Built-in Variables</a></li>
+<li><a href="#43-arrays">4.3 - Arrays</a></li>
+</ul>
+</li>
+<li><a href="#5-patterns">5 - Patterns</a><ul>
+<li><a href="#51-regular-expressions">5.1 - Regular Expressions</a></li>
+<li><a href="#52-boolean-expressions">5.2 - Boolean Expressions</a><ul>
+<li><a href="#note">Note</a></li>
+</ul>
+</li>
+<li><a href="#53-special-patterns-begin-and-end">5.3 - Special Patterns: BEGIN and END</a></li>
+</ul>
+</li>
+<li><a href="#6-actions">6 - Actions</a></li>
+<li><a href="#7-functions">7 - Functions</a></li>
+<li><a href="#8-sources-of-errors">8 - Sources of Errors</a></li>
+<li><a href="#9-applications">9 - Applications</a></li>
+<li><a href="#10-references">10 - References</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <h2 id="1-introduction">1 - Introduction<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
 <p>awk is not <em>just a command line tool</em>.</p>
 <p>It is a tiny, but full-featured Turing-complete <strong>programming language</strong> modeled on C, used to <strong>process up to GBs of structured data</strong>. The benefits of awk are best realized when the data has some kind of <u>structure</u>.  It extends the idea of text editing into data processing, analysis, extraction and reporting. A typical example of an awk program is one that transforms data into a formatted report, such as ingesting server log files. It extensively uses the string datatype, arrays indexed by key strings, and regular expressions.</p>
@@ -754,7 +985,13 @@
 <blockquote>
 <p><em>"**AWK*</em> is a language for processing text files. A file is treated as a sequence of records, and by default each line is a record. Each line is broken up into a sequence of fields, so we can think of the first word in a line as the first field, the second word as the second field, and so on. An AWK program is a sequence of pattern-action statements. AWK reads the input a line at a time. A line is scanned for each pattern in the program, and for each pattern that matches, the associated action is executed."*</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s2">&quot;python -c &#39;import this&#39; &gt; zen.txt&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
+<span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+<span class="n">run_on_bash</span><span class="p">(</span><span class="s2">&quot;python -c &#39;import this&#39; &gt; zen.txt&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span><span class="p">(</span><span class="s2">&quot;awk &#39;</span><span class="si">{print}</span><span class="s2">&#39; zen.txt&quot;</span><span class="p">)</span>
@@ -780,7 +1017,7 @@ Now is better than never.
 Although never is often better than *right* now.
 If the implementation is hard to explain, it&#39;s a bad idea.
 If the implementation is easy to explain, it may be a good idea.
-Namespaces are one honking great idea -- let&#39;s do more of those!
+Namespaces are one honking great idea -- let&#39;s do more of those.
 </code></pre></div>
 
 <hr />
@@ -1114,6 +1351,41 @@ function add1(val) {
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../01_UnixCoreutils/" title="Coreutils" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Coreutils
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../01-Bash-Programming/" title="Bash Programming" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Bash Programming
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

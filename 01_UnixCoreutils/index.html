@@ -27,12 +27,6 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#ff7043">
       
     
     
@@ -52,10 +46,7 @@
   </head>
   
   
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+    <body dir="ltr">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -521,7 +512,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -959,18 +950,7 @@
                   
                 
                 
-                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data/&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
-<span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
-
-<span class="n">run_on_bash</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<h1 id="gnu-coreutils">GNU Coreutils<a class="headerlink" href="#gnu-coreutils" title="Permanent link">&para;</a></h1>
-<hr />
+                <h1 id="gnu-coreutils">GNU Coreutils<a class="headerlink" href="#gnu-coreutils" title="Permanent link">&para;</a></h1>
 <p>These constitute one of most useful of all <a href="https://en.wikipedia.org/wiki/List_of_GNU_packages">GNU Packages</a> that are a intergral part of the daily work of millions of programmers/scientists. <br>(Other well known packages include <code>grep</code>, <code>screen</code>, <code>gzip</code>, <code>tar</code>, <code>time</code> etc. Oh, and the <code>R</code> programming language.)</p>
 <blockquote>
 <p>"<em>The GNU Core Utilities are the basic file, shell and <strong>text manipulation</strong> utilities of the GNU operating system.These are the core utilities which are expected to <strong>exist on every OS</strong>.</em>"</p>
@@ -1008,31 +988,20 @@ man COMMAND
 
 <hr />
 <h2 id="know-your-system">Know your system<a class="headerlink" href="#know-your-system" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># -------------------------------------------------------------------</span>
-<span class="c1"># Kernel Info </span>
-
+<div class="highlight"><pre><span></span><code><span class="c1"># Kernel Info </span>
 uname -a <span class="c1"># all </span>
 uname -r <span class="c1"># exact</span>
 
-
-<span class="c1"># -------------------------------------------------------------------</span>
 <span class="c1"># Linux Version</span>
-
 lsb_release -a    <span class="c1"># all</span>
 lsb_release -r    <span class="c1"># exact</span>
 lsb_release -a -u <span class="c1"># for derived distros like elementary</span>
 
-
-<span class="c1"># -------------------------------------------------------------------</span>
 <span class="c1"># HDD Partition Info</span>
-
 fdisk -l 
 lsblk -o NAME,SIZE <span class="c1"># human readable tree</span>
 
-
-<span class="c1"># -------------------------------------------------------------------</span>
 <span class="c1"># LOCALE</span>
-
 <span class="c1"># List what locales currently defined for the current user </span>
 locale
 
@@ -1040,34 +1009,19 @@ locale
 sudo locale-gen <span class="s2">&quot;en_US.UTF-8&quot;</span>
 sudo dpkg-reconfigure locales
 
-
-<span class="c1"># -------------------------------------------------------------------</span>
 <span class="c1"># ENVIRONMENT VARIABLES</span>
-
+<span class="c1"># list all active variables</span>
 env
-<span class="c1"># this will list all active variables</span>
-
+<span class="c1"># add a new variable to the list</span>
 EXPORT <span class="nv">ENV_VAR</span><span class="o">=</span>val
-<span class="c1"># will add a new variable to the list</span>
 
-
-<span class="c1"># -------------------------------------------------------------------</span>
 <span class="c1"># PATH</span>
-
+<span class="c1"># list the programs on the path</span>
 <span class="nb">echo</span> <span class="nv">$PATH</span>
-<span class="c1"># will list the programs on the path</span>
-
 <span class="c1"># add optional binary to the end of the path</span>
 <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/opt/bin
-
 <span class="c1"># add something ot the beginning</span>
 <span class="nv">PATH</span><span class="o">=</span>~/opt/bin:<span class="nv">$PATH</span>
-
-
-<span class="c1"># -------------------------------------------------------------------</span>
-<span class="c1"># The very basics</span>
-
-$ mkdir d <span class="o">&amp;&amp;</span> <span class="nb">cd</span> d
 </code></pre></div>
 
 <hr />
@@ -1188,11 +1142,10 @@ or available locally via: info &#39;(coreutils) cat invocation&#39;
      2  4 5 6
 
      3  7 8 9
-
-
-     4  10 11 12
 </code></pre></div>
 
+<p>​  <br />
+​         4 10 11 12</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># squeeze multiple blank lines to 1</span>
 <span class="err">!</span><span class="n">cat</span> <span class="o">-</span><span class="n">bs</span> <span class="n">f01</span><span class="o">.</span><span class="n">txt</span>
 </code></pre></div>
@@ -2000,7 +1953,7 @@ or available locally via: info &#39;(coreutils) paste invocation&#39;
           </a>
         
         
-          <a href="../08_awk_v2/" title="AWK" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../08_awk/" title="AWK" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">

@@ -27,12 +27,6 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#ff7043">
       
     
     
@@ -52,10 +46,7 @@
   </head>
   
   
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+    <body dir="ltr">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -306,7 +297,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -419,6 +410,20 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    Data
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#see-column-names" class="md-nav__link">
@@ -723,6 +728,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#see-column-names" class="md-nav__link">
     See column names
   </a>
@@ -881,29 +900,45 @@
                   
                 
                 
-                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">csv</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>   7453216 flights.csv
-        10 flights_01.csv
-        10 flights_02.csv
-      1000 flights_1k.csv
-  10000001 fromPandas.csv
-        27 get-csvs.sh
-  17454264 total
-</code></pre></div>
-
-<h1 id="csvtk">csvtk<a class="headerlink" href="#csvtk" title="Permanent link">&para;</a></h1>
+                <h1 id="csvtk">csvtk<a class="headerlink" href="#csvtk" title="Permanent link">&para;</a></h1>
 <ul>
 <li>A cross-platform, efficient, practical and pretty CSV/TSV toolkit in Golang</li>
 <li><a href="http://bioinf.shenwei.me/csvtk/">docs</a></li>
 <li><a href="http://bioinf.shenwei.me/csvtk/usage/">Usage</a></li>
 <li><a href="http://bioinf.shenwei.me/csvtk/tutorial/">Tutorial</a></li>
 </ul>
+<div class="toc">
+<ul>
+<li><a href="#csvtk">csvtk</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#data">Data</a></li>
+<li><a href="#see-column-names">See column names</a></li>
+<li><a href="#see-first-few-rows">See first few rows</a></li>
+<li><a href="#pretty">pretty</a></li>
+<li><a href="#sample">sample</a></li>
+<li><a href="#stats">stats</a></li>
+<li><a href="#cut">cut</a></li>
+<li><a href="#uniq">uniq</a></li>
+<li><a href="#freq">freq</a></li>
+<li><a href="#plot">plot</a><ul>
+<li><a href="#histogram">Histogram</a></li>
+<li><a href="#boxplots">Boxplots</a></li>
+<li><a href="#scatterplot">ScatterPlot</a></li>
+</ul>
+</li>
+<li><a href="#grep">grep</a></li>
+<li><a href="#filter">filter</a></li>
+<li><a href="#filter2">filter2</a></li>
+<li><a href="#rename">rename</a></li>
+<li><a href="#stats2">stats2</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#sort">sort</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr />
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvtk</span>
 </code></pre></div>
 
@@ -986,6 +1021,23 @@ Flags:
   -t, --tabs                   specifies that the input CSV file is delimited with tabs. Overrides &quot;-d&quot; and &quot;-D&quot;
 
 Use &quot;csvtk [command] --help&quot; for more information about a command.
+</code></pre></div>
+
+<h2 id="data">Data<a class="headerlink" href="#data" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">csv</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>   7453216 flights.csv
+        10 flights_01.csv
+        10 flights_02.csv
+      1000 flights_1k.csv
+  10000001 fromPandas.csv
+        27 get-csvs.sh
+  17454264 total
 </code></pre></div>
 
 <h2 id="see-column-names">See column names<a class="headerlink" href="#see-column-names" title="Permanent link">&para;</a></h2>
