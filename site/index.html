@@ -760,17 +760,13 @@
 This repository focues on open-source command-line utilities that can do the same.</p>
 <p>Yes, there are Python libraries that allow you to work with larger-than-RAM files on a single machine (<code>Spark</code>, <code>Dask</code> and perhaps some more), but we'll keep that for later.</p>
 <h2 id="why">Why<a class="headerlink" href="#why" title="Permanent link">&para;</a></h2>
+<p>Because I've met too many 'data scientists' who</p>
 <ul>
-<li>Because I've met too many 'data scientists' who</li>
-<li>have a complete lack of awareness of the limits of their own hardware.<ul>
+<li>have a complete lack of awareness of the limits of their own hardware.</li>
 <li>See <a href="https://www.chrisstucchio.com/blog/2013/hadoop_hatred.html">Don't use Hadoop - your data isn't that big</a></li>
-</ul>
-</li>
-<li>are forgetting Statistics! Sometimes you can fit a model on a (representative) <em>sample</em> of data, and you might not need distributed ML.<ul>
+<li>are forgetting Statistics! Sometimes you can fit a model on a (representative) <em>sample</em> of data, and you might not need distributed ML.</li>
 <li>See <a href="https://simplystatistics.org/2017/05/31/deeplearning-vs-leekasso/">Don't use deep learning your data isn't that big</a></li>
 <li>Also see <a href="http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html">learning curves</a></li>
-</ul>
-</li>
 <li>Because there is an entire ecosystem of wonderful open-source software for data analysis</li>
 <li>Because renting servers with more RAM or more cores is now easier and cheaper than ever.</li>
 <li>Because too many businesses do not have massive data and are spending money and resources trying to solve their problems with the wrong (and expensive) tools</li>
@@ -806,7 +802,7 @@ This repository focues on open-source command-line utilities that can do the sam
 <li>A conda environment <code>ds-py3</code> configured with the PyData stack (<code>pandas</code>, <code>scikit-learn</code> ...)</li>
 <li>Build (or pull) the docker image</li>
 </ul>
-<div class="highlight"><pre><span></span><code># clone this repo, and 
+<div class="highlight"><pre><span></span><code># clone this repo, and
 cd docker/
 docker build -t cli-4-ds .
 # or
@@ -929,7 +925,7 @@ python make-data.py
 <h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing</li>
-<li>For now, <a href="http://randyzwitch.com/gnu-parallel-medium-data/">here's</a> something to munch on </li>
+<li>For now, <a href="http://randyzwitch.com/gnu-parallel-medium-data/">here's</a> something to munch on</li>
 </ul>
                 
               
