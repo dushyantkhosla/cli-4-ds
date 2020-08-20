@@ -11,21 +11,23 @@
         <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
       
       
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/Python__FilesLargerThanRAM_PandasDaskSpark/">
+      
       
         <meta name="author" content="Dushyant Khosla">
       
-      <link rel="shortcut icon" href="/cli4ds/assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
     
     
       
-        <title>CLI Tools and Tricks for Data Science</title>
+        <title>Larger Than RAM - CLI Tools and Tricks for Data Science</title>
       
     
     
-      <link rel="stylesheet" href="/cli4ds/assets/stylesheets/main.b8ac9624.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="/cli4ds/assets/stylesheets/palette.28f3ef9a.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
       
       
         
@@ -61,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#working-with-files-larger-than-ram" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -85,7 +92,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              
+              Larger Than RAM
             
           </span>
         </div>
@@ -154,7 +161,7 @@
         
   <li class="md-tabs__item">
     
-      <a href="/cli4ds/." class="md-tabs__link md-tabs__link--active">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
         Home
       </a>
     
@@ -166,7 +173,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/01_UnixCoreutils/" class="md-tabs__link">
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
           Unix Tools
         </a>
       
@@ -179,7 +186,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/02_csvkit/" class="md-tabs__link">
+        <a href="../02_csvkit/" class="md-tabs__link">
           CLI Tools
         </a>
       
@@ -194,7 +201,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/00_dbs_catalogue-of-life/" class="md-tabs__link">
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
           Databases
         </a>
       
@@ -248,7 +255,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/." title="Home" class="md-nav__link">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -285,7 +292,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
       Coreutils
     </a>
   </li>
@@ -297,7 +304,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -309,7 +316,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
       Bash Programming
     </a>
   </li>
@@ -321,7 +328,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/07_datamash/" title="Datamash" class="md-nav__link">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
       Datamash
     </a>
   </li>
@@ -363,7 +370,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/02_csvkit/" title="CSVKit" class="md-nav__link">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
       CSVKit
     </a>
   </li>
@@ -375,7 +382,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/03_csvtk/" title="CSVTK" class="md-nav__link">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
       CSVTK
     </a>
   </li>
@@ -387,7 +394,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/04_xsv/" title="XSV" class="md-nav__link">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
       XSV
     </a>
   </li>
@@ -399,7 +406,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/05_miller/" title="Miller" class="md-nav__link">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
       Miller
     </a>
   </li>
@@ -411,7 +418,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/06_q_textql/" title="Q" class="md-nav__link">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
       Q
     </a>
   </li>
@@ -426,11 +433,140 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="/cli4ds/Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Larger Than RAM
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Larger Than RAM" class="md-nav__link md-nav__link--active">
       Larger Than RAM
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#start-here" class="md-nav__link">
+    Start here
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-break-large-flat-file-into-many-smaller-files" class="md-nav__link">
+    1. Break large flat file into many smaller files
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Break large flat file into many smaller files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-read-file-with-chunksize-and-push-to-a-db" class="md-nav__link">
+    2. Read file with chunksize and push to a DB
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Read file with chunksize and push to a DB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links_1" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-use-dask" class="md-nav__link">
+    3. Use Dask
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Use Dask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links_2" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-use-spark" class="md-nav__link">
+    4. Use Spark
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Use Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spark-vs-dask" class="md-nav__link">
+    Spark vs. Dask
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -465,7 +601,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
       Example 1
     </a>
   </li>
@@ -477,7 +613,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
       Example 2
     </a>
   </li>
@@ -489,7 +625,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
       Example 3
     </a>
   </li>
@@ -506,7 +642,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
       CLI-Fu
     </a>
   </li>
@@ -519,12 +655,264 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#start-here" class="md-nav__link">
+    Start here
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-break-large-flat-file-into-many-smaller-files" class="md-nav__link">
+    1. Break large flat file into many smaller files
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Break large flat file into many smaller files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-read-file-with-chunksize-and-push-to-a-db" class="md-nav__link">
+    2. Read file with chunksize and push to a DB
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Read file with chunksize and push to a DB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links_1" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-use-dask" class="md-nav__link">
+    3. Use Dask
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Use Dask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#links_2" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-use-spark" class="md-nav__link">
+    4. Use Spark
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Use Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spark-vs-dask" class="md-nav__link">
+    Spark vs. Dask
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
-
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/Python__FilesLargerThanRAM_PandasDaskSpark.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="working-with-files-larger-than-ram">Working with Files Larger Than RAM<a class="headerlink" href="#working-with-files-larger-than-ram" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#working-with-files-larger-than-ram">Working with Files Larger Than RAM</a><ul>
+<li><a href="#start-here">Start here</a></li>
+<li><a href="#1-break-large-flat-file-into-many-smaller-files">1. Break large flat file into many smaller files</a><ul>
+<li><a href="#links">Links</a></li>
+</ul>
+</li>
+<li><a href="#2-read-file-with-chunksize-and-push-to-a-db">2. Read file with chunksize and push to a DB</a><ul>
+<li><a href="#links_1">Links</a></li>
+</ul>
+</li>
+<li><a href="#3-use-dask">3. Use Dask</a><ul>
+<li><a href="#links_2">Links</a></li>
+</ul>
+</li>
+<li><a href="#4-use-spark">4. Use Spark</a><ul>
+<li><a href="#spark-vs-dask">Spark vs. Dask</a></li>
+</ul>
+</li>
+<li><a href="#_1"></a></li>
+</ul>
+</li>
+<li><a href="#blaze">Blaze</a></li>
+</ul>
+</div>
+<h2 id="start-here">Start here<a class="headerlink" href="#start-here" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=RTiAMB2tQjo">Overview of tools</a></li>
+<li><a href="http://slides.com/israelsaetaperez/distributed-computing-spark-dask/embed">When to use Unix tools, Dask, Spark</a></li>
+</ul>
+<hr />
+<p><br></p>
+<h2 id="1-break-large-flat-file-into-many-smaller-files">1. Break large flat file into many smaller files<a class="headerlink" href="#1-break-large-flat-file-into-many-smaller-files" title="Permanent link">&para;</a></h2>
+<ul>
+<li>works well for time-series data</li>
+<li>allows for parallel processing</li>
+</ul>
+<h3 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Example on splitting a <a href="http://dsnotes.com/post/2017-02-07-large-data-feature-hashing-and-online-learning-part-2/">large file</a></li>
+</ul>
+<hr />
+<p><br></p>
+<h2 id="2-read-file-with-chunksize-and-push-to-a-db">2. Read file with <code>chunksize</code> and push to a DB<a class="headerlink" href="#2-read-file-with-chunksize-and-push-to-a-db" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Work entirely in Pandas</li>
+<li>Never hold more than, say 200MB in RAM</li>
+<li>Apply functions <ul>
+<li>Clean     -    outliers and missing values </li>
+<li>Compress  -    use appropriate dtypes</li>
+<li>Transform -    create or drop columns </li>
+</ul>
+</li>
+<li>Load file into a DB and query it<ul>
+<li>SQLite or PostgreSQL</li>
+<li>HDF5store (Pytables)</li>
+</ul>
+</li>
+</ul>
+<h3 id="links_1">Links<a class="headerlink" href="#links_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="http://stackoverflow.com/questions/14262433/large-data-work-flows-using-pandas">The SO post that started it all, see for HDF5 workflow</a></li>
+<li><a href="https://plot.ly/python/big-data-analytics-with-pandas-and-sqlite/">Pandas + SQLite</a> </li>
+<li><a href="http://pythondata.com/working-large-csv-files-python/">Another SQLite</a></li>
+<li><a href="http://sdsawtelle.github.io/blog/output/large-data-files-pandas-sqlite.html">And another, with good advice on compression</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems">SQLite vs. MySQL vs. PostgreSQL</a></li>
+</ul>
+<hr />
+<p><br></p>
+<h2 id="3-use-dask">3. Use <code>Dask</code><a class="headerlink" href="#3-use-dask" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>light-weight framework for working with chunked arrays or dataframes across a variety of computational backends. </p>
+<p>If you’re running into memory issues or CPU boundaries on a single machine when using Pandas, NumPy, or other computations with Python, Dask can help you scale up on all of the cores on a single machine. 
+Dask works well on a single machine to make use of all of the cores on your laptop and process larger-than-memory data</p>
+</blockquote>
+<ul>
+<li>Doesn't load the data into memory until you ask for an answer with <code>.compute()</code></li>
+<li>the approach used here will straightforwardly scale to even larger datasets analyzed across multiple machines</li>
+<li>Useful, but for the long term a DB would be better</li>
+</ul>
+<h3 id="links_2">Links<a class="headerlink" href="#links_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/dask/dask-tutorial">THE dask tutorial in .ipynb files</a></li>
+<li><a href="http://dask.pydata.org/en/latest/index.html">Read the Docs!</a></li>
+<li>Dask <a href="http://dask.pydata.org/en/latest/dataframe-overview.html">DataFrames</a> and <a href="http://dask.pydata.org/en/latest/machine-learning.html">Machine Learning</a></li>
+<li><a href="http://stackoverflow.com/questions/37979167/how-to-parallelize-many-fuzzy-string-comparisons-using-apply-in-pandas">Simple Example</a></li>
+<li><a href="http://pythondata.com/dask-large-csv-python/">Example with 7.5GB NYC 311 Service Requests Data</a></li>
+<li><a href="https://jakevdp.github.io/blog/2015/08/14/out-of-core-dataframes-in-python/">Jake VDP</a></li>
+<li><a href="https://www.continuum.io/blog/developer-blog/high-performance-hadoop-anaconda-and-dask-your-cluster">Dask on Single Machines, Clusters -- Continuum Anaytics</a></li>
+<li><a href="http://matthewrocklin.com/blog/work/2017/01/12/dask-dataframes">Distributed Pandas on a Cluster with Dask DataFrames</a></li>
+</ul>
+<hr />
+<p><br></p>
+<h2 id="4-use-spark">4. Use <code>Spark</code><a class="headerlink" href="#4-use-spark" title="Permanent link">&para;</a></h2>
+<ul>
+<li>a</li>
+<li>b</li>
+<li>c</li>
+</ul>
+<hr />
+<h3 id="spark-vs-dask">Spark vs. Dask<a class="headerlink" href="#spark-vs-dask" title="Permanent link">&para;</a></h3>
+<p><br></p>
+<blockquote>
+<p>Apache Spark is an all-inclusive framework combining distributed computing, SQL queries, machine learning, and more that runs on the JVM and is commonly co-deployed with other Big Data frameworks like Hadoop. It was originally optimized for bulk data ingest and querying common in data engineering and business analytics but has since broadened out. Spark is typically used on small to medium sized cluster but also runs well on a single machine.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>Dask is a <strong>parallel programming library</strong> that combines with the Numeric Python ecosystem to <strong>provides parallel arrays, dataframes</strong>, machine learning, and custom algorithms. It is based on Python and the foundational C/Fortran stack. Dask was originally designed to complement other libraries with parallelism, particular for numeric computing and advanced analytics, but has since broadened out. Dask is <strong>typically used on a single machine</strong>, but also runs well on a distributed cluster.</p>
+<p>Dask is <strong>smaller, lighter weight</strong> than Spark. This means that it has <strong>fewer features</strong> and instead is intended to be <strong>used in conjunction 
+with other libraries</strong> like Numpy and Pandas</p>
+</blockquote>
+<p>For more, see <a href="http://dask.pydata.org/en/latest/spark.html">this</a></p>
+<h2 id="_1"><br><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h1 id="blaze">Blaze<a class="headerlink" href="#blaze" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="http://chdoig.github.io/ep2015-blaze/#/">slides</a></li>
+<li><a href="https://github.com/blaze/blaze-tutorial">tutorial</a></li>
+<li><a href="http://blaze.readthedocs.io/en/latest/index.html">Read the Docs</a></li>
+<li><a href="http://blaze.pydata.org/pages/projects/">Projects</a></li>
+<li><a href="https://statcompute.wordpress.com/2015/03/27/a-comparison-between-blaze-and-pandas/">Example - Pandas code vs. Blaze code</a></li>
+</ul>
+<hr />
+                
+              
               
                 
 
@@ -537,6 +925,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../06_q_textql/" title="Q" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Q
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Example 1
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -604,15 +1027,15 @@
       
     </div>
     
-      <script src="/cli4ds/assets/javascripts/vendor.d1f5a259.min.js"></script>
-      <script src="/cli4ds/assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: "/cli4ds/",
+          base: "..",
           features: ["tabs"],
           search: Object.assign({
-            worker: "/cli4ds/assets/javascripts/worker/search.fae956e7.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

@@ -11,21 +11,23 @@
         <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
       
       
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/06_q_textql/">
+      
       
         <meta name="author" content="Dushyant Khosla">
       
-      <link rel="shortcut icon" href="/cli4ds/assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
     
     
       
-        <title>CLI Tools and Tricks for Data Science</title>
+        <title>Q - CLI Tools and Tricks for Data Science</title>
       
     
     
-      <link rel="stylesheet" href="/cli4ds/assets/stylesheets/main.b8ac9624.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="/cli4ds/assets/stylesheets/palette.28f3ef9a.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
       
       
         
@@ -61,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#basic-info-on-a-file" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -85,7 +92,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              
+              Q
             
           </span>
         </div>
@@ -147,14 +154,16 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href="/cli4ds/." class="md-tabs__link md-tabs__link--active">
+      <a href=".." class="md-tabs__link">
         Home
       </a>
     
@@ -166,7 +175,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/01_UnixCoreutils/" class="md-tabs__link">
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
           Unix Tools
         </a>
       
@@ -179,7 +188,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/02_csvkit/" class="md-tabs__link">
+        <a href="../02_csvkit/" class="md-tabs__link md-tabs__link--active">
           CLI Tools
         </a>
       
@@ -194,7 +203,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/00_dbs_catalogue-of-life/" class="md-tabs__link">
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
           Databases
         </a>
       
@@ -248,7 +257,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/." title="Home" class="md-nav__link">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -285,7 +294,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
       Coreutils
     </a>
   </li>
@@ -297,7 +306,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -309,7 +318,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
       Bash Programming
     </a>
   </li>
@@ -321,7 +330,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/07_datamash/" title="Datamash" class="md-nav__link">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
       Datamash
     </a>
   </li>
@@ -336,10 +345,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
     <label class="md-nav__link" for="nav-3">
       CLI Tools
@@ -363,7 +374,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/02_csvkit/" title="CSVKit" class="md-nav__link">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
       CSVKit
     </a>
   </li>
@@ -375,7 +386,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/03_csvtk/" title="CSVTK" class="md-nav__link">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
       CSVTK
     </a>
   </li>
@@ -387,7 +398,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/04_xsv/" title="XSV" class="md-nav__link">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
       XSV
     </a>
   </li>
@@ -399,7 +410,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/05_miller/" title="Miller" class="md-nav__link">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
       Miller
     </a>
   </li>
@@ -409,11 +420,20 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="/cli4ds/06_q_textql/" title="Q" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Q" class="md-nav__link md-nav__link--active">
       Q
     </a>
+    
   </li>
 
         
@@ -428,7 +448,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
       Larger Than RAM
     </a>
   </li>
@@ -465,7 +485,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
       Example 1
     </a>
   </li>
@@ -477,7 +497,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
       Example 2
     </a>
   </li>
@@ -489,7 +509,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
       Example 3
     </a>
   </li>
@@ -506,7 +526,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
       CLI-Fu
     </a>
   </li>
@@ -519,12 +539,185 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/06_q_textql.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
+</code></pre></div>
 
+<div class="highlight"><pre><span></span><code><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">kdd</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>       42 kddcup-names
+  4898431 kddcup.data
+  4898473 total
+</code></pre></div>
+
+<h2 id="basic-info-on-a-file">Basic Info on a File<a class="headerlink" href="#basic-info-on-a-file" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">|</span> <span class="n">csvtk</span> <span class="n">stats</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>file   num_cols    num_rows
+-            42   4,898,430
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">echo</span> <span class="s1">&#39;interaction_type&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">kdd</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">kdd</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>duration,protocol_type,service,flag,src_bytes,dst_bytes,land,wrong_fragment,urgent,hot,num_failed_logins,logged_in,num_compromised,root_shell,su_attempted,num_root,num_file_creations,num_shells,num_access_files,num_outbound_cmds,is_host_login,is_guest_login,count,srv_count,serror_rate,srv_serror_rate,rerror_rate,srv_rerror_rate,same_srv_rate,diff_srv_rate,srv_diff_host_rate,dst_host_count,dst_host_srv_count,dst_host_same_srv_rate,dst_host_diff_srv_rate,dst_host_same_src_port_rate,dst_host_srv_diff_host_rate,dst_host_serror_rate,dst_host_srv_serror_rate,dst_host_rerror_rate,dst_host_srv_rerror_rate,interaction_type
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">data</span> <span class="o">&gt;&gt;</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">kdd</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">kdd</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f30</span><span class="o">-</span><span class="mi">42</span> <span class="o">|</span> <span class="n">sed</span> <span class="s1">&#39;1d&#39;</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>0.00,0.00,0,0,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,1,1,1.00,0.00,1.00,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,2,2,1.00,0.00,0.50,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,3,3,1.00,0.00,0.33,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,4,4,1.00,0.00,0.25,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,5,5,1.00,0.00,0.20,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,6,6,1.00,0.00,0.17,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,7,7,1.00,0.00,0.14,0.00,0.00,0.00,0.00,0.00,normal.
+0.00,0.00,8,8,1.00,0.00,0.12,0.00,0.00,0.00,0.00,0.00,normal.
+</code></pre></div>
+
+<h1 id="q-text-as-data"><code>q: text as data</code><a class="headerlink" href="#q-text-as-data" title="Permanent link">&para;</a></h1>
+<ul>
+<li>
+<p><a href="http://harelba.github.io/q/index.html">http://harelba.github.io/q/index.html</a></p>
+</li>
+<li>
+<p>q allows performing SQL-like statements on tabular text data.</p>
+</li>
+<li>Its purpose is to bring SQL expressive power to manipulating text data using the Linux command line.</li>
+<li>Basic usage is <code>q "&lt;sql like query&gt;"</code> where table names are just regular file names</li>
+<li>When the input contains a header row, use <code>-H</code>, and column names will be set according to the header row content. <ul>
+<li>If there isn't a header row, then columns will automatically be named <code>c1..cN</code></li>
+</ul>
+</li>
+<li>Column types are detected automatically. Use <code>-A</code> in order to see the column name/type analysis.</li>
+<li>Delimiter can be set using the <code>-d</code> (or <code>-t</code>) option. <ul>
+<li>Output delimiter can be set using <code>-D</code></li>
+</ul>
+</li>
+<li>All sqlite3 SQL constructs are supported.</li>
+</ul>
+<blockquote>
+<ul>
+<li>Please note that column names that include spaces need to be used in the query with back-ticks, as per the sqlite standard.</li>
+<li>Full type detection is implemented, so there is no need for any casting</li>
+<li>Multiple Files<ul>
+<li>Multiple files can be concatenated by using one of both of the following ways:</li>
+<li>Separating the filenames with a + sign: SELECT * FROM datafile1+datafile2+datefile3.</li>
+<li>Using glob matching: SELECT * FROM mydata*.dat</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>countrynames.csv
+Crimes_Chicago.csv
+Flight_Delays.csv
+fromPandas.csv
+het-bool.csv
+kdd.csv
+millionSongsSample.csv
+NYC__311Requests.csv
+worldcitiespop.csv
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Fun__Item.txt
+Fun__Sales.txt
+kddcup.names.txt
+MusicXMatch__Test.txt
+MusicXMatch__Train.txt
+Stock_Export.txt
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">kdd</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">q</span> <span class="o">-</span><span class="n">H</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;SELECT distinct(interaction_type), count(*) from - group by 1 order by 2 desc&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>smurf.,2807886
+neptune.,1072017
+normal.,972781
+satan.,15892
+ipsweep.,12481
+portsweep.,10413
+nmap.,2316
+back.,2203
+warezclient.,1020
+teardrop.,979
+pod.,264
+guess_passwd.,53
+buffer_overflow.,30
+land.,21
+warezmaster.,20
+imap.,12
+rootkit.,10
+loadmodule.,9
+ftp_write.,8
+multihop.,7
+phf.,4
+perl.,3
+spy.,2
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">head</span> <span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">kdd</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">q</span> <span class="o">-</span><span class="n">H</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;SELECT interaction_type, case when interaction_type = &#39;normal.&#39; then 0 else 1 end as attack </span><span class="se">\</span>
+<span class="s2">from -&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>normal.,0
+normal.,0
+normal.,0
+normal.,0
+normal.,0
+normal.,0
+normal.,0
+normal.,0
+normal.,0
+</code></pre></div>
+                
+              
               
                 
 
@@ -537,6 +730,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../05_miller/" title="Miller" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Miller
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Larger Than RAM
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -604,15 +832,15 @@
       
     </div>
     
-      <script src="/cli4ds/assets/javascripts/vendor.d1f5a259.min.js"></script>
-      <script src="/cli4ds/assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: "/cli4ds/",
+          base: "..",
           features: ["tabs"],
           search: Object.assign({
-            worker: "/cli4ds/assets/javascripts/worker/search.fae956e7.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

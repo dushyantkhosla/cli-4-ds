@@ -1,0 +1,1578 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
+      
+      
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/CLI-Fu/">
+      
+      
+        <meta name="author" content="Dushyant Khosla">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>CLI-Fu - CLI Tools and Tricks for Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#readme" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-header-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CLI Tools and Tricks for Data Science
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              CLI-Fu
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
+          Unix Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../02_csvkit/" class="md-tabs__link">
+          CLI Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
+          Databases
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CLI Tools and Tricks for Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Unix Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Unix Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Unix Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+      Coreutils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+      AWK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+      Bash Programming
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
+      Datamash
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CLI Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="CLI Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        CLI Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
+      CSVKit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
+      CSVTK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
+      XSV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
+      Miller
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
+      Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+      Larger Than RAM
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Databases
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Databases" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Databases
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+      Example 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+      Example 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+      Example 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="CLI-Fu" class="md-nav__link md-nav__link--active">
+      CLI-Fu
+    </a>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/CLI-Fu.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="readme">README<a class="headerlink" href="#readme" title="Permanent link">&para;</a></h1>
+<hr />
+<p>This document serves as an accompanying guide/index to the command-line tools discussed in the notebooks. Here we have presented the relevant functions/verbs from command-line-tools that work with tabular data in the context of data-analysis tasks.</p>
+<p>Expand each section for names of functions that help in performing said task, then access the respective notebook for specific examples.</p>
+<hr />
+<h1 id="00-import-inspect"><span class="arithmatex">\(00 - Import, Inspect\)</span><a class="headerlink" href="#00-import-inspect" title="Permanent link">&para;</a></h1>
+<h2 id="conversion"><code>conversion</code><a class="headerlink" href="#conversion" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>from/to csv</em></li>
+</ul>
+<hr />
+<div class="highlight"><pre><span></span><code>in2csv, csv2json
+csvtk csv2tab, space2tab, tab2csv
+xsv fmt
+mlr cat
+
+<span class="c1">## compressed data?</span>
+mlr --prepipe
+</code></pre></div>
+
+<hr />
+<h2 id="display"><code>display</code><a class="headerlink" href="#display" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>head, tail
+csvlook
+csvtk pretty
+xsv table
+mlr head, tail
+</code></pre></div>
+
+<hr />
+<h2 id="count"><code>count</code><a class="headerlink" href="#count" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>rows, columns</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>wc
+xsv count
+</code></pre></div>
+
+<hr />
+<h2 id="types"><code>types</code><a class="headerlink" href="#types" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>detect types, conversion</em></li>
+</ul>
+<hr />
+<div class="highlight"><pre><span></span><code>mlr put is_*
+mlr put boolean, int, float, string
+</code></pre></div>
+
+<hr />
+<h2 id="column-names"><code>column names</code><a class="headerlink" href="#column-names" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>csvcut -n
+xsv headers
+csvtk headers
+mlr label
+</code></pre></div>
+
+<h1 id="01-subset"><span class="arithmatex">\(01 - Subset\)</span><a class="headerlink" href="#01-subset" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="rename"><code>rename</code><a class="headerlink" href="#rename" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>one/many columns</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>csvtk rename, rename2
+mlr rename
+</code></pre></div>
+
+<hr />
+<h2 id="index"><code>index</code><a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>create row names/indentifiers</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>nl
+xsv index
+</code></pre></div>
+
+<hr />
+<h2 id="subset-columns"><code>subset columns</code><a class="headerlink" href="#subset-columns" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>select/exclude cols</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>cut
+csvcut
+csvtk <span class="k">select</span>
+xsv <span class="k">select</span>
+mlr cut
+mlr having-fields
+</code></pre></div>
+
+<hr />
+<h2 id="subset-rows"><code>subset rows</code><a class="headerlink" href="#subset-rows" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>select/exclude rows</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>cut
+csvgrep
+csvtk filter, filter2, grep
+xsv search
+mlr filter
+</code></pre></div>
+
+<hr />
+<h2 id="sample"><code>sample</code><a class="headerlink" href="#sample" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>with (bootstrap) or without replacement (permutation)</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>shuf
+csvtk sample
+xsv sample
+mlr bootstrap, sample, shuffle, decimate
+</code></pre></div>
+
+<hr />
+<h2 id="split"><code>split</code><a class="headerlink" href="#split" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>large file into smaller files</em></li>
+</ul>
+<hr />
+<div class="highlight"><pre><span></span><code>split
+csplit
+xsv split
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<h1 id="02-clean"><span class="arithmatex">\(02-Clean\)</span><a class="headerlink" href="#02-clean" title="Permanent link">&para;</a></h1>
+<h2 id="missing"><code>missing</code><a class="headerlink" href="#missing" title="Permanent link">&para;</a></h2>
+<h2 id="detect-count-replace"><em>detect, count, replace</em><a class="headerlink" href="#detect-count-replace" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code>awk
+csvstat --nulls
+mlr put is_null, is_not_null
+</code></pre></div>
+
+<h2 id="duplicates"><code>duplicates</code><a class="headerlink" href="#duplicates" title="Permanent link">&para;</a></h2>
+<h2 id="identify-remove-dups"><em>identify, remove dups</em><a class="headerlink" href="#identify-remove-dups" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code>mlr repeat <span class="c1"># create dups</span>
+datamash rmdup
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<h1 id="03-mutate"><span class="arithmatex">\(03-Mutate\)</span><a class="headerlink" href="#03-mutate" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="mutate"><code>mutate</code><a class="headerlink" href="#mutate" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>create/drop rows, cols</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>awk
+mlr put
+csvtk mutate
+</code></pre></div>
+
+<hr />
+<h2 id="format"><code>format</code><a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>numerical formatting</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>numfmt
+datamash round, ceil, floor, trunc, frac
+</code></pre></div>
+
+<hr />
+<h2 id="time-conversions"><code>time conversions</code><a class="headerlink" href="#time-conversions" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>from/to epoch</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>mlr put with strftime, strptime
+mlr sec2gmt, sec2gmtdate
+</code></pre></div>
+
+<hr />
+<h2 id="functions"><code>functions</code><a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>apply, map</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>awk
+mlr put
+</code></pre></div>
+
+<hr />
+<h2 id="discretize"><code>discretize</code><a class="headerlink" href="#discretize" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>cut numerics into categoricals</em></li>
+</ul>
+<hr />
+<div class="highlight"><pre><span></span><code>datamash bin
+mlr histogram --nbins
+</code></pre></div>
+
+<hr />
+<h2 id="reshape"><code>reshape</code><a class="headerlink" href="#reshape" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>long/wide to wide/long</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>paste
+csvtk transpose
+datamash transpose
+
+<span class="c1"># pandas-like reshape</span>
+mlr reshape
+</code></pre></div>
+
+<hr />
+<h1 id="04-mergejoinconcat"><span class="arithmatex">\(04-Merge/Join/Concat\)</span><a class="headerlink" href="#04-mergejoinconcat" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="join"><code>join</code><a class="headerlink" href="#join" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>merge tables</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>join
+csvtk join
+xsv join
+</code></pre></div>
+
+<hr />
+<h2 id="concat"><code>concat</code><a class="headerlink" href="#concat" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>append/concat tables</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>cat
+csvstack
+xsv cat
+
+<span class="c1"># concat when cols are not same</span>
+mlr unsparsify
+</code></pre></div>
+
+<hr />
+<h2 id="compare-intersect"><code>compare, intersect</code><a class="headerlink" href="#compare-intersect" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>rows in A &amp; B, rows in A not in B etc.</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>comm
+csvtk intersect
+</code></pre></div>
+
+<h1 id="05-explore"><span class="arithmatex">\(05-Explore\)</span><a class="headerlink" href="#05-explore" title="Permanent link">&para;</a></h1>
+<h2 id="aggregate"><code>aggregate</code><a class="headerlink" href="#aggregate" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>group-by, pivot</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>datamash
+mlr
+</code></pre></div>
+
+<hr />
+<h2 id="sort"><code>sort</code><a class="headerlink" href="#sort" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>sort
+csvsort
+</code></pre></div>
+
+<hr />
+<h2 id="uniques"><code>uniques</code><a class="headerlink" href="#uniques" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>uniq
+csvtk uniq
+</code></pre></div>
+
+<hr />
+<h2 id="frequencies"><code>frequencies</code><a class="headerlink" href="#frequencies" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>uniq -c
+csvtk freq
+xsv frequency
+mlr top
+mlr least-frequent, most-frequent
+mlr fraction <span class="c1"># convert frequencies to percentages</span>
+</code></pre></div>
+
+<hr />
+<h2 id="crosstabs"><code>crosstabs</code><a class="headerlink" href="#crosstabs" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>datamash crosstab
+</code></pre></div>
+
+<hr />
+<h1 id="06-analyzevisualize"><span class="arithmatex">\(06-Analyze/Visualize\)</span><a class="headerlink" href="#06-analyzevisualize" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="univariate"><code>univariate</code><a class="headerlink" href="#univariate" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>mean/stddev, median, percentiles, skewness/kurtosis, mode, min/max</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>csvstat
+csvtk stats, stats2
+xsv stats
+mlr stats1, stats2
+datamash
+</code></pre></div>
+
+<hr />
+<h2 id="bivariate"><code>bivariate</code><a class="headerlink" href="#bivariate" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>correlation/covariance, regression, r-squared</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>mlr stats2
+</code></pre></div>
+
+<hr />
+<h2 id="visualize"><code>visualize</code><a class="headerlink" href="#visualize" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>histograms, scatterplots</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>csvtk plot
+mlr bar
+</code></pre></div>
+
+<h1 id="07-advanced"><span class="arithmatex">\(07-Advanced\)</span><a class="headerlink" href="#07-advanced" title="Permanent link">&para;</a></h1>
+<p><br><br><br><br></p>
+<hr />
+<h2 id="generate"><code>generate</code><a class="headerlink" href="#generate" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>random data</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>seq, shuf, pr
+mlr seqgen
+mlr put &quot;urand(), urandint()&quot;
+</code></pre></div>
+
+<hr />
+<h2 id="query"><code>query</code><a class="headerlink" href="#query" title="Permanent link">&para;</a></h2>
+<ul>
+<li><em>run sql queries</em></li>
+</ul>
+<div class="highlight"><pre><span></span><code>csvsql
+q -H -d, <span class="s2">&quot;&quot;&quot;query&quot;&quot;&quot;</span>
+
+<span class="c1"># generate a CREATE TABLE query for your csv</span>
+<span class="c1"># super useful when pushing data into a local db (mysql, postgresql etc.)</span>
+csvsql -i sqlite joined.csv
+</code></pre></div>
+
+<hr />
+<p><br><br><br><br></p>
+<h1 id="appendix"><span class="arithmatex">\(Appendix\)</span><a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h1>
+<hr />
+<p>Expand the sections below to read through the help pages of these tools and for a list of the most frequently used verbs.</p>
+<h2 id="datamash"><code>datamash</code><a class="headerlink" href="#datamash" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code>Primary operations:
+  groupby, crosstab, transpose, reverse, check
+
+Line-Filtering operations:
+  rmdup
+
+Per-Line operations:
+  base64, debase64, md5, sha1, sha256, sha512,
+  bin, strbin, round, floor, ceil, trunc, frac
+
+Numeric Grouping operations:
+  sum, min, max, absmin, absmax
+
+Textual/Numeric Grouping operations:
+  count, first, last, rand, unique, collapse, countunique
+
+Statistical Grouping operations:
+  mean, median, q1, q3, iqr, mode, antimode, pstdev, sstdev, pvar,
+  svar, mad, madraw, pskew, sskew, pkurt, skurt, dpo, jarque,
+  scov, pcov, spearson, ppearson
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">datamash</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: datamash [OPTION] op [fld] [op fld ...]
+
+Performs numeric/string operations on input from stdin.
+
+&#39;op&#39; is the operation to perform.  If a primary operation is used,
+it must be listed first, optionally followed by other operations.
+&#39;fld&#39; is the input field to use.  &#39;fld&#39; can be a number (1=first field),
+or a field name when using the -H or --header-in options.
+Multiple fields can be listed with a comma (e.g. 1,6,8).  A range of
+fields can be listed with a dash (e.g. 2-8).  Use colons for operations
+which require a pair of fields (e.g. &#39;pcov 2:6&#39;).
+
+
+Primary operations:
+  groupby, crosstab, transpose, reverse, check
+Line-Filtering operations:
+  rmdup
+Per-Line operations:
+  base64, debase64, md5, sha1, sha256, sha512,
+  bin, strbin, round, floor, ceil, trunc, frac
+Numeric Grouping operations:
+  sum, min, max, absmin, absmax
+Textual/Numeric Grouping operations:
+  count, first, last, rand, unique, collapse, countunique
+Statistical Grouping operations:
+  mean, median, q1, q3, iqr, mode, antimode, pstdev, sstdev, pvar,
+  svar, mad, madraw, pskew, sskew, pkurt, skurt, dpo, jarque,
+  scov, pcov, spearson, ppearson
+
+
+Grouping Options:
+  -f, --full                print entire input line before op results
+                              (default: print only the grouped keys)
+  -g, --group=X[,Y,Z]       group via fields X,[Y,Z];
+                              equivalent to primary operation &#39;groupby&#39;
+      --header-in           first input line is column headers
+      --header-out          print column headers as first line
+  -H, --headers             same as &#39;--header-in --header-out&#39;
+  -i, --ignore-case         ignore upper/lower case when comparing text;
+                              this affects grouping, and string operations
+  -s, --sort                sort the input before grouping; this removes the
+                              need to manually pipe the input through &#39;sort&#39;
+File Operation Options:
+      --no-strict           allow lines with varying number of fields
+      --filler=X            fill missing values with X (default %s)
+
+General Options:
+  -t, --field-separator=X   use X instead of TAB as field delimiter
+      --narm                skip NA/NaN values
+  -W, --whitespace          use whitespace (one or more spaces and/or tabs)
+                              for field delimiters
+  -z, --zero-terminated     end lines with 0 byte, not newline
+      --help     display this help and exit
+      --version  output version information and exit
+
+
+Examples:
+
+Print the sum and the mean of values from column 1:
+  $ seq 10 | datamash sum 1 mean 1
+  55  5.5
+
+Transpose input:
+  $ seq 10 | paste - - | datamash transpose
+  1    3    5    7    9
+  2    4    6    8    10
+
+For detailed usage information and examples, see
+  man GNU datamash
+The manual and more examples are available at
+  http://www.gnu.org/software/datamash
+</code></pre></div>
+
+<h2 id="mlr"><code>mlr</code><a class="headerlink" href="#mlr" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code>Verbs
+
+   bar bootstrap cat check count-distinct cut decimate filter grep group-by
+   group-like having-fields head histogram join label least-frequent
+   merge-fields most-frequent nest nothing fraction put regularize rename
+   reorder repeat reshape sample sec2gmt sec2gmtdate seqgen shuffle sort stats1
+   stats2 step tac tail tee top uniq unsparsify
+
+   Use <span class="s2">&quot;mlr {verb} -h&quot;</span> <span class="k">for</span> <span class="nb">help</span>
+
+Functions <span class="o">(</span><span class="k">for</span> the <span class="sb">`</span>filter<span class="sb">`</span> and <span class="sb">`</span>put<span class="sb">`</span> verbs<span class="o">)</span>
+
+    <span class="c1"># arithmetic, logical, conditional operators</span>
+   + + - - * / // % ** <span class="p">|</span> ^ <span class="p">&amp;</span> ~ &lt;&lt; &gt;&gt; <span class="o">==</span> !<span class="o">=</span> <span class="o">=</span>~ !<span class="o">=</span>~ &gt; &gt;<span class="o">=</span> &lt; &lt;<span class="o">=</span> <span class="o">&amp;&amp;</span> <span class="o">||</span> ^^ ! ? : .
+
+   <span class="c1"># string functions</span>
+   gsub strlen sub substr tolower toupper   
+
+   <span class="c1"># math</span>
+   abs ceil floor log log10 log1p
+   max min msub exp pow qnorm  
+   sgn sqrt cbrt
+
+   <span class="c1"># random numbers</span>
+   urand urand32 urandint 
+
+   <span class="c1"># date, time</span>
+   dhms2fsec dhms2sec fsec2dhms fsec2hms
+   gmt2sec hms2fsec hms2sec sec2dhms sec2gmt sec2gmt sec2gmtdate sec2hms
+   strftime strptime systime 
+
+   <span class="c1"># booleans</span>
+   is_absent is_bool is_boolean is_empty is_empty_map
+   is_float is_int is_map is_nonempty_map is_not_empty is_not_map is_not_null
+   is_null is_numeric is_present is_string 
+
+   <span class="c1"># type-conversoin, rounding, formatting </span>
+   boolean float int string
+   round roundm
+   fmtnum hexfmt 
+
+Use <span class="s2">&quot;mlr --help-function {function name}&quot;</span> <span class="k">for</span> <span class="k">function</span>-specific help.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">-</span><span class="n">h</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Usage: mlr [I/O options] {verb} [verb-dependent options ...] {zero or more file names}
+
+Command-line-syntax examples:
+  mlr --csv cut -f hostname,uptime mydata.csv
+  mlr --tsv --rs lf filter &#39;$status != &quot;down&quot; &amp;&amp; $upsec &gt;= 10000&#39; *.tsv
+  mlr --nidx put &#39;$sum = $7 &lt; 0.0 ? 3.5 : $7 + 2.1*$8&#39; *.dat
+  grep -v &#39;^#&#39; /etc/group | mlr --ifs : --nidx --opprint label group,pass,gid,member then sort -f group
+  mlr join -j account_id -f accounts.dat then group-by account_name balances.dat
+  mlr --json put &#39;$attr = sub($attr, &quot;([0-9]+)_([0-9]+)_.*&quot;, &quot;\1:\2&quot;)&#39; data/*.json
+  mlr stats1 -a min,mean,max,p10,p50,p90 -f flag,u,v data/*
+  mlr stats2 -a linreg-pca -f u,v -g shape data/*
+  mlr put -q &#39;@sum[$a][$b] += $x; end {emit @sum, &quot;a&quot;, &quot;b&quot;}&#39; data/*
+  mlr --from estimates.tbl put &#39;
+  for (k,v in $*) {
+    if (is_numeric(v) &amp;&amp; k =~ &quot;^[t-z].*$&quot;) {
+      $sum += v; $count += 1
+    }
+  }
+  $mean = $sum / $count # no assignment if count unset&#39;
+  mlr --from infile.dat put -f analyze.mlr
+  mlr --from infile.dat put &#39;tee &gt; &quot;./taps/data-&quot;.$a.&quot;-&quot;.$b, $*&#39;
+  mlr --from infile.dat put &#39;tee | &quot;gzip &gt; ./taps/data-&quot;.$a.&quot;-&quot;.$b.&quot;.gz&quot;, $*&#39;
+  mlr --from infile.dat put -q &#39;@v=$*; dump | &quot;jq .[]&quot;&#39;
+  mlr --from infile.dat put  &#39;(NR % 1000 == 0) { print &gt; stderr, &quot;Checkpoint &quot;.NR}&#39;
+
+Data-format examples:
+  DKVP: delimited key-value pairs (Miller default format)
+  +---------------------+
+  | apple=1,bat=2,cog=3 | Record 1: &quot;apple&quot; =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
+  | dish=7,egg=8,flint  | Record 2: &quot;dish&quot; =&gt; &quot;7&quot;, &quot;egg&quot; =&gt; &quot;8&quot;, &quot;3&quot; =&gt; &quot;flint&quot;
+  +---------------------+
+
+  NIDX: implicitly numerically indexed (Unix-toolkit style)
+  +---------------------+
+  | the quick brown     | Record 1: &quot;1&quot; =&gt; &quot;the&quot;, &quot;2&quot; =&gt; &quot;quick&quot;, &quot;3&quot; =&gt; &quot;brown&quot;
+  | fox jumped          | Record 2: &quot;1&quot; =&gt; &quot;fox&quot;, &quot;2&quot; =&gt; &quot;jumped&quot;
+  +---------------------+
+
+  CSV/CSV-lite: comma-separated values with separate header line
+  +---------------------+
+  | apple,bat,cog       |
+  | 1,2,3               | Record 1: &quot;apple =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
+  | 4,5,6               | Record 2: &quot;apple&quot; =&gt; &quot;4&quot;, &quot;bat&quot; =&gt; &quot;5&quot;, &quot;cog&quot; =&gt; &quot;6&quot;
+  +---------------------+
+
+  Tabular JSON: nested objects are supported, although arrays within them are not:
+  +---------------------+
+  | {                   |
+  |  &quot;apple&quot;: 1,        | Record 1: &quot;apple&quot; =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
+  |  &quot;bat&quot;: 2,          |
+  |  &quot;cog&quot;: 3           |
+  | }                   |
+  | {                   |
+  |   &quot;dish&quot;: {         | Record 2: &quot;dish:egg&quot; =&gt; &quot;7&quot;, &quot;dish:flint&quot; =&gt; &quot;8&quot;, &quot;garlic&quot; =&gt; &quot;&quot;
+  |     &quot;egg&quot;: 7,       |
+  |     &quot;flint&quot;: 8      |
+  |   },                |
+  |   &quot;garlic&quot;: &quot;&quot;      |
+  | }                   |
+  +---------------------+
+
+  PPRINT: pretty-printed tabular
+  +---------------------+
+  | apple bat cog       |
+  | 1     2   3         | Record 1: &quot;apple =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
+  | 4     5   6         | Record 2: &quot;apple&quot; =&gt; &quot;4&quot;, &quot;bat&quot; =&gt; &quot;5&quot;, &quot;cog&quot; =&gt; &quot;6&quot;
+  +---------------------+
+
+  XTAB: pretty-printed transposed tabular
+  +---------------------+
+  | apple 1             | Record 1: &quot;apple&quot; =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
+  | bat   2             |
+  | cog   3             |
+  |                     |
+  | dish 7              | Record 2: &quot;dish&quot; =&gt; &quot;7&quot;, &quot;egg&quot; =&gt; &quot;8&quot;
+  | egg  8              |
+  +---------------------+
+
+  Markdown tabular (supported for output only):
+  +-----------------------+
+  | | apple | bat | cog | |
+  | | ---   | --- | --- | |
+  | | 1     | 2   | 3   | | Record 1: &quot;apple =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
+  | | 4     | 5   | 6   | | Record 2: &quot;apple&quot; =&gt; &quot;4&quot;, &quot;bat&quot; =&gt; &quot;5&quot;, &quot;cog&quot; =&gt; &quot;6&quot;
+  +-----------------------+
+
+Help options:
+  -h or --help                 Show this message.
+  --version                    Show the software version.
+  {verb name} --help           Show verb-specific help.
+  --help-all-verbs             Show help on all verbs.
+  -l or --list-all-verbs       List only verb names.
+  -L                           List only verb names, one per line.
+  -f or --help-all-functions   Show help on all built-in functions.
+  -F                           Show a bare listing of built-in functions by name.
+  -k or --help-all-keywords    Show help on all keywords.
+  -K                           Show a bare listing of keywords by name.
+
+Verbs:
+   bar bootstrap cat check count-distinct cut decimate filter grep group-by
+   group-like having-fields head histogram join label least-frequent
+   merge-fields most-frequent nest nothing fraction put regularize rename
+   reorder repeat reshape sample sec2gmt sec2gmtdate seqgen shuffle sort stats1
+   stats2 step tac tail tee top uniq unsparsify
+
+Functions for the filter and put verbs:
+   + + - - * / // % ** | ^ &amp; ~ &lt;&lt; &gt;&gt; == != =~ !=~ &gt; &gt;= &lt; &lt;= &amp;&amp; || ^^ ! ? : .
+   gsub strlen sub substr tolower toupper abs acos acosh asin asinh atan atan2
+   atanh cbrt ceil cos cosh erf erfc exp expm1 floor invqnorm log log10 log1p
+   logifit madd max mexp min mmul msub pow qnorm round roundm sgn sin sinh sqrt
+   tan tanh urand urand32 urandint dhms2fsec dhms2sec fsec2dhms fsec2hms
+   gmt2sec hms2fsec hms2sec sec2dhms sec2gmt sec2gmt sec2gmtdate sec2hms
+   strftime strptime systime is_absent is_bool is_boolean is_empty is_empty_map
+   is_float is_int is_map is_nonempty_map is_not_empty is_not_map is_not_null
+   is_null is_numeric is_present is_string asserting_absent asserting_bool
+   asserting_boolean asserting_empty asserting_empty_map asserting_float
+   asserting_int asserting_map asserting_nonempty_map asserting_not_empty
+   asserting_not_map asserting_not_null asserting_null asserting_numeric
+   asserting_present asserting_string boolean float fmtnum hexfmt int string
+   typeof depth haskey joink joinkv joinv leafcount length mapdiff mapsum
+   splitkv splitkvx splitnv splitnvx
+
+Please use &quot;mlr --help-function {function name}&quot; for function-specific help.
+
+Data-format options, for input, output, or both:
+  --idkvp   --odkvp   --dkvp      Delimited key-value pairs, e.g &quot;a=1,b=2&quot;
+                                  (this is Miller&#39;s default format).
+
+  --inidx   --onidx   --nidx      Implicitly-integer-indexed fields
+                                  (Unix-toolkit style).
+
+  --icsv    --ocsv    --csv       Comma-separated value (or tab-separated
+                                  with --fs tab, etc.)
+
+  --itsv    --otsv    --tsv       Keystroke-savers for &quot;--icsv --ifs tab&quot;,
+                                  &quot;--ocsv --ofs tab&quot;, &quot;--csv --fs tab&quot;.
+
+  --ipprint --opprint --pprint    Pretty-printed tabular (produces no
+                                  output until all input is in).
+                      --right     Right-justifies all fields for PPRINT output.
+                      --barred    Prints a border around PPRINT output
+                                  (only available for output).
+
+            --omd                 Markdown-tabular (only available for output).
+
+  --ixtab   --oxtab   --xtab      Pretty-printed vertical-tabular.
+                      --xvright   Right-justifies values for XTAB format.
+
+  --ijson   --ojson   --json      JSON tabular: sequence or list of one-level
+                                  maps: {...}{...} or [{...},{...}].
+    --json-map-arrays-on-input    JSON arrays are unmillerable. --json-map-arrays-on-input
+    --json-skip-arrays-on-input   is the default: arrays are converted to integer-indexed
+    --json-fatal-arrays-on-input  maps. The other two options cause them to be skipped, or
+                                  to be treated as errors.  Please use the jq tool for full
+                                  JSON (pre)processing.
+                      --jvstack   Put one key-value pair per line for JSON
+                                  output.
+                      --jlistwrap Wrap JSON output in outermost [ ].
+                    --jknquoteint Do not quote non-string map keys in JSON output.
+                     --jvquoteall Quote map values in JSON output, even if they&#39;re
+                                  numeric.
+              --jflatsep {string} Separator for flattening multi-level JSON keys,
+                                  e.g. &#39;{&quot;a&quot;:{&quot;b&quot;:3}}&#39; becomes a:b =&gt; 3 for
+                                  non-JSON formats. Defaults to :.
+
+  -p is a keystroke-saver for --nidx --fs space --repifs
+
+  Examples: --csv for CSV-formatted input and output; --idkvp --opprint for
+  DKVP-formatted input and pretty-printed output.
+
+Format-conversion keystroke-saver options, for input, output, or both:
+As keystroke-savers for format-conversion you may use the following:
+  --c2t --c2d --c2n --c2j --c2x --c2p --c2m
+  --t2c       --t2d --t2n --t2j --t2x --t2p --t2m
+  --d2c --d2t       --d2n --d2j --d2x --d2p --d2m
+  --n2c --n2t --n2d       --n2j --n2x --n2p --n2m
+  --j2c --j2t --j2d --j2n       --j2x --j2p --j2m
+  --x2c --x2t --x2d --x2n --x2j       --x2p --x2m
+  --p2c --p2t --p2d --p2n --p2j --p2x       --p2m
+The letters c t d n j x p m refer to formats CSV, TSV, DKVP, NIDX, JSON, XTAB,
+PPRINT, and markdown, respectively. Note that markdown format is available for
+output only.
+
+Compressed-data options:
+  --prepipe {command} This allows Miller to handle compressed inputs. You can do
+  without this for single input files, e.g. &quot;gunzip &lt; myfile.csv.gz | mlr ...&quot;.
+  However, when multiple input files are present, between-file separations are
+  lost; also, the FILENAME variable doesn&#39;t iterate. Using --prepipe you can
+  specify an action to be taken on each input file. This pre-pipe command must
+  be able to read from standard input; it will be invoked with
+    {command} &lt; {filename}.
+  Examples:
+    mlr --prepipe &#39;gunzip&#39;
+    mlr --prepipe &#39;zcat -cf&#39;
+    mlr --prepipe &#39;xz -cd&#39;
+    mlr --prepipe cat
+  Note that this feature is quite general and is not limited to decompression
+  utilities. You can use it to apply per-file filters of your choice.
+  For output compression (or other) utilities, simply pipe the output:
+    mlr ... | {your compression command}
+
+Separator options, for input, output, or both:
+  --rs     --irs     --ors              Record separators, e.g. &#39;lf&#39; or &#39;\r\n&#39;
+  --fs     --ifs     --ofs  --repifs    Field separators, e.g. comma
+  --ps     --ips     --ops              Pair separators, e.g. equals sign
+
+  Notes about line endings:
+  * Default line endings (--irs and --ors) are &quot;auto&quot; which means autodetect from
+    the input file format, as long as the input file(s) have lines ending in either
+    LF (also known as linefeed, &#39;\n&#39;, 0x0a, Unix-style) or CRLF (also known as
+    carriage-return/linefeed pairs, &#39;\r\n&#39;, 0x0d 0x0a, Windows style).
+  * If both irs and ors are auto (which is the default) then LF input will lead to LF
+    output and CRLF input will lead to CRLF output, regardless of the platform you&#39;re
+    running on.
+  * The line-ending autodetector triggers on the first line ending detected in the input
+    stream. E.g. if you specify a CRLF-terminated file on the command line followed by an
+    LF-terminated file then autodetected line endings will be CRLF.
+  * If you use --ors {something else} with (default or explicitly specified) --irs auto
+    then line endings are autodetected on input and set to what you specify on output.
+  * If you use --irs {something else} with (default or explicitly specified) --ors auto
+    then the output line endings used are LF on Unix/Linux/BSD/MacOSX, and CRLF on Windows.
+
+  Notes about all other separators:
+  * IPS/OPS are only used for DKVP and XTAB formats, since only in these formats
+    do key-value pairs appear juxtaposed.
+  * IRS/ORS are ignored for XTAB format. Nominally IFS and OFS are newlines;
+    XTAB records are separated by two or more consecutive IFS/OFS -- i.e.
+    a blank line. Everything above about --irs/--ors/--rs auto becomes --ifs/--ofs/--fs
+    auto for XTAB format. (XTAB&#39;s default IFS/OFS are &quot;auto&quot;.)
+  * OFS must be single-character for PPRINT format. This is because it is used
+    with repetition for alignment; multi-character separators would make
+    alignment impossible.
+  * OPS may be multi-character for XTAB format, in which case alignment is
+    disabled.
+  * TSV is simply CSV using tab as field separator (&quot;--fs tab&quot;).
+  * FS/PS are ignored for markdown format; RS is used.
+  * All FS and PS options are ignored for JSON format, since they are not relevant
+    to the JSON format.
+  * You can specify separators in any of the following ways, shown by example:
+    - Type them out, quoting as necessary for shell escapes, e.g.
+      &quot;--fs &#39;|&#39; --ips :&quot;
+    - C-style escape sequences, e.g. &quot;--rs &#39;\r\n&#39; --fs &#39;\t&#39;&quot;.
+    - To avoid backslashing, you can use any of the following names:
+      cr crcr newline lf lflf crlf crlfcrlf tab space comma pipe slash colon semicolon equals
+  * Default separators by format:
+      File format  RS       FS       PS
+      dkvp         auto     ,        =
+      json         auto     (N/A)    (N/A)
+      nidx         auto     space    (N/A)
+      csv          auto     ,        (N/A)
+      csvlite      auto     ,        (N/A)
+      markdown     auto     (N/A)    (N/A)
+      pprint       auto     space    (N/A)
+      xtab         (N/A)    auto     space
+
+Relevant to CSV/CSV-lite input only:
+  --implicit-csv-header Use 1,2,3,... as field labels, rather than from line 1
+                     of input files. Tip: combine with &quot;label&quot; to recreate
+                     missing headers.
+  --headerless-csv-output   Print only CSV data lines.
+
+Double-quoting for CSV output:
+  --quote-all        Wrap all fields in double quotes
+  --quote-none       Do not wrap any fields in double quotes, even if they have
+                     OFS or ORS in them
+  --quote-minimal    Wrap fields in double quotes only if they have OFS or ORS
+                     in them (default)
+  --quote-numeric    Wrap fields in double quotes only if they have numbers
+                     in them
+  --quote-original   Wrap fields in double quotes if and only if they were
+                     quoted on input. This isn&#39;t sticky for computed fields:
+                     e.g. if fields a and b were quoted on input and you do
+                     &quot;put &#39;$c = $a . $b&#39;&quot; then field c won&#39;t inherit a or b&#39;s
+                     was-quoted-on-input flag.
+
+Numerical formatting:
+  --ofmt {format}    E.g. %.18lf, %.0lf. Please use sprintf-style codes for
+                     double-precision. Applies to verbs which compute new
+                     values, e.g. put, stats1, stats2. See also the fmtnum
+                     function within mlr put (mlr --help-all-functions).
+                     Defaults to %lf.
+
+Other options:
+  --seed {n} with n of the form 12345678 or 0xcafefeed. For put/filter
+                     urand()/urandint()/urand32().
+  --nr-progress-mod {m}, with m a positive integer: print filename and record
+                     count to stderr every m input records.
+  --from {filename}  Use this to specify an input file before the verb(s),
+                     rather than after. May be used more than once. Example:
+                     &quot;mlr --from a.dat --from b.dat cat&quot; is the same as
+                     &quot;mlr cat a.dat b.dat&quot;.
+  -n                 Process no input files, nor standard input either. Useful
+                     for mlr put with begin/end statements only. (Same as --from
+                     /dev/null.) Also useful in &quot;mlr -n put -v &#39;...&#39;&quot; for
+                     analyzing abstract syntax trees (if that&#39;s your thing).
+  -I                 Process files in-place. For each file name on the command
+                     line, output is written to a temp file in the same
+                     directory, which is then renamed over the original. Each
+                     file is processed in isolation: if the output format is
+                     CSV, CSV headers will be present in each output file;
+                     statistics are only over each file&#39;s own records; and so on.
+
+Then-chaining:
+Output of one verb may be chained as input to another using &quot;then&quot;, e.g.
+  mlr stats1 -a min,mean,max -f flag,u,v -g color then sort -f color
+
+For more information please see http://johnkerl.org/miller/doc and/or
+http://github.com/johnkerl/miller. This is Miller version 5.1.0.
+</code></pre></div>
+
+<h2 id="csvtk"><code>csvtk</code><a class="headerlink" href="#csvtk" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvtk</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>A cross-platform, efficient and practical CSV/TSV toolkit
+
+Version: 0.7.1
+
+Author: Wei Shen &lt;shenwei356@gmail.com&gt;
+
+Documents  : http://shenwei356.github.io/csvtk
+Source code: https://github.com/shenwei356/csvtk
+
+Attention:
+
+    1. The CSV parser requires all the lines have same number of fields/columns.
+       Even lines with spaces will cause error.
+    2. By default, csvtk thinks your files have header row, if not, switch flag &quot;-H&quot; on.
+    3. Column names better be unique.
+    4. By default, lines starting with &quot;#&quot; will be ignored, if the header row
+       starts with &quot;#&quot;, please assign flag &quot;-C&quot; another rare symbol, e.g. &#39;$&#39;.
+    5. By default, csvtk handles CSV files, use flag &quot;-t&quot; for tab-delimited files.
+    6. If &quot; exists in tab-delimited files, use flag &quot;-l&quot;.
+
+Usage:
+  csvtk [command]
+
+Available Commands:
+  csv2md      convert CSV to markdown format
+  csv2tab     convert CSV to tabular format
+  cut         select parts of fields
+  filter      filter rows by values of selected fields with artithmetic expression
+  filter2     filter rows by awk-like artithmetic/string expressions
+  freq        frequencies of selected fields
+  grep        grep data by selected fields with patterns/regular expressions
+  head        print first N records
+  headers     print headers
+  help        Help about any command
+  inter       intersection of multiple files
+  join        join multiple CSV files by selected fields
+  mutate      create new column from selected fields by regular expression
+  plot        plot common figures
+  pretty      convert CSV to readable aligned table
+  rename      rename column names
+  rename2     rename column names by regular expression
+  replace     replace data of selected fields by regular expression
+  sample      sampling by proportion
+  sort        sort by selected fields
+  space2tab   convert space delimited format to CSV
+  stats       summary of CSV file
+  stats2      summary of selected digital fields
+  tab2csv     convert tabular format to CSV
+  transpose   transpose CSV data
+  uniq        unique data without sorting
+  version     print version information and check for update
+
+Flags:
+  -c, --chunk-size int         chunk size of CSV reader (default 50)
+  -C, --comment-char string    lines starting with commment-character will be ignored. if your header row starts with &#39;#&#39;, please assign &quot;-C&quot; another rare symbol, e.g. &#39;$&#39; (default &quot;#&quot;)
+  -d, --delimiter string       delimiting character of the input CSV file (default &quot;,&quot;)
+  -l, --lazy-quotes            if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field
+  -H, --no-header-row          specifies that the input CSV file does not have header row
+  -j, --num-cpus int           number of CPUs to use (default value depends on your computer) (default 8)
+  -D, --out-delimiter string   delimiting character of the output CSV file (default &quot;,&quot;)
+  -o, --out-file string        out file (&quot;-&quot; for stdout, suffix .gz for gzipped out) (default &quot;-&quot;)
+  -T, --out-tabs               specifies that the output is delimited with tabs. Overrides &quot;-D&quot;
+  -t, --tabs                   specifies that the input CSV file is delimited with tabs. Overrides &quot;-d&quot;
+
+Use &quot;csvtk [command] --help&quot; for more information about a command.
+</code></pre></div>
+
+<h2 id="xsv"><code>xsv</code><a class="headerlink" href="#xsv" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>xsv is a suite of CSV command line utilities.
+
+Please choose one of the following commands:
+    cat         Concatenate by row or column
+    count       Count records
+    fixlengths  Makes all records have same length
+    flatten     Show one field per line
+    fmt         Format CSV output (change field delimiter)
+    frequency   Show frequency tables
+    headers     Show header names
+    help        Show this usage message.
+    index       Create CSV index for faster access
+    input       Read CSV data with special quoting rules
+    join        Join CSV files
+    sample      Randomly sample CSV data
+    search      Search CSV data with regexes
+    select      Select columns from CSV
+    slice       Slice records from CSV
+    sort        Sort CSV data
+    split       Split CSV data into many files
+    stats       Compute basic statistics
+    table       Align CSV data into columns
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Example 3
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Dushyant Khosla
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/dushyantkhosla" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://hub.docker.com/u/dushyantkhosla" target="_blank" rel="noopener" title="hub.docker.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<dushyantkhosla320@gmail.com>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.linkedin.com/in/dushyant-khosla/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://instagram.com/dushyantkhosla" target="_blank" rel="noopener" title="instagram.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

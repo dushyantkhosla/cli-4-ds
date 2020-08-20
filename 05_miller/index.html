@@ -1,0 +1,2712 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
+      
+      
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/05_miller/">
+      
+      
+        <meta name="author" content="Dushyant Khosla">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Miller - CLI Tools and Tricks for Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#miller" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-header-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CLI Tools and Tricks for Data Science
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Miller
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
+          Unix Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../02_csvkit/" class="md-tabs__link md-tabs__link--active">
+          CLI Tools
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
+          Databases
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dushyantkhosla.github.io/cli4ds/" title="CLI Tools and Tricks for Data Science" class="md-nav__button md-logo" aria-label="CLI Tools and Tricks for Data Science">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CLI Tools and Tricks for Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dushyantkhosla/cli4ds/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dushyantkhosla/cli4ds
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Unix Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Unix Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Unix Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+      Coreutils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+      AWK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+      Bash Programming
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
+      Datamash
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      CLI Tools
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="CLI Tools" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        CLI Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
+      CSVKit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
+      CSVTK
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
+      XSV
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Miller
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Miller" class="md-nav__link md-nav__link--active">
+      Miller
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    Options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlr-rename" class="md-nav__link">
+    mlr rename
+  </a>
+  
+    <nav class="md-nav" aria-label="mlr rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlr-cat-head-tail" class="md-nav__link">
+    mlr cat, head, tail
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaining" class="md-nav__link">
+    Chaining
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-cat" class="md-nav__link">
+    mlr cat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-cut" class="md-nav__link">
+    mlr cut
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-filter" class="md-nav__link">
+    mlr filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-put" class="md-nav__link">
+    mlr put
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-use-with-put-filter" class="md-nav__link">
+    Functions to use with put, filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec2gmt-sec2gmtdate-for-epoch-timestamps" class="md-nav__link">
+    sec2gmt, sec2gmtdate for epoch timestamps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-label" class="md-nav__link">
+    mlr label
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlr-rename_1" class="md-nav__link">
+    mlr rename
+  </a>
+  
+    <nav class="md-nav" aria-label="mlr rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-sampling-with-bootstrap-sample-shuffle" class="md-nav__link">
+    Random Sampling with bootstrap, sample, shuffle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-count-distinct" class="md-nav__link">
+    mlr count-distinct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlr-merge-fields" class="md-nav__link">
+    mlr merge-fields
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stats1" class="md-nav__link">
+    stats1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stats2" class="md-nav__link">
+    stats2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#also-see" class="md-nav__link">
+    Also see
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
+      Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+      Larger Than RAM
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Databases
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Databases" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Databases
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+      Example 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+      Example 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+      Example 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+      CLI-Fu
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    Options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlr-rename" class="md-nav__link">
+    mlr rename
+  </a>
+  
+    <nav class="md-nav" aria-label="mlr rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlr-cat-head-tail" class="md-nav__link">
+    mlr cat, head, tail
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaining" class="md-nav__link">
+    Chaining
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-cat" class="md-nav__link">
+    mlr cat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-cut" class="md-nav__link">
+    mlr cut
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-filter" class="md-nav__link">
+    mlr filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-put" class="md-nav__link">
+    mlr put
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions-to-use-with-put-filter" class="md-nav__link">
+    Functions to use with put, filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec2gmt-sec2gmtdate-for-epoch-timestamps" class="md-nav__link">
+    sec2gmt, sec2gmtdate for epoch timestamps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-label" class="md-nav__link">
+    mlr label
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlr-rename_1" class="md-nav__link">
+    mlr rename
+  </a>
+  
+    <nav class="md-nav" aria-label="mlr rename">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random-sampling-with-bootstrap-sample-shuffle" class="md-nav__link">
+    Random Sampling with bootstrap, sample, shuffle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlr-count-distinct" class="md-nav__link">
+    mlr count-distinct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlr-merge-fields" class="md-nav__link">
+    mlr merge-fields
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stats1" class="md-nav__link">
+    stats1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stats2" class="md-nav__link">
+    stats2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#also-see" class="md-nav__link">
+    Also see
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/05_miller.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="miller">miller<a class="headerlink" href="#miller" title="Permanent link">&para;</a></h1>
+<hr />
+<ul>
+<li>
+<p>"Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV, and tabular JSON" </p>
+</li>
+<li>
+<p>Github <a href="https://github.com/johnkerl/miller">repo</a>, <a href="http://johnkerl.org/miller/doc/10-min.html">intro</a>, </p>
+</li>
+</ul>
+<hr />
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># remove preinstalled versions (usually outdated)</span>
+sudo apt remove miller
+
+<span class="c1"># download the new file</span>
+wget https://github.com/johnkerl/miller/releases/download/v5.1.0/mlr-5.1.0.tar.gz
+
+<span class="c1"># untar</span>
+tar -xzf mlr-5.1.0.tar.gz
+
+<span class="c1"># the usual</span>
+<span class="nb">cd</span> mlr-5.1.0.tar.gz
+./configure
+make
+sudo make install
+
+<span class="c1"># check if the mlr executable is in /usr/bin (it could have been placed in /usr/local/bin)</span>
+<span class="c1"># move it if required to /usr/bin/mlr</span>
+sudo cp /usr/local/bin/mlr /usr/bin/mlr
+</code></pre></div>
+
+<hr />
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>useful for data cleaning, data reduction, statistical reporting, format conversion and so on.</p>
+</li>
+<li>
+<p>written in C</p>
+</li>
+<li>
+<p>is <strong>format-aware</strong>, and retains headers</p>
+</li>
+<li>
+<p>has high-throughput performance on par with the Unix toolkit</p>
+</li>
+<li>
+<p>complements <code>dplyr</code> and <code>pandas</code> by helping you clean-filter-aggregate your data for EDA</p>
+</li>
+<li>
+<p><strong>in-place</strong> mutations to files</p>
+</li>
+<li>
+<p>But most importantly,</p>
+</li>
+</ul>
+<blockquote>
+<p>Miller is <strong>streaming</strong>; most operations need only a single record in memory at a time (rather needing to hold the entire file in RAM). <br> Miller retains only as much data as needed for operations like <code>sort</code> and <code>stats</code>, so you can <strong>operate on files which are larger than RAM</strong></p>
+<p>Miller complements <strong>data-analysis tools</strong> such as <strong>R</strong>, <strong>pandas</strong>, etc.:
+you can use Miller to <strong>clean</strong> and <strong>prepare</strong> your data. While you can do
+<strong>basic statistics</strong> entirely in Miller, its streaming-data feature and
+single-pass algorithms enable you to <strong>reduce very large data sets</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Syntax</li>
+</ul>
+<div class="highlight"><pre><span></span><code>mlr &lt;command&gt; &lt;options&gt;
+</code></pre></div>
+
+<hr />
+<table>
+<thead>
+<tr>
+<th>Commands</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat, cut, grep, head, join, sort, tac, tail, top, uniq</code></td>
+<td>Analogs of their Unix-toolkit namesakes, discussed below as well as in Miller features in the context of the Unix toolkit</td>
+</tr>
+<tr>
+<td><code>filter, put, sec2gmt, sec2gmtdate, step, tee</code></td>
+<td>awk-like functionality</td>
+</tr>
+<tr>
+<td><code>bar, bootstrap, decimate, histogram, least-frequent, most-frequent, sample, shuffle, stats1, stats2</code></td>
+<td>Statistically oriented</td>
+</tr>
+<tr>
+<td><code>group-by, group-like, having-fields</code></td>
+<td>Particularly oriented toward Record-heterogeneity, although all Miller commands can handle heterogeneous records</td>
+</tr>
+<tr>
+<td><code>check, count-distinct, label, merge-fields, nest, nothing, rename, rename, reorder, reshape, seqgen</code></td>
+<td>These draw from other sources (see also How original is Miller?): count-distinct is SQL-ish, and rename can be done by sed (which does it faster: see Performance).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>All Verbs:</p>
+<div class="highlight"><pre><span></span><code>   bar bootstrap cat check count-distinct cut decimate filter grep group-by
+   group-like having-fields head histogram join label least-frequent
+   merge-fields most-frequent nest nothing fraction put regularize rename
+   reorder repeat reshape sample sec2gmt sec2gmtdate seqgen shuffle sort stats1
+   stats2 step tac tail tee top uniq unsparsify
+</code></pre></div>
+
+<p>Functions for the <code>filter</code> and <code>put</code> verbs:</p>
+<div class="highlight"><pre><span></span><code>   + + - - * / // % ** | ^ &amp; ~ &lt;&lt; &gt;&gt; == != =~ !=~ &gt; &gt;= &lt; &lt;= &amp;&amp; || ^^ ! ? : .
+   gsub strlen sub substr tolower toupper abs acos acosh asin asinh atan atan2
+   atanh cbrt ceil cos cosh erf erfc exp expm1 floor invqnorm log log10 log1p
+   logifit madd max mexp min mmul msub pow qnorm round roundm sgn sin sinh sqrt
+   tan tanh urand urand32 urandint dhms2fsec dhms2sec fsec2dhms fsec2hms
+   gmt2sec hms2fsec hms2sec sec2dhms sec2gmt sec2gmt sec2gmtdate sec2hms
+   strftime strptime systime is_absent is_bool is_boolean is_empty is_empty_map
+   is_float is_int is_map is_nonempty_map is_not_empty is_not_map is_not_null
+   is_null is_numeric is_present is_string asserting_absent asserting_bool
+   asserting_boolean asserting_empty asserting_empty_map asserting_float
+   asserting_int asserting_map asserting_nonempty_map asserting_not_empty
+   asserting_not_map asserting_not_null asserting_null asserting_numeric
+   asserting_present asserting_string boolean float fmtnum hexfmt int string
+   typeof depth haskey joink joinkv joinv leafcount length mapdiff mapsum
+   splitkv splitkvx splitnv splitnvx
+</code></pre></div>
+
+<hr />
+<hr />
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use <code>--csv, --pprint</code> etc. when the input and output formats are the same.</li>
+<li>Use <code>--icsv --opprint</code>, etc. when you want format conversion</li>
+<li>Use the <code>mlr -I</code> flag <strong>to process files in-place</strong>, for example</li>
+<li>PLEASE USE <code>mlr --csv --rs lf</code> FOR NATIVE UN*X (LINEFEED-TERMINATED) CSV FILES.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>mlr -I --csv cut -x -f &lt;unwanted_column_name&gt; mydata/*.csv 
+<span class="c1"># will remove unwanted_column_name from all your *.csv files in your mydata/ subdirectory.</span>
+</code></pre></div>
+
+<hr />
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>mlr --csv cut -f hostname,uptime mydata.csv
+<span class="c1"># Both input and output in csv</span>
+
+mlr --csv --rs lf --fs tab cut -f hostname,uptime file1.tsv file2.tsv
+<span class="c1"># Read tsv (--fs tab) created on unix (--rs lf) and retain named columns, concat into a csv files (--csv)</span>
+
+
+mlr --csv filter <span class="s1">&#39;$status != &quot;down&quot; &amp;&amp; $upsec &gt;= 10000&#39;</span> *.csv
+<span class="c1"># Retain specific rows</span>
+
+mlr --nidx put <span class="s1">&#39;$sum = $7 + 2.1*$8&#39;</span> *.dat
+<span class="c1"># NIDX: implicitly numerically indexed (Unix-toolkit style)</span>
+<span class="c1"># create a new column from the values in the 7th and 8th columns</span>
+
+grep -v <span class="s1">&#39;^#&#39;</span> /etc/group <span class="p">|</span> mlr --ifs : --nidx --opprint label group,pass,gid,member <span class="k">then</span> sort -f group
+<span class="c1"># Ignore rows that begin with &#39;#&#39;, input file is colon separated, rename columns, then sort and groupby</span>
+
+mlr join -j account_id -f accounts.dat <span class="k">then</span> group-by account_name balances.dat
+<span class="c1"># </span>
+
+mlr put <span class="s1">&#39;$attr = sub($attr, &quot;([0-9]+)_([0-9]+)_.*&quot;, &quot;\1:\2&quot;)&#39;</span> data/*
+<span class="c1">#</span>
+
+mlr stats1 -a min,mean,max,p10,p50,p90 -f flag,u,v data/*
+<span class="c1">#</span>
+
+mlr stats2 -a linreg-pca -f u,v -g shape data/*
+<span class="c1">#</span>
+</code></pre></div>
+
+<hr />
+<h2 id="mlr-rename"><code>mlr rename</code><a class="headerlink" href="#mlr-rename" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Renames specified fields.</li>
+<li>Usage: mlr rename [options] {old1,new1,old2,new2,...}<ul>
+<li>use <code>-g</code> for global replacement, and <code>-r</code> for regex matching</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Examples:
+mlr rename old_name,new_name
+mlr rename old_name_1,new_name_1,old_name_2,new_name_2
+mlr rename -r &#39;Date_[0-9]+,Date,&#39;  Rename all such fields to be &quot;Date&quot;
+mlr rename -r &#39;&quot;Date_[0-9]+&quot;,Date&#39; Same
+mlr rename -r &#39;Date_([0-9]+).*,\1&#39; Rename all such fields to be of the form 20151015
+mlr rename -r &#39;&quot;name&quot;i,Name&#39;       Rename &quot;name&quot;, &quot;Name&quot;, &quot;NAME&quot;, etc. to &quot;Name&quot;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># replace spaces with underscores</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">ifs</span> <span class="s1">&#39;|&#39;</span> <span class="o">--</span><span class="n">ofs</span> <span class="s1">&#39;,&#39;</span> <span class="n">rename</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">r</span> <span class="s1">&#39; ,_&#39;</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">n</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+<span class="c1"># or !xsv headers ./cleaned/Sales.csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>  1: POSSales_PK
+  2: Date_FK
+  3: Date
+  4: Store_FK
+  5: Item_FK
+  6: Item_PK
+  7: Promo_FK
+  8: POSSales_Ticket_No
+  9: POSSales_GiftList_No
+ 10: POSSales_GiftListLine_No
+ 11: POSSales_Sales_Quantity
+ 12: POSSales_Sales_AmountExVAT
+ 13: POSSales_Sales_AmountInVAT
+ 14: POSSales_Cost_Amount
+ 15: POSSales_Margin_Amount
+ 16: POSSales_Discount_Amount
+ 17: Store_No_BK
+ 18: POS_Terminal_No_BK
+ 19: Transaction_No_BK
+ 20: Line_No_BK
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-cat-head-tail"><code>mlr cat, head, tail</code><a class="headerlink" href="#mlr-cat-head-tail" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>mlr head</code> and <code>mlr tail</code> count records rather than lines</li>
+<li>they always return the CSV header<ul>
+<li><code>mlr head -n 5 myfile.csv</code> will return 6 lines.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">cat</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">head</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>mlr: unacceptable empty CSV key at file &quot;./raw/flights.csv&quot; line 1.
+</code></pre></div>
+
+<hr />
+<ul>
+<li>This is a very common error. </li>
+<li>Caused becaused files generated on Unix-like systems have LF line terminators while RFC compliant CSVs have CRLF line terminators (default in miller)</li>
+<li>fix by including <code>--rs lf</code><ul>
+<li>this says that the record separator (<code>rs</code>) is <code>lf</code>.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Origin,Dest,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
+2007,1,1,1,1232,1225,1341,1340,WN,2891,N351,69,75,54,1,7,SMF,ONT,389,4,11,0,,0,0,0,0,0,0
+2007,1,1,1,1918,1905,2043,2035,WN,462,N370,85,90,74,8,13,SMF,PDX,479,5,6,0,,0,0,0,0,0,0
+2007,1,1,1,2206,2130,2334,2300,WN,1229,N685,88,90,73,34,36,SMF,PDX,479,6,9,0,,0,3,0,0,0,31
+2007,1,1,1,1230,1200,1356,1330,WN,1355,N364,86,90,75,26,30,SMF,PDX,479,3,8,0,,0,23,0,0,0,3
+2007,1,1,1,831,830,957,1000,WN,2278,N480,86,90,74,-3,1,SMF,PDX,479,3,9,0,,0,0,0,0,0,0
+</code></pre></div>
+
+<ul>
+<li>read files with other delimiters by specifying <code>ifs</code> (or input field separator)<ul>
+<li>could be useful for file format conversion</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">ifs</span> <span class="s1">&#39;|&#39;</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>POSSales_PK,Date_FK,Date,Store_FK,Item_FK,Item_PK,Promo_FK,POSSales_Ticket No,POSSales_GiftList No,POSSales_GiftListLine No,POSSales_Sales Quantity,POSSales_Sales AmountExVAT,POSSales_Sales AmountInVAT,POSSales_Cost Amount,POSSales_Margin Amount,POSSales_Discount Amount,Store No_BK,POS Terminal No_BK,Transaction No_BK,Line No_BK
+42169332,41639,2014-01-02 00:00:00,17,316213,20337325,806,3810195837,,0,&quot;1,00000000000000000000&quot;,&quot;17,32231000000000000000&quot;,&quot;20,96000000000000000000&quot;,&quot;9,98000000000000000000&quot;,&quot;7,34231000000000000000&quot;,&quot;-8,99000000000000000000&quot;,S038,P0381,226847,10000
+42169333,41639,2014-01-02 00:00:00,17,274932,20194564,812,3810195837,,0,&quot;1,00000000000000000000&quot;,&quot;43,38017000000000000000&quot;,&quot;52,49000000000000000000&quot;,&quot;35,86000000000000000000&quot;,&quot;7,52017000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226847,20000
+42169334,41639,2014-01-02 00:00:00,17,326727,20347663,63,3810195838,,0,&quot;1,00000000000000000000&quot;,&quot;6,60331000000000000000&quot;,&quot;7,99000000000000000000&quot;,&quot;5,21000000000000000000&quot;,&quot;1,39331000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226848,10000
+42169335,41639,2014-01-02 00:00:00,17,311837,20332760,63,3810195838,,0,&quot;1,00000000000000000000&quot;,&quot;24,78512000000000000000&quot;,&quot;29,99000000000000000000&quot;,&quot;12,23000000000000000000&quot;,&quot;12,55512000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226848,20000
+42169336,41639,2014-01-02 00:00:00,17,262025,20181754,63,3810195838,,0,&quot;1,00000000000000000000&quot;,&quot;12,38843000000000000000&quot;,&quot;14,99000000000000000000&quot;,&quot;6,34000000000000000000&quot;,&quot;6,04843000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226848,30000
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># get the first record from every group that appears in the data</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1</span> <span class="o">-</span><span class="n">g</span> <span class="n">UniqueCarrier</span> <span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">f</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span><span class="p">,</span><span class="n">UniqueCarrier</span><span class="p">,</span><span class="n">FlightNum</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------------+-----------+--------+-------|
+|  UniqueCarrier | FlightNum | Origin | Dest  |
+|----------------+-----------+--------+-------|
+|  WN            | 2891      | SMF    | ONT   |
+|  XE            | 2809      | CLE    | CLT   |
+|  YV            | 2827      | ABQ    | PHX   |
+|  OH            | 5026      | SAT    | CVG   |
+|  OO            | 3664      | SUN    | SLC   |
+|  UA            | 1         | ORD    | HNL   |
+|  US            | 290       | ABQ    | LAS   |
+|  DL            | 1772      | ATL    | PNS   |
+|  EV            | 4083      | ATL    | RDU   |
+|----------------+-----------+--------+-------|
+</code></pre></div>
+
+<hr />
+<h3 id="chaining">Chaining<a class="headerlink" href="#chaining" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Output of one verb may be chained as input to another using "then", e.g.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>mlr stats1 -a min,mean,max -f flag,u,v -g color then sort -f color
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-cat"><code>mlr cat</code><a class="headerlink" href="#mlr-cat" title="Permanent link">&para;</a></h3>
+<ul>
+<li>very useful for format conversion (<code>txt</code> -&gt; <code>csv</code>)<ul>
+<li>fast!! (under a minute for a 4GB <code>txt</code> file)</li>
+<li>and concatenating multiple same-schema CSV file</li>
+</ul>
+</li>
+</ul>
+<hr />
+<div class="highlight"><pre><span></span><code>mlr cat [options]
+Passes input records directly to output. Most useful for format conversion.
+Options:
+-n                                 Prepend field &quot;n&quot; to each record with record-counter starting at 1
+-g {comma-separated field name(s)} When used with -n/-N, writes record-counters
+                                   keyed by specified field name(s).
+-N {name}                          Prepend field {name} to each record with record-counter starting at 1
+</code></pre></div>
+
+<hr />
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span> 
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">kdd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>kddcup.data
+kddcup.names
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="n">kddcup</span><span class="o">.</span><span class="n">names</span> <span class="o">|</span> <span class="n">sed</span> <span class="mi">1</span><span class="n">d</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">:</span> <span class="o">-</span><span class="n">f1</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>duration
+protocol_type
+service
+flag
+src_bytes
+dst_bytes
+land
+wrong_fragment
+urgent
+hot
+num_failed_logins
+logged_in
+num_compromised
+root_shell
+su_attempted
+num_root
+num_file_creations
+num_shells
+num_access_files
+num_outbound_cmds
+is_host_login
+is_guest_login
+count
+srv_count
+serror_rate
+srv_serror_rate
+rerror_rate
+srv_rerror_rate
+same_srv_rate
+diff_srv_rate
+srv_diff_host_rate
+dst_host_count
+dst_host_srv_count
+dst_host_same_srv_rate
+dst_host_diff_srv_rate
+dst_host_same_src_port_rate
+dst_host_srv_diff_host_rate
+dst_host_serror_rate
+dst_host_srv_serror_rate
+dst_host_rerror_rate
+dst_host_srv_rerror_rate
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># converting pipe-delimited to csv</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">ifs</span> <span class="s1">&#39;|&#39;</span> <span class="n">cat</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>POSSales_PK,Date_FK,Date,Store_FK,Item_FK,Item_PK,Promo_FK,POSSales_Ticket No,POSSales_GiftList No,POSSales_GiftListLine No,POSSales_Sales Quantity,POSSales_Sales AmountExVAT,POSSales_Sales AmountInVAT,POSSales_Cost Amount,POSSales_Margin Amount,POSSales_Discount Amount,Store No_BK,POS Terminal No_BK,Transaction No_BK,Line No_BK
+42169332,41639,2014-01-02 00:00:00,17,316213,20337325,806,3810195837,,0,&quot;1,00000000000000000000&quot;,&quot;17,32231000000000000000&quot;,&quot;20,96000000000000000000&quot;,&quot;9,98000000000000000000&quot;,&quot;7,34231000000000000000&quot;,&quot;-8,99000000000000000000&quot;,S038,P0381,226847,10000
+42169333,41639,2014-01-02 00:00:00,17,274932,20194564,812,3810195837,,0,&quot;1,00000000000000000000&quot;,&quot;43,38017000000000000000&quot;,&quot;52,49000000000000000000&quot;,&quot;35,86000000000000000000&quot;,&quot;7,52017000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226847,20000
+42169334,41639,2014-01-02 00:00:00,17,326727,20347663,63,3810195838,,0,&quot;1,00000000000000000000&quot;,&quot;6,60331000000000000000&quot;,&quot;7,99000000000000000000&quot;,&quot;5,21000000000000000000&quot;,&quot;1,39331000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226848,10000
+42169335,41639,2014-01-02 00:00:00,17,311837,20332760,63,3810195838,,0,&quot;1,00000000000000000000&quot;,&quot;24,78512000000000000000&quot;,&quot;29,99000000000000000000&quot;,&quot;12,23000000000000000000&quot;,&quot;12,55512000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226848,20000
+42169336,41639,2014-01-02 00:00:00,17,262025,20181754,63,3810195838,,0,&quot;1,00000000000000000000&quot;,&quot;12,38843000000000000000&quot;,&quot;14,99000000000000000000&quot;,&quot;6,34000000000000000000&quot;,&quot;6,04843000000000000000&quot;,&quot;,00000000000000000000&quot;,S038,P0381,226848,30000
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create an index and extract a row from a specific index</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="n">cat</span> <span class="o">-</span><span class="n">n</span> <span class="n">then</span> <span class="nb">filter</span> <span class="s1">&#39;$n==2&#39;</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>n,Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Origin,Dest,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
+2,2007,1,1,1,2206,2130,2334,2300,WN,1229,N685,88,90,73,34,36,SMF,PDX,479,6,9,0,,0,3,0,0,0,31
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Even numbered rows (creating an index isnt necessary)</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="nb">filter</span> <span class="s1">&#39;FNR%2==0&#39;</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Origin,Dest,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
+2007,1,1,1,1918,1905,2043,2035,WN,462,N370,85,90,74,8,13,SMF,PDX,479,5,6,0,,0,0,0,0,0,0
+2007,1,1,1,1230,1200,1356,1330,WN,1355,N364,86,90,75,26,30,SMF,PDX,479,3,8,0,,0,23,0,0,0,3
+2007,1,1,1,1430,1420,1553,1550,WN,2386,N611SW,83,90,74,3,10,SMF,PDX,479,2,7,0,,0,0,0,0,0,0
+2007,1,1,1,944,935,1223,1225,WN,1131,N749SW,99,110,86,-2,9,SMF,PHX,647,4,9,0,,0,0,0,0,0,0
+2007,1,1,1,1318,1315,1603,1610,WN,2456,N630WN,105,115,92,-7,3,SMF,PHX,647,5,8,0,,0,0,0,0,0,0
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">#provide implicit header (auto numeric) to headerless files</span>
+
+<span class="err">!</span><span class="n">cat</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">sed</span> <span class="mi">1</span><span class="n">d</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">10</span> <span class="o">|</span> <span class="n">head</span> \
+<span class="o">|</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="o">--</span><span class="n">implicit</span><span class="o">-</span><span class="n">csv</span><span class="o">-</span><span class="n">header</span> <span class="n">cat</span> \
+<span class="o">|</span><span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|-------+---+---+---+------+------+------+------+----+-------|
+|  1    | 2 | 3 | 4 | 5    | 6    | 7    | 8    | 9  | 10    |
+|-------+---+---+---+------+------+------+------+----+-------|
+|  2007 | 1 | 1 | 1 | 1232 | 1225 | 1341 | 1340 | WN | 2891  |
+|  2007 | 1 | 1 | 1 | 1918 | 1905 | 2043 | 2035 | WN | 462   |
+|  2007 | 1 | 1 | 1 | 2206 | 2130 | 2334 | 2300 | WN | 1229  |
+|  2007 | 1 | 1 | 1 | 1230 | 1200 | 1356 | 1330 | WN | 1355  |
+|  2007 | 1 | 1 | 1 | 831  | 830  | 957  | 1000 | WN | 2278  |
+|  2007 | 1 | 1 | 1 | 1430 | 1420 | 1553 | 1550 | WN | 2386  |
+|  2007 | 1 | 1 | 1 | 1936 | 1840 | 2217 | 2130 | WN | 409   |
+|  2007 | 1 | 1 | 1 | 944  | 935  | 1223 | 1225 | WN | 1131  |
+|  2007 | 1 | 1 | 1 | 1537 | 1450 | 1819 | 1735 | WN | 1212  |
+|  2007 | 1 | 1 | 1 | 1318 | 1315 | 1603 | 1610 | WN | 2456  |
+|-------+---+---+---+------+------+------+------+----+-------|
+cut: write error: Broken pipe
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># provide column names (if less than num_cols, the implicit names will be kept)</span>
+
+<span class="err">!</span><span class="n">cat</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">sed</span> <span class="mi">1</span><span class="n">d</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">-</span><span class="mi">10</span> <span class="o">|</span> <span class="n">head</span> \
+<span class="o">|</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="o">--</span><span class="n">implicit</span><span class="o">-</span><span class="n">csv</span><span class="o">-</span><span class="n">header</span> <span class="n">label</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span> \
+<span class="o">|</span><span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|-------+---+---+---+------+------+------+------+----+-------|
+|  a    | b | c | d | 5    | 6    | 7    | 8    | 9  | 10    |
+|-------+---+---+---+------+------+------+------+----+-------|
+|  2007 | 1 | 1 | 1 | 1232 | 1225 | 1341 | 1340 | WN | 2891  |
+|  2007 | 1 | 1 | 1 | 1918 | 1905 | 2043 | 2035 | WN | 462   |
+|  2007 | 1 | 1 | 1 | 2206 | 2130 | 2334 | 2300 | WN | 1229  |
+|  2007 | 1 | 1 | 1 | 1230 | 1200 | 1356 | 1330 | WN | 1355  |
+|  2007 | 1 | 1 | 1 | 831  | 830  | 957  | 1000 | WN | 2278  |
+|  2007 | 1 | 1 | 1 | 1430 | 1420 | 1553 | 1550 | WN | 2386  |
+|  2007 | 1 | 1 | 1 | 1936 | 1840 | 2217 | 2130 | WN | 409   |
+|  2007 | 1 | 1 | 1 | 944  | 935  | 1223 | 1225 | WN | 1131  |
+|  2007 | 1 | 1 | 1 | 1537 | 1450 | 1819 | 1735 | WN | 1212  |
+|  2007 | 1 | 1 | 1 | 1318 | 1315 | 1603 | 1610 | WN | 2456  |
+|-------+---+---+---+------+------+------+------+----+-------|
+cut: write error: Broken pipe
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-cut"><code>mlr cut</code><a class="headerlink" href="#mlr-cut" title="Permanent link">&para;</a></h3>
+<ul>
+<li>select columns by name with <code>-f</code></li>
+<li>select all columns except some with <code>-x</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Print only Origin,Dest</span>
+<span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span>  <span class="n">cut</span> <span class="o">-</span><span class="n">f</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+-------|
+|  Origin | Dest  |
+|---------+-------|
+|  SMF    | ONT   |
+|  SMF    | PDX   |
+|  SMF    | PDX   |
+|  SMF    | PDX   |
+|  SMF    | PDX   |
+|  SMF    | PDX   |
+|  SMF    | PHX   |
+|  SMF    | PHX   |
+|  SMF    | PHX   |
+|---------+-------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># print all except Origin, Dest</span>
+<span class="err">!</span><span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">5</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span>  <span class="n">cut</span> <span class="o">-</span><span class="n">x</span> <span class="o">-</span><span class="n">f</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
+2007,1,1,1,1232,1225,1341,1340,WN,2891,N351,69,75,54,1,7,389,4,11,0,,0,0,0,0,0,0
+2007,1,1,1,1918,1905,2043,2035,WN,462,N370,85,90,74,8,13,479,5,6,0,,0,0,0,0,0,0
+2007,1,1,1,2206,2130,2334,2300,WN,1229,N685,88,90,73,34,36,479,6,9,0,,0,3,0,0,0,31
+2007,1,1,1,1230,1200,1356,1330,WN,1355,N364,86,90,75,26,30,479,3,8,0,,0,23,0,0,0,3
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;Amount&quot;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">headers</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>1   POSSales_Sales_AmountExVAT
+2   POSSales_Sales_AmountInVAT
+3   POSSales_Cost_Amount
+4   POSSales_Margin_Amount
+5   POSSales_Discount_Amount
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;Quantity&quot;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">xsv</span> <span class="n">headers</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>1   POSSales_Sales_Quantity
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="n">having</span><span class="o">-</span><span class="n">fields</span> <span class="o">--</span><span class="nb">all</span><span class="o">-</span><span class="n">matching</span> <span class="s1">&#39;Quantity&#39;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span> 
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-filter"><code>mlr filter</code><a class="headerlink" href="#mlr-filter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>retain specific records</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Examples:
+  mlr filter &#39;log10($count) &gt; 4.0&#39;
+  mlr filter &#39;FNR == 2&#39;
+  mlr filter &#39;urand() &lt; 0.001&#39;
+  mlr filter &#39;$color != &quot;blue&quot; &amp;&amp; $value &gt; 4.2&#39;
+  mlr filter &#39;($x&lt;.5 &amp;&amp; $y&lt;.5) || ($x&gt;.5 &amp;&amp; $y&gt;.5)&#39;
+  mlr filter &#39;($name =~ &quot;^sys.*east$&quot;) || ($name =~ &quot;^dev.[0-9]+&quot;i)&#39;
+  mlr filter &#39;$ab = $a+$b; $cd = $c+$d; $ab != $cd&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># single condition</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="nb">filter</span> <span class="s1">&#39;$Origin == &quot;SFO&quot;&#39;</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+-------|
+|  Origin | Dest  |
+|---------+-------|
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|  SFO    | PHX   |
+|---------+-------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># compound logic</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="nb">filter</span> <span class="s1">&#39;$Origin == &quot;SFO&quot; &amp;&amp; $Dest == &quot;DFW&quot;&#39;</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="n">UniqueCarrier</span><span class="p">,</span><span class="n">FlightNum</span><span class="p">,</span><span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------------+-----------+--------+-------|
+|  UniqueCarrier | FlightNum | Origin | Dest  |
+|----------------+-----------+--------+-------|
+|  UA            | 136       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|  UA            | 336       | SFO    | DFW   |
+|----------------+-----------+--------+-------|
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-put"><code>mlr put</code><a class="headerlink" href="#mlr-put" title="Permanent link">&para;</a></h3>
+<ul>
+<li>derive new columns on the fly from existing ones</li>
+<li>Adds/updates specified field(s). Expressions are semicolon-separated and must either be assignments, or evaluate to boolean.</li>
+<li>Please use a dollar sign for field names and double-quotes for string literals.</li>
+<li>Miller built-in variables are NF NR FNR FILENUM FILENAME PI E, and ENV</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Examples:
+  mlr put &#39;$y = log10($x); $z = sqrt($y)&#39;
+  mlr put &#39;$x&gt;0.0 { $y=log10($x); $z=sqrt($y) }&#39; # does {...} only if $x &gt; 0.0
+  mlr put &#39;$x&gt;0.0;  $y=log10($x); $z=sqrt($y)&#39;   # does all three statements
+  mlr put &#39;$a =~ &quot;([a-z]+)_([0-9]+);  $b = &quot;left_\1&quot;; $c = &quot;right_\2&quot;&#39;
+  mlr put &#39;$a =~ &quot;([a-z]+)_([0-9]+) { $b = &quot;left_\1&quot;; $c = &quot;right_\2&quot; }&#39;
+  mlr put &#39;$filename = FILENAME&#39;
+  mlr put &#39;$colored_shape = $color . &quot;_&quot; . $shape&#39;
+  mlr put &#39;$y = cos($theta); $z = atan2($y, $x)&#39;
+  mlr put &#39;$name = sub($name, &quot;http.*com&quot;i, &quot;&quot;)&#39;
+  mlr put -q &#39;@sum += $x; end {emit @sum}&#39;
+  mlr put -q &#39;@sum[$a] += $x; end {emit @sum, &quot;a&quot;}&#39;
+  mlr put -q &#39;@sum[$a][$b] += $x; end {emit @sum, &quot;a&quot;, &quot;b&quot;}&#39;
+  mlr put -q &#39;@min=min(@min,$x);@max=max(@max,$x); end{emitf @min, @max}&#39;
+  mlr put -q &#39;is_null(@xmax) || $x &gt; @xmax {@xmax=$x; @recmax=$*}; end {emit @recmax}&#39;
+</code></pre></div>
+
+<hr />
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span><span class="p">,</span><span class="n">Distance</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">head</span> \
+<span class="o">|</span> <span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">put</span> <span class="s1">&#39;$Distance_2 = $Distance/100;&#39;</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+------+----------+-------------|
+|  Origin | Dest | Distance | Distance_2  |
+|---------+------+----------+-------------|
+|  SMF    | ONT  | 389      | 3.890000    |
+|  SMF    | PDX  | 479      | 4.790000    |
+|  SMF    | PDX  | 479      | 4.790000    |
+|  SMF    | PDX  | 479      | 4.790000    |
+|  SMF    | PDX  | 479      | 4.790000    |
+|  SMF    | PDX  | 479      | 4.790000    |
+|  SMF    | PHX  | 647      | 6.470000    |
+|  SMF    | PHX  | 647      | 6.470000    |
+|  SMF    | PHX  | 647      | 6.470000    |
+|---------+------+----------+-------------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">het</span><span class="o">-</span><span class="nb">bool</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>name,reachable
+barney,false
+betty,true
+fred,true
+wilma,1
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">icsv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="o">--</span><span class="n">opprint</span> <span class="n">put</span> <span class="s1">&#39;$reachable = boolean($reachable)&#39;</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">het</span><span class="o">-</span><span class="nb">bool</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>name   reachable
+barney false
+betty  true
+fred   true
+wilma  true
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">icsv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="o">--</span><span class="n">opprint</span> <span class="n">put</span> <span class="s1">&#39;$reachable = float(boolean($reachable))&#39;</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">het</span><span class="o">-</span><span class="nb">bool</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>name   reachable
+barney 0.000000
+betty  1.000000
+fred   1.000000
+wilma  1.000000
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Creating an index field</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">icsv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="o">--</span><span class="n">opprint</span> <span class="n">put</span> <span class="s1">&#39;$index = NR&#39;</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">het</span><span class="o">-</span><span class="nb">bool</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>name   reachable index
+barney false     1
+betty  true      2
+fred   true      3
+wilma  1         4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr />
+<h3 id="functions-to-use-with-put-filter">Functions to use with <code>put, filter</code><a class="headerlink" href="#functions-to-use-with-put-filter" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">-</span><span class="n">F</span> <span class="o">|</span> <span class="n">tr</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>+   +   -   -   *   /   //  %   **  |   ^   &amp;   ~   &lt;&lt;  &gt;&gt;  ==  !=  =~  !=~ &gt;   &gt;=  &lt;   &lt;=  &amp;&amp;  ||  ^^  !   ? : .   gsub    strlen  sub substr  tolower toupper abs acos    acosh   asin    asinh   atan    atan2   atanh   cbrt    ceil    cos cosh    erf erfc    exp expm1   floor   invqnorm    log log10   log1p   logifit madd    max mexp    min mmul    msub    pow qnorm   round   roundm  sgn sin sinh    sqrt    tan tanh    urand   urand32 urandint    dhms2fsec   dhms2sec    fsec2dhms   fsec2hms    gmt2sec hms2fsec    hms2sec sec2dhms    sec2gmt sec2gmt sec2gmtdate sec2hms strftime    strptime    systime is_absent   is_bool is_boolean  is_empty    is_empty_map    is_float    is_int  is_map  is_nonempty_map is_not_empty    is_not_map  is_not_null is_null is_numeric  is_present  is_string   asserting_absent    asserting_bool  asserting_boolean   asserting_empty asserting_empty_map asserting_float asserting_int   asserting_map   asserting_nonempty_map  asserting_not_empty asserting_not_map   asserting_not_null  asserting_null  asserting_numeric   asserting_present   asserting_string    boolean float   fmtnum  hexfmt  int string  typeof  depth   haskey  joink   joinkv  joinv   leafcount   length  mapdiff mapsum  splitkv splitkvx    splitnv splitnvx
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">-</span><span class="n">f</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>+ (class=arithmetic #args=2): Addition.
+
+
++ (class=arithmetic #args=1): Unary plus.
+
+
+- (class=arithmetic #args=2): Subtraction.
+
+
+- (class=arithmetic #args=1): Unary minus.
+
+
+* (class=arithmetic #args=2): Multiplication.
+
+
+/ (class=arithmetic #args=2): Division.
+
+
+// (class=arithmetic #args=2): Integer division: rounds to negative (pythonic).
+
+
+% (class=arithmetic #args=2): Remainder; never negative-valued (pythonic).
+
+
+** (class=arithmetic #args=2): Exponentiation; same as pow, but as an infix
+operator.
+
+
+| (class=arithmetic #args=2): Bitwise OR.
+
+
+^ (class=arithmetic #args=2): Bitwise XOR.
+
+
+&amp; (class=arithmetic #args=2): Bitwise AND.
+
+
+~ (class=arithmetic #args=1): Bitwise NOT. Beware &#39;$y=~$x&#39; since =~ is the
+regex-match operator: try &#39;$y = ~$x&#39;.
+
+
+&lt;&lt; (class=arithmetic #args=2): Bitwise left-shift.
+
+
+&gt;&gt; (class=arithmetic #args=2): Bitwise right-shift.
+
+
+== (class=boolean #args=2): String/numeric equality. Mixing number and string
+results in string compare.
+
+
+!= (class=boolean #args=2): String/numeric inequality. Mixing number and string
+results in string compare.
+
+
+=~ (class=boolean #args=2): String (left-hand side) matches regex (right-hand
+side), e.g. &#39;$name =~ &quot;^a.*b$&quot;&#39;.
+
+
+!=~ (class=boolean #args=2): String (left-hand side) does not match regex
+(right-hand side), e.g. &#39;$name !=~ &quot;^a.*b$&quot;&#39;.
+
+
+&gt; (class=boolean #args=2): String/numeric greater-than. Mixing number and string
+results in string compare.
+
+
+&gt;= (class=boolean #args=2): String/numeric greater-than-or-equals. Mixing number
+and string results in string compare.
+
+
+&lt; (class=boolean #args=2): String/numeric less-than. Mixing number and string
+results in string compare.
+
+
+&lt;= (class=boolean #args=2): String/numeric less-than-or-equals. Mixing number
+and string results in string compare.
+
+
+&amp;&amp; (class=boolean #args=2): Logical AND.
+
+
+|| (class=boolean #args=2): Logical OR.
+
+
+^^ (class=boolean #args=2): Logical XOR.
+
+
+! (class=boolean #args=1): Logical negation.
+
+
+? : (class=boolean #args=3): Ternary operator.
+
+
+. (class=string #args=2): String concatenation.
+
+
+gsub (class=string #args=3): Example: &#39;$name=gsub($name, &quot;old&quot;, &quot;new&quot;)&#39;
+(replace all).
+
+
+strlen (class=string #args=1): String length.
+
+
+sub (class=string #args=3): Example: &#39;$name=sub($name, &quot;old&quot;, &quot;new&quot;)&#39;
+(replace once).
+
+
+substr (class=string #args=3): substr(s,m,n) gives substring of s from 0-up position m to n 
+inclusive. Negative indices -len .. -1 alias to 0 .. len-1.
+
+
+tolower (class=string #args=1): Convert string to lowercase.
+
+
+toupper (class=string #args=1): Convert string to uppercase.
+
+
+abs (class=math #args=1): Absolute value.
+
+
+acos (class=math #args=1): Inverse trigonometric cosine.
+
+
+acosh (class=math #args=1): Inverse hyperbolic cosine.
+
+
+asin (class=math #args=1): Inverse trigonometric sine.
+
+
+asinh (class=math #args=1): Inverse hyperbolic sine.
+
+
+atan (class=math #args=1): One-argument arctangent.
+
+
+atan2 (class=math #args=2): Two-argument arctangent.
+
+
+atanh (class=math #args=1): Inverse hyperbolic tangent.
+
+
+cbrt (class=math #args=1): Cube root.
+
+
+ceil (class=math #args=1): Ceiling: nearest integer at or above.
+
+
+cos (class=math #args=1): Trigonometric cosine.
+
+
+cosh (class=math #args=1): Hyperbolic cosine.
+
+
+erf (class=math #args=1): Error function.
+
+
+erfc (class=math #args=1): Complementary error function.
+
+
+exp (class=math #args=1): Exponential function e**x.
+
+
+expm1 (class=math #args=1): e**x - 1.
+
+
+floor (class=math #args=1): Floor: nearest integer at or below.
+
+
+invqnorm (class=math #args=1): Inverse of normal cumulative distribution
+function. Note that invqorm(urand()) is normally distributed.
+
+
+log (class=math #args=1): Natural (base-e) logarithm.
+
+
+log10 (class=math #args=1): Base-10 logarithm.
+
+
+log1p (class=math #args=1): log(1-x).
+
+
+logifit (class=math #args=3): Given m and b from logistic regression, compute
+fit: $yhat=logifit($x,$m,$b).
+
+
+madd (class=math #args=3): a + b mod m (integers)
+
+
+max (class=math variadic): max of n numbers; null loses
+
+
+mexp (class=math #args=3): a ** b mod m (integers)
+
+
+min (class=math variadic): Min of n numbers; null loses
+
+
+mmul (class=math #args=3): a * b mod m (integers)
+
+
+msub (class=math #args=3): a - b mod m (integers)
+
+
+pow (class=math #args=2): Exponentiation; same as **.
+
+
+qnorm (class=math #args=1): Normal cumulative distribution function.
+
+
+round (class=math #args=1): Round to nearest integer.
+
+
+roundm (class=math #args=2): Round to nearest multiple of m: roundm($x,$m) is
+the same as round($x/$m)*$m
+
+
+sgn (class=math #args=1): +1 for positive input, 0 for zero input, -1 for
+negative input.
+
+
+sin (class=math #args=1): Trigonometric sine.
+
+
+sinh (class=math #args=1): Hyperbolic sine.
+
+
+sqrt (class=math #args=1): Square root.
+
+
+tan (class=math #args=1): Trigonometric tangent.
+
+
+tanh (class=math #args=1): Hyperbolic tangent.
+
+
+urand (class=math #args=0): Floating-point numbers on the unit interval.
+Int-valued example: &#39;$n=floor(20+urand()*11)&#39;.
+
+
+urand32 (class=math #args=0): Integer uniformly distributed 0 and 2**32-1
+inclusive.
+
+
+urandint (class=math #args=2): Integer uniformly distributed between inclusive
+integer endpoints.
+
+
+dhms2fsec (class=time #args=1): Recovers floating-point seconds as in
+dhms2fsec(&quot;5d18h53m20.250000s&quot;) = 500000.250000
+
+
+dhms2sec (class=time #args=1): Recovers integer seconds as in
+dhms2sec(&quot;5d18h53m20s&quot;) = 500000
+
+
+fsec2dhms (class=time #args=1): Formats floating-point seconds as in
+fsec2dhms(500000.25) = &quot;5d18h53m20.250000s&quot;
+
+
+fsec2hms (class=time #args=1): Formats floating-point seconds as in
+fsec2hms(5000.25) = &quot;01:23:20.250000&quot;
+
+
+gmt2sec (class=time #args=1): Parses GMT timestamp as integer seconds since
+the epoch.
+
+
+hms2fsec (class=time #args=1): Recovers floating-point seconds as in
+hms2fsec(&quot;01:23:20.250000&quot;) = 5000.250000
+
+
+hms2sec (class=time #args=1): Recovers integer seconds as in
+hms2sec(&quot;01:23:20&quot;) = 5000
+
+
+sec2dhms (class=time #args=1): Formats integer seconds as in sec2dhms(500000)
+= &quot;5d18h53m20s&quot;
+
+
+sec2gmt (class=time #args=1): Formats seconds since epoch (integer part)
+as GMT timestamp, e.g. sec2gmt(1440768801.7) = &quot;2015-08-28T13:33:21Z&quot;.
+Leaves non-numbers as-is.
+
+
+sec2gmt (class=time #args=2): Formats seconds since epoch as GMT timestamp with n
+decimal places for seconds, e.g. sec2gmt(1440768801.7,1) = &quot;2015-08-28T13:33:21.7Z&quot;.
+Leaves non-numbers as-is.
+
+
+sec2gmtdate (class=time #args=1): Formats seconds since epoch (integer part)
+as GMT timestamp with year-month-date, e.g. sec2gmtdate(1440768801.7) = &quot;2015-08-28&quot;.
+Leaves non-numbers as-is.
+
+
+sec2hms (class=time #args=1): Formats integer seconds as in
+sec2hms(5000) = &quot;01:23:20&quot;
+
+
+strftime (class=time #args=2): Formats seconds since the epoch as timestamp, e.g.
+strftime(1440768801.7,&quot;%Y-%m-%dT%H:%M:%SZ&quot;) = &quot;2015-08-28T13:33:21Z&quot;, and
+strftime(1440768801.7,&quot;%Y-%m-%dT%H:%M:%3SZ&quot;) = &quot;2015-08-28T13:33:21.700Z&quot;.
+Format strings are as in the C library (please see &quot;man strftime&quot; on your system),
+with the Miller-specific addition of &quot;%1S&quot; through &quot;%9S&quot; which format the seocnds
+with 1 through 9 decimal places, respectively. (&quot;%S&quot; uses no decimal places.)
+
+
+strptime (class=time #args=2): Parses timestamp as floating-point seconds since the epoch,
+e.g. strptime(&quot;2015-08-28T13:33:21Z&quot;,&quot;%Y-%m-%dT%H:%M:%SZ&quot;) = 1440768801.000000,
+and  strptime(&quot;2015-08-28T13:33:21.345Z&quot;,&quot;%Y-%m-%dT%H:%M:%SZ&quot;) = 1440768801.345000.
+
+
+systime (class=time #args=0): Floating-point seconds since the epoch,
+e.g. 1440768801.748936.
+
+
+is_absent (class=typing #args=1): False if field is present in input, false otherwise
+
+
+is_bool (class=typing #args=1): True if field is present with boolean value. Synonymous with is_boolean.
+
+
+is_boolean (class=typing #args=1): True if field is present with boolean value. Synonymous with is_bool.
+
+
+is_empty (class=typing #args=1): True if field is present in input with empty string value, false otherwise.
+
+
+is_empty_map (class=typing #args=1): True if argument is a map which is empty.
+
+
+is_float (class=typing #args=1): True if field is present with value inferred to be float
+
+
+is_int (class=typing #args=1): True if field is present with value inferred to be int
+
+
+is_map (class=typing #args=1): True if argument is a map.
+
+
+is_nonempty_map (class=typing #args=1): True if argument is a map which is non-empty.
+
+
+is_not_empty (class=typing #args=1): False if field is present in input with empty value, false otherwise
+
+
+is_not_map (class=typing #args=1): True if argument is not a map.
+
+
+is_not_null (class=typing #args=1): False if argument is null (empty or absent), true otherwise.
+
+
+is_null (class=typing #args=1): True if argument is null (empty or absent), false otherwise.
+
+
+is_numeric (class=typing #args=1): True if field is present with value inferred to be int or float
+
+
+is_present (class=typing #args=1): True if field is present in input, false otherwise.
+
+
+is_string (class=typing #args=1): True if field is present with string (including empty-string) value
+
+
+asserting_absent (class=typing #args=1): Returns argument if it is absent in the input data, else
+throws an error.
+
+
+asserting_bool (class=typing #args=1): Returns argument if it is present with boolean value, else
+throws an error.
+
+
+asserting_boolean (class=typing #args=1): Returns argument if it is present with boolean value, else
+throws an error.
+
+
+asserting_empty (class=typing #args=1): Returns argument if it is present in input with empty value,
+else throws an error.
+
+
+asserting_empty_map (class=typing #args=1): Returns argument if it is a map with empty value, else
+throws an error.
+
+
+asserting_float (class=typing #args=1): Returns argument if it is present with float value, else
+throws an error.
+
+
+asserting_int (class=typing #args=1): Returns argument if it is present with int value, else
+throws an error.
+
+
+asserting_map (class=typing #args=1): Returns argument if it is a map, else throws an error.
+
+
+asserting_nonempty_map (class=typing #args=1): Returns argument if it is a non-empty map, else throws
+an error.
+
+
+asserting_not_empty (class=typing #args=1): Returns argument if it is present in input with non-empty
+value, else throws an error.
+
+
+asserting_not_map (class=typing #args=1): Returns argument if it is not a map, else throws an error.
+
+
+asserting_not_null (class=typing #args=1): Returns argument if it is non-null (non-empty and non-absent),
+else throws an error.
+
+
+asserting_null (class=typing #args=1): Returns argument if it is null (empty or absent), else throws
+an error.
+
+
+asserting_numeric (class=typing #args=1): Returns argument if it is present with int or float value,
+else throws an error.
+
+
+asserting_present (class=typing #args=1): Returns argument if it is present in input, else throws
+an error.
+
+
+asserting_string (class=typing #args=1): Returns argument if it is present with string (including
+empty-string) value, else throws an error.
+
+
+boolean (class=conversion #args=1): Convert int/float/bool/string to boolean.
+
+
+float (class=conversion #args=1): Convert int/float/bool/string to float.
+
+
+fmtnum (class=conversion #args=2): Convert int/float/bool to string using
+printf-style format string, e.g. &#39;$s = fmtnum($n, &quot;%06lld&quot;)&#39;.
+
+
+hexfmt (class=conversion #args=1): Convert int to string, e.g. 255 to &quot;0xff&quot;.
+
+
+int (class=conversion #args=1): Convert int/float/bool/string to int.
+
+
+string (class=conversion #args=1): Convert int/float/bool/string to string.
+
+
+typeof (class=conversion #args=1): Convert argument to type of argument (e.g.
+MT_STRING). For debug.
+
+
+depth (class=maps #args=1): Prints maximum depth of hashmap: &#39;&#39;. Scalars have depth 0.
+
+
+haskey (class=maps #args=2): True/false if map has/hasn&#39;t key, e.g. &#39;haskey($*, &quot;a&quot;)&#39; or
+&#39;haskey(mymap, mykey)&#39;. Error if 1st argument is not a map.
+
+
+joink (class=maps #args=2): Makes string from map keys. E.g. &#39;joink($*, &quot;,&quot;)&#39;.
+
+
+joinkv (class=maps #args=3): Makes string from map key-value pairs. E.g. &#39;joinkv(@v[2], &quot;=&quot;, &quot;,&quot;)&#39;
+
+
+joinv (class=maps #args=2): Makes string from map keys. E.g. &#39;joinv(mymap, &quot;,&quot;)&#39;.
+
+
+leafcount (class=maps #args=1): Counts total number of terminal values in hashmap. For single-level maps,
+same as length.
+
+
+length (class=maps #args=1): Counts number of top-level entries in hashmap. Scalars have length 1.
+
+
+mapdiff (class=maps variadic): With 0 args, returns empty map. With 1 arg, returns copy of arg.
+With 2 or more, returns copy of arg 1 with all keys from any of remaining argument maps removed.
+
+
+mapsum (class=maps variadic): With 0 args, returns empty map. With &gt;= 1 arg, returns a map with
+key-value pairs from all arguments. Rightmost collisions win, e.g. &#39;mapsum({1:2,3,4},{1:5})&#39; is &#39;{1:5,3:4}&#39;.
+
+
+splitkv (class=maps #args=3): Splits string by separators into map with type inference.
+E.g. &#39;splitkv(&quot;a=1,b=2,c=3&quot;, &quot;=&quot;, &quot;,&quot;)&#39; gives &#39;{&quot;a&quot; : 1, &quot;b&quot; : 2, &quot;c&quot; : 3}&#39;.
+
+
+splitkvx (class=maps #args=3): Splits string by separators into map without type inference (keys and
+values are strings). E.g. &#39;splitkv(&quot;a=1,b=2,c=3&quot;, &quot;=&quot;, &quot;,&quot;)&#39; gives
+&#39;{&quot;a&quot; : &quot;1&quot;, &quot;b&quot; : &quot;2&quot;, &quot;c&quot; : &quot;3&quot;}&#39;.
+
+
+splitnv (class=maps #args=2): Splits string by separator into integer-indexed map with type inference.
+E.g. &#39;splitnv(&quot;a,b,c&quot; , &quot;,&quot;)&#39; gives &#39;{1 : &quot;a&quot;, 2 : &quot;b&quot;, 3 : &quot;c&quot;}&#39;.
+
+
+splitnvx (class=maps #args=2): Splits string by separator into integer-indexed map without type
+inference (values are strings). E.g. &#39;splitnv(&quot;4,5,6&quot; , &quot;,&quot;)&#39; gives &#39;{1 : &quot;4&quot;, 2 : &quot;5&quot;, 3 : &quot;6&quot;}&#39;.
+
+To set the seed for urand, you may specify decimal or hexadecimal 32-bit
+numbers of the form &quot;mlr --seed 123456789&quot; or &quot;mlr --seed 0xcafefeed&quot;.
+Miller&#39;s built-in variables are NF, NR, FNR, FILENUM, and FILENAME (awk-like)
+along with the mathematical constants PI and E.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span> <span class="n">headers</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>1   POSSales_PK
+2   Date_FK
+3   Date
+4   Store_FK
+5   Item_FK
+6   Item_PK
+7   Promo_FK
+8   POSSales_Ticket_No
+9   POSSales_GiftList_No
+10  POSSales_GiftListLine_No
+11  POSSales_Sales_Quantity
+12  POSSales_Sales_AmountExVAT
+13  POSSales_Sales_AmountInVAT
+14  POSSales_Cost_Amount
+15  POSSales_Margin_Amount
+16  POSSales_Discount_Amount
+17  Store_No_BK
+18  POS_Terminal_No_BK
+19  Transaction_No_BK
+20  Line_No_BK
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> \
+<span class="n">then</span> <span class="n">put</span> <span class="s1">&#39;$POSSales_Sales_AmountExVAT2=float(gsub($POSSales_Sales_AmountExVAT,&quot;,&quot;,&quot;.&quot;))&#39;</span> \
+<span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">f</span> <span class="s1">&#39;POSSales_Sales_AmountExVAT&#39;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>POSSales_Sales_AmountExVAT,POSSales_Sales_AmountExVAT2
+&quot;17,32231000000000000000&quot;,17.322310
+&quot;43,38017000000000000000&quot;,43.380170
+&quot;6,60331000000000000000&quot;,6.603310
+&quot;24,78512000000000000000&quot;,24.785120
+&quot;12,38843000000000000000&quot;,12.388430
+&quot;,94340000000000000000&quot;,0.943400
+&quot;2,22314000000000000000&quot;,2.223140
+&quot;10,70248000000000000000&quot;,10.702480
+&quot;3,29752000000000000000&quot;,3.297520
+&quot;28,91736000000000000000&quot;,28.917360
+</code></pre></div>
+
+<hr />
+<h3 id="sec2gmt-sec2gmtdate-for-epoch-timestamps"><code>sec2gmt, sec2gmtdate</code> for epoch timestamps<a class="headerlink" href="#sec2gmt-sec2gmtdate-for-epoch-timestamps" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Replaces a numeric field representing seconds since the epoch with the corresponding GMT timestamp</li>
+</ul>
+<div class="highlight"><pre><span></span><code>mlr sec2gmt time1,time2
+# is the same as
+mlr put &#39;$time1=sec2gmt($time1);$time2=sec2gmt($time2)&#39;
+</code></pre></div>
+
+<ul>
+<li>Alternatively, use the following functions with <code>put</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>strftime: Formats seconds since epoch (integer part) as timestamp, e.g.
+    strftime(1440768801.7,&quot;%Y-%m-%dT%H:%M:%SZ&quot;) = &quot;2015-08-28T13:33:21Z&quot;.
+
+
+strptime: Parses timestamp as integer seconds since epoch, e.g. 
+    strptime(&quot;2015-08-28T13:33:21Z&quot;,&quot;%Y-%m-%dT%H:%M:%SZ&quot;) = 1440768801.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">f</span> <span class="s1">&#39;Date&#39;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Date
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+2014-01-02 00:00:00
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> \
+<span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">f</span> <span class="s1">&#39;Date&#39;</span> \
+<span class="n">then</span> <span class="n">put</span> <span class="s1">&#39;$epoch=strptime($Date, &quot;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&quot;)&#39;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span> \
+<span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------------------+-------------|
+|  Date                | epoch       |
+|----------------------+-------------|
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|  2014-01-02 00:00:00 | 1388620800  |
+|----------------------+-------------|
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-label"><code>mlr label</code><a class="headerlink" href="#mlr-label" title="Permanent link">&para;</a></h3>
+<ul>
+<li>use <code>--implicit-csv-header</code> with <code>mlr cat</code> to auto-create numeric column names</li>
+<li>create column labels for files using <code>mlr &lt;options&gt; label &lt;colnames&gt;</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">c</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span><span class="p">,</span><span class="n">FlightNum</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">head</span> <span class="o">|</span> <span class="n">sed</span> <span class="mi">1</span><span class="n">d</span> \
+<span class="o">|</span> <span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">label</span> <span class="n">col1</span><span class="p">,</span><span class="n">col2</span><span class="p">,</span><span class="n">col3</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>col1,col2,col3
+SMF,PDX,462
+SMF,PDX,1229
+SMF,PDX,1355
+SMF,PDX,2278
+SMF,PDX,2386
+SMF,PHX,409
+SMF,PHX,1131
+SMF,PHX,1212
+</code></pre></div>
+
+<hr />
+<h2 id="mlr-rename_1"><code>mlr rename</code><a class="headerlink" href="#mlr-rename_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Renames specified fields.</li>
+<li>Usage: mlr rename [options] {old1,new1,old2,new2,...}<ul>
+<li>use <code>-g</code> for global replacement, and <code>-r</code> for regex matching</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Examples:
+mlr rename old_name,new_name
+mlr rename old_name_1,new_name_1,old_name_2,new_name_2
+mlr rename -r &#39;Date_[0-9]+,Date,&#39;  Rename all such fields to be &quot;Date&quot;
+mlr rename -r &#39;&quot;Date_[0-9]+&quot;,Date&#39; Same
+mlr rename -r &#39;Date_([0-9]+).*,\1&#39; Rename all such fields to be of the form 20151015
+mlr rename -r &#39;&quot;name&quot;i,Name&#39;       Rename &quot;name&quot;, &quot;Name&quot;, &quot;NAME&quot;, etc. to &quot;Name&quot;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># replace spaces with underscores</span>
+<span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">ifs</span> <span class="s1">&#39;|&#39;</span> <span class="o">--</span><span class="n">ofs</span> <span class="s1">&#39;,&#39;</span> <span class="n">rename</span> <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">r</span> <span class="s1">&#39; ,_&#39;</span> <span class="o">./</span><span class="n">raw</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvcut</span> <span class="o">-</span><span class="n">n</span> <span class="o">./</span><span class="n">cleaned</span><span class="o">/</span><span class="n">Sales</span><span class="o">.</span><span class="n">csv</span>
+<span class="c1"># or !xsv headers ./cleaned/Sales.csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>  1: POSSales_PK
+  2: Date_FK
+  3: Date
+  4: Store_FK
+  5: Item_FK
+  6: Item_PK
+  7: Promo_FK
+  8: POSSales_Ticket_No
+  9: POSSales_GiftList_No
+ 10: POSSales_GiftListLine_No
+ 11: POSSales_Sales_Quantity
+ 12: POSSales_Sales_AmountExVAT
+ 13: POSSales_Sales_AmountInVAT
+ 14: POSSales_Cost_Amount
+ 15: POSSales_Margin_Amount
+ 16: POSSales_Discount_Amount
+ 17: Store_No_BK
+ 18: POS_Terminal_No_BK
+ 19: Transaction_No_BK
+ 20: Line_No_BK
+</code></pre></div>
+
+<hr />
+<h3 id="random-sampling-with-bootstrap-sample-shuffle">Random Sampling with <code>bootstrap, sample, shuffle</code><a class="headerlink" href="#random-sampling-with-bootstrap-sample-shuffle" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>bootstrap</code> is for sampling with replacement</li>
+<li>The canonical use for bootstrap sampling is to put <strong>error bars</strong> (or, <code>confints</code>) on statistical quantities, such as the mean.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">bootstrap</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span> <span class="n">then</span> <span class="n">stats1</span> <span class="o">-</span><span class="n">a</span> <span class="n">mean</span> <span class="o">-</span><span class="n">f</span> <span class="n">WeatherDelay</span> <span class="o">-</span><span class="n">g</span> <span class="n">UniqueCarrier</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>UniqueCarrier,WeatherDelay_mean
+NW,0.000000
+OH,2.000000
+DL,0.000000
+9E,0.000000
+AA,0.000000
+WN,0.000000
+UA,0.000000
+FL,0.000000
+OO,0.000000
+EV,46.833333
+US,0.000000
+YV,0.000000
+MQ,0.000000
+XE,0.000000
+AS,0.000000
+CO,0.000000
+AQ,0.000000
+HA,0.000000
+B6,0.000000
+</code></pre></div>
+
+<hr />
+<ul>
+<li><code>sample</code> is for sampling <code>-k</code> records without replacement</li>
+<li>Stratified if groups are specified with a <code>-g</code> switch</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">sample</span> <span class="o">-</span><span class="n">k</span> <span class="mi">4</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Year,Month,DayofMonth,DayOfWeek,DepTime,CRSDepTime,ArrTime,CRSArrTime,UniqueCarrier,FlightNum,TailNum,ActualElapsedTime,CRSElapsedTime,AirTime,ArrDelay,DepDelay,Origin,Dest,Distance,TaxiIn,TaxiOut,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
+2007,4,20,5,3,2353,221,209,US,19,N601AW,138,136,116,12,10,LAS,PDX,762,3,19,0,,0,0,0,0,0,0
+2007,3,21,3,902,900,1242,1153,YV,7176,N37342,160,113,93,49,2,ORD,CAE,666,4,63,0,,0,49,0,0,0,0
+2007,8,3,5,2115,2028,2248,2218,FL,59,N932AT,93,110,72,30,47,IAD,ATL,533,9,12,0,,0,0,0,0,0,30
+2007,10,12,5,810,820,947,1005,AA,1895,N5FHAA,157,165,139,-18,-10,MCO,DFW,984,6,12,0,,0,0,0,0,0,0
+</code></pre></div>
+
+<hr />
+<h3 id="mlr-count-distinct"><code>mlr count-distinct</code><a class="headerlink" href="#mlr-count-distinct" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">count</span><span class="o">-</span><span class="n">distinct</span> <span class="o">-</span><span class="n">f</span> <span class="n">Origin</span><span class="p">,</span><span class="n">Dest</span> <span class="n">then</span> <span class="n">sort</span> <span class="o">-</span><span class="n">nr</span> <span class="n">count</span> <span class="n">then</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+------+--------|
+|  Origin | Dest | count  |
+|---------+------+--------|
+|  OGG    | HNL  | 16099  |
+|  HNL    | OGG  | 15876  |
+|  LAX    | LAS  | 14385  |
+|  LAS    | LAX  | 13815  |
+|  HNL    | LIH  | 13156  |
+|  LIH    | HNL  | 13030  |
+|  SAN    | LAX  | 12779  |
+|  LAX    | SAN  | 12767  |
+|  BOS    | LGA  | 12263  |
+|  LAS    | PHX  | 12228  |
+|---------+------+--------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">f17</span> <span class="o">|</span> <span class="n">sed</span> <span class="mi">1</span><span class="n">d</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>304
+</code></pre></div>
+
+<hr />
+<h2 id="mlr-merge-fields"><code>mlr merge-fields</code><a class="headerlink" href="#mlr-merge-fields" title="Permanent link">&para;</a></h2>
+<ul>
+<li>like mlr stats1 but all accumulation is done across fields within each given record: horizontal rather than vertical statistics</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> <span class="n">cut</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;Time&quot;</span> <span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------+------------+---------+------------+-------------------+----------------+----------|
+|  DepTime | CRSDepTime | ArrTime | CRSArrTime | ActualElapsedTime | CRSElapsedTime | AirTime  |
+|----------+------------+---------+------------+-------------------+----------------+----------|
+|  1232    | 1225       | 1341    | 1340       | 69                | 75             | 54       |
+|  1918    | 1905       | 2043    | 2035       | 85                | 90             | 74       |
+|  2206    | 2130       | 2334    | 2300       | 88                | 90             | 73       |
+|  1230    | 1200       | 1356    | 1330       | 86                | 90             | 75       |
+|  831     | 830        | 957     | 1000       | 86                | 90             | 74       |
+|  1430    | 1420       | 1553    | 1550       | 83                | 90             | 74       |
+|  1936    | 1840       | 2217    | 2130       | 101               | 110            | 89       |
+|  944     | 935        | 1223    | 1225       | 99                | 110            | 86       |
+|  1537    | 1450       | 1819    | 1735       | 102               | 105            | 90       |
+|  1318    | 1315       | 1603    | 1610       | 105               | 115            | 92       |
+|----------+------------+---------+------------+-------------------+----------------+----------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> <span class="n">then</span> \
+<span class="n">cut</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;Time&quot;</span> <span class="n">then</span> \
+<span class="n">merge</span><span class="o">-</span><span class="n">fields</span> <span class="o">-</span><span class="n">a</span> <span class="nb">sum</span> <span class="o">-</span><span class="n">r</span> <span class="s1">&#39;Time&#39;</span> <span class="o">-</span><span class="n">k</span> <span class="o">-</span><span class="n">o</span> <span class="n">time</span> \
+<span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|----------+------------+---------+------------+-------------------+----------------+---------+-----------|
+|  DepTime | CRSDepTime | ArrTime | CRSArrTime | ActualElapsedTime | CRSElapsedTime | AirTime | time_sum  |
+|----------+------------+---------+------------+-------------------+----------------+---------+-----------|
+|  1232    | 1225       | 1341    | 1340       | 69                | 75             | 54      | 5336      |
+|  1918    | 1905       | 2043    | 2035       | 85                | 90             | 74      | 8150      |
+|  2206    | 2130       | 2334    | 2300       | 88                | 90             | 73      | 9221      |
+|  1230    | 1200       | 1356    | 1330       | 86                | 90             | 75      | 5367      |
+|  831     | 830        | 957     | 1000       | 86                | 90             | 74      | 3868      |
+|  1430    | 1420       | 1553    | 1550       | 83                | 90             | 74      | 6200      |
+|  1936    | 1840       | 2217    | 2130       | 101               | 110            | 89      | 8423      |
+|  944     | 935        | 1223    | 1225       | 99                | 110            | 86      | 4622      |
+|  1537    | 1450       | 1819    | 1735       | 102               | 105            | 90      | 6838      |
+|  1318    | 1315       | 1603    | 1610       | 105               | 115            | 92      | 6158      |
+|----------+------------+---------+------------+-------------------+----------------+---------+-----------|
+</code></pre></div>
+
+<hr />
+<h2 id="stats1"><code>stats1</code><a class="headerlink" href="#stats1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Computes univariate statistics for one or more given fields, accumulated across the input record stream.</li>
+<li>switch <code>-f {a,b,c}</code>  Value-field names on which to compute statistics</li>
+<li>switch <code>-g {d,e,f}</code>  Optional group-by-field names</li>
+<li>switch <code>-a {g,h,i}</code> with the listed stats</li>
+</ul>
+<div class="highlight"><pre><span></span><code>  count     Count instances of fields
+  mode      Find most-frequently-occurring values for fields; first-found wins tie
+  antimode  Find least-frequently-occurring values for fields; first-found wins tie
+  sum       Compute sums of specified fields
+  mean      Compute averages (sample means) of specified fields
+  stddev    Compute sample standard deviation of specified fields
+  var       Compute sample variance of specified fields
+  meaneb    Estimate error bars for averages (assuming no sample autocorrelation)
+  skewness  Compute sample skewness of specified fields
+  kurtosis  Compute sample kurtosis of specified fields
+  min       Compute minimum values of specified fields
+  max       Compute maximum values of specified fields
+
+Examples -
+
+mlr stats1 -a min,p10,p50,p90,max -f value -g size,shape
+mlr stats1 -a count,mode -f size
+mlr stats1 -a count,mode -f size -g shape
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="nb">filter</span> <span class="s1">&#39;$ArrDelay!=&quot;NA&quot;&#39;</span> \
+<span class="n">then</span> <span class="n">stats1</span> <span class="o">-</span><span class="n">a</span> <span class="n">mean</span><span class="p">,</span><span class="n">stddev</span> <span class="o">-</span><span class="n">f</span> <span class="n">ArrDelay</span> <span class="o">-</span><span class="n">g</span> <span class="n">Origin</span> \
+<span class="n">then</span> <span class="n">sort</span> <span class="o">-</span><span class="n">nr</span> <span class="n">ArrDelay_mean</span> \
+<span class="n">then</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> \
+<span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+---------------+------------------|
+|  Origin | ArrDelay_mean | ArrDelay_stddev  |
+|---------+---------------+------------------|
+|  ACK    | 46.115523     | 82.715645        |
+|  SOP    | 40.464865     | 61.941857        |
+|  PIR    | 35.750000     | 33.260337        |
+|  MKC    | 25.000000     |                  |
+|  CEC    | 24.763527     | 47.427527        |
+|  MCN    | 24.087607     | 79.076628        |
+|  SPI    | 21.591925     | 62.123661        |
+|  EWN    | 21.486532     | 53.500822        |
+|  HHH    | 20.648305     | 61.881898        |
+|  MEI    | 20.529141     | 52.402560        |
+|---------+---------------+------------------|
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="nb">filter</span> <span class="s1">&#39;$ArrDelay!=&quot;NA&quot;&#39;</span> \
+<span class="n">then</span> <span class="n">stats1</span> <span class="o">-</span><span class="n">a</span> <span class="nb">min</span><span class="p">,</span><span class="n">p05</span><span class="p">,</span><span class="n">p10</span><span class="p">,</span><span class="n">p90</span><span class="p">,</span><span class="n">p95</span><span class="p">,</span><span class="nb">max</span> <span class="o">-</span><span class="n">f</span> <span class="n">ArrDelay</span> <span class="o">-</span><span class="n">g</span> <span class="n">Origin</span> \
+<span class="n">then</span> <span class="n">sort</span> <span class="o">-</span><span class="n">f</span> <span class="n">Origin</span> \
+<span class="n">then</span> <span class="n">head</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span> \
+<span class="n">flights</span><span class="o">.</span><span class="n">csv</span> <span class="o">|</span> <span class="n">csvlook</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>|---------+--------------+--------------+--------------+--------------+--------------+---------------|
+|  Origin | ArrDelay_min | ArrDelay_p05 | ArrDelay_p10 | ArrDelay_p90 | ArrDelay_p95 | ArrDelay_max  |
+|---------+--------------+--------------+--------------+--------------+--------------+---------------|
+|  ABE    | -44          | -22          | -18          | 39           | 83           | 690           |
+|  ABI    | -32          | -14          | -12          | 39           | 78           | 695           |
+|  ABQ    | -61          | -19          | -15          | 29           | 54           | 1049          |
+|  ABY    | -27          | -15          | -12          | 45           | 79           | 336           |
+|  ACK    | -51          | -37          | -31          | 163          | 234          | 386           |
+|  ACT    | -32          | -17          | -14          | 33           | 67           | 366           |
+|  ACV    | -30          | -17          | -14          | 62           | 96           | 498           |
+|  ACY    | -55          | -30          | -24          | 60           | 110          | 741           |
+|  ADK    | -83          | -73          | -65          | 56           | 78           | 160           |
+|  ADQ    | -31          | -19          | -16          | 41           | 66           | 275           |
+|---------+--------------+--------------+--------------+--------------+--------------+---------------|
+</code></pre></div>
+
+<hr />
+<h2 id="stats2"><code>stats2</code><a class="headerlink" href="#stats2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>for bivariate statistics</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-a {linreg-ols,corr,...}  Names of accumulators: one or more of:
+  linreg-pca   Linear regression using principal component analysis
+  linreg-ols   Linear regression using ordinary least squares
+  r2           Quality metric for linreg-ols (linreg-pca emits its own)
+  logireg      Logistic regression
+  corr         Sample correlation
+  cov          Sample covariance
+  covx         Sample-covariance matrix
+-f {a,b,c,d}   Value-field name-pairs on which to compute statistics.
+               There must be an even number of names.
+-g {e,f,g}     Optional group-by-field names.
+-v             Print additional output for linreg-pca.
+-s             Print iterative stats. Useful in tail -f contexts (in which
+               case please avoid pprint-format output since end of input
+               stream will never be seen).
+--fit          Rather than printing regression parameters, applies them to
+               the input data to compute new fit fields. All input records are
+               held in memory until end of input stream. Has effect only for
+               linreg-ols, linreg-pca, and logireg.
+Only one of -s or --fit may be used.
+
+Examples
+mlr stats2 -a linreg-pca -f x,y
+mlr stats2 -a linreg-ols,r2 -f x,y -g size,shape
+mlr stats2 -a corr -f x,y
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">--</span><span class="n">csv</span> <span class="o">--</span><span class="n">rs</span> <span class="n">lf</span> <span class="nb">filter</span> <span class="s1">&#39;$ArrDelay!=&quot;NA&quot;&#39;</span> \
+<span class="n">then</span> <span class="n">stats2</span> <span class="o">-</span><span class="n">a</span> <span class="n">corr</span> <span class="o">-</span><span class="n">f</span> <span class="n">ArrDelay</span><span class="p">,</span><span class="n">AirTime</span> 
+</code></pre></div>
+
+<hr />
+<h2 id="steps"><code>steps</code><a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Computes values dependent on the previous record, optionally grouped by category.</li>
+<li>useful for calculating <code>lagged</code> variables</li>
+</ul>
+<blockquote>
+<p>Most Miller commands are <strong>record-at-a-time</strong>, with the exception of <code>stats1, stats2</code>, and <code>histogram</code> which compute aggregate output. </p>
+<p>The <code>step</code> command is intermediate: it allows the option of adding fields which are functions of fields from previous records. Rsum is short for running sum.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>Options:
+-a {delta,rsum,...}   Names of steppers: comma-separated, one or more of:
+  delta    Compute differences in field(s) between successive records
+  shift    Include value(s) in field(s) from previous record, if any
+  from-first Compute differences in field(s) from first record
+  ratio    Compute ratios in field(s) between successive records
+  rsum     Compute running sums of field(s) between successive records
+  counter  Count instances of field(s) between successive records
+  ewma     Exponentially weighted moving average over successive records
+-f {a,b,c} Value-field names on which to compute statistics
+-g {d,e,f} Optional group-by-field names
+-F         Computes integerable things (e.g. counter) in floating point.
+-d {x,y,z} Weights for ewma. 1 means current sample gets all weight (no
+           smoothing), near under under 1 is light smoothing, near over 0 is
+           heavy smoothing. Multiple weights may be specified, e.g.
+           &quot;mlr step -a ewma -f sys_load -d 0.01,0.1,0.9&quot;. Default if omitted
+           is &quot;-d 0.5&quot;.
+-o {a,b,c} Custom suffixes for EWMA output fields. If omitted, these default to
+           the -d values. If supplied, the number of -o values must be the same
+           as the number of -d values.
+
+Examples:
+  mlr step -a rsum -f request_size
+  mlr step -a delta -f request_size -g hostname
+  mlr step -a ewma -d 0.1,0.9 -f x,y
+  mlr step -a ewma -d 0.1,0.9 -o smooth,rough -f x,y
+  mlr step -a ewma -d 0.1,0.9 -o smooth,rough -f x,y -g group_name
+</code></pre></div>
+
+<hr />
+<h2 id="also-see">Also see<a class="headerlink" href="#also-see" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>uniq</code> for uniques and frequency tables</li>
+<li><code>top</code> for nlargest</li>
+<li>some <a href="http://johnkerl.org/miller/doc/data-examples.html">examples</a></li>
+<li><a href="http://johnkerl.org/miller/doc/reference-dsl.html">DSL for <code>put</code>, <code>filter</code></a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../04_xsv/" title="XSV" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                XSV
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../06_q_textql/" title="Q" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Q
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Dushyant Khosla
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/dushyantkhosla" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://hub.docker.com/u/dushyantkhosla" target="_blank" rel="noopener" title="hub.docker.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<dushyantkhosla320@gmail.com>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.linkedin.com/in/dushyant-khosla/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://instagram.com/dushyantkhosla" target="_blank" rel="noopener" title="instagram.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

@@ -11,21 +11,23 @@
         <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
       
       
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/01-Bash-Programming/">
+      
       
         <meta name="author" content="Dushyant Khosla">
       
-      <link rel="shortcut icon" href="/cli4ds/assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
     
     
       
-        <title>CLI Tools and Tricks for Data Science</title>
+        <title>Bash Programming - CLI Tools and Tricks for Data Science</title>
       
     
     
-      <link rel="stylesheet" href="/cli4ds/assets/stylesheets/main.b8ac9624.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="/cli4ds/assets/stylesheets/palette.28f3ef9a.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
       
       
         
@@ -61,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#basics" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -85,7 +92,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              
+              Bash Programming
             
           </span>
         </div>
@@ -147,14 +154,16 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href="/cli4ds/." class="md-tabs__link md-tabs__link--active">
+      <a href=".." class="md-tabs__link">
         Home
       </a>
     
@@ -166,7 +175,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/01_UnixCoreutils/" class="md-tabs__link">
+        <a href="../01_UnixCoreutils/" class="md-tabs__link md-tabs__link--active">
           Unix Tools
         </a>
       
@@ -179,7 +188,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/02_csvkit/" class="md-tabs__link">
+        <a href="../02_csvkit/" class="md-tabs__link">
           CLI Tools
         </a>
       
@@ -194,7 +203,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/cli4ds/00_dbs_catalogue-of-life/" class="md-tabs__link">
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link">
           Databases
         </a>
       
@@ -248,7 +257,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/." title="Home" class="md-nav__link">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -258,10 +267,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Unix Tools
@@ -285,7 +296,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
       Coreutils
     </a>
   </li>
@@ -297,7 +308,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -307,11 +318,20 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="/cli4ds/01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Bash Programming" class="md-nav__link md-nav__link--active">
       Bash Programming
     </a>
+    
   </li>
 
         
@@ -321,7 +341,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/07_datamash/" title="Datamash" class="md-nav__link">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
       Datamash
     </a>
   </li>
@@ -363,7 +383,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/02_csvkit/" title="CSVKit" class="md-nav__link">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
       CSVKit
     </a>
   </li>
@@ -375,7 +395,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/03_csvtk/" title="CSVTK" class="md-nav__link">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
       CSVTK
     </a>
   </li>
@@ -387,7 +407,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/04_xsv/" title="XSV" class="md-nav__link">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
       XSV
     </a>
   </li>
@@ -399,7 +419,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/05_miller/" title="Miller" class="md-nav__link">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
       Miller
     </a>
   </li>
@@ -411,7 +431,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/06_q_textql/" title="Q" class="md-nav__link">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
       Q
     </a>
   </li>
@@ -428,7 +448,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
       Larger Than RAM
     </a>
   </li>
@@ -465,7 +485,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
       Example 1
     </a>
   </li>
@@ -477,7 +497,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+    <a href="../00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
       Example 2
     </a>
   </li>
@@ -489,7 +509,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
       Example 3
     </a>
   </li>
@@ -506,7 +526,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/cli4ds/CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
       CLI-Fu
     </a>
   </li>
@@ -519,12 +539,184 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/01-Bash-Programming.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <div class="toc">
+<ul>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#variables">Variables</a><ul>
+<li><a href="#changing-variable-scope-with-export-and-source">Changing Variable Scope with export and source</a></li>
+</ul>
+</li>
+<li><a href="#special-characters">Special characters</a></li>
+<li><a href="#loops-with-for-and-do-done">Loops with for and do ... done</a></li>
+<li><a href="#conditionals">Conditionals</a></li>
+<li><a href="#special-variables">Special Variables</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#note">Note</a></li>
+</ul>
+</div>
+<h1 id="basics">Basics<a class="headerlink" href="#basics" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://www.learnenough.com/command-line-tutorial">Learn Enough Command Line to Be Dangerous</a></li>
+<li><a href="http://www.vikingcodeschool.com/web-development-basics/a-command-line-crash-course">Command Line Crash Course</a></li>
+<li><a href="http://conqueringthecommandline.com/book">Conquering the CLI</a></li>
+</ul>
+<h1 id="variables">Variables<a class="headerlink" href="#variables" title="Permanent link">&para;</a></h1>
+<ul>
+<li>declared as <code>SOME_VAR=value</code>, where <em>value</em> may be numeric or string (enclosed within <code>""</code>)</li>
+<li>there must be no spaces around the <code>=</code> sign</li>
+<li>all values are stored as strings, but commands which expect a number can treat them as such.<ul>
+<li>special characters must be properly escaped to avoid interpretation by the shell</li>
+</ul>
+</li>
+<li>we can interactively set variable names using the <code>read</code> command</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="nb">echo</span> What is your name?
+<span class="nb">read</span> MY_NAME
+<span class="nb">echo</span> <span class="s2">&quot;Hello </span><span class="nv">$MY_NAME</span><span class="s2">! Hope you&#39;re well.&quot;</span>
+</code></pre></div>
 
+<ul>
+<li>if you try to read an undeclared variable, the result is the empty string.</li>
+<li><strong>PS</strong>: You get no warnings or errors</li>
+<li>To use values stored inside variables, use the dollar sign with curly braces: <code>echo ${SOME_VAR}</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">SOME_VAR</span><span class="o">=</span><span class="s2">&quot;some value&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;just </span><span class="si">${</span><span class="nv">SOME_VAR</span><span class="si">}</span><span class="s2"> stored in a variable&quot;</span>
+</code></pre></div>
+
+<h2 id="changing-variable-scope-with-export-and-source">Changing Variable Scope with <code>export</code> and <code>source</code><a class="headerlink" href="#changing-variable-scope-with-export-and-source" title="Permanent link">&para;</a></h2>
+<ul>
+<li>When we run a script like <code>bash hello.sh</code>, a new shell is spawned to run the script</li>
+<li>Once the shell script exits, its environment is destroyed</li>
+<li>If you want a script to make changes to the global environment, you have to <em>source</em> it</li>
+<li>This will run the script within the active shell, instead of spawning a new one</li>
+<li>This is how  <code>.profile</code> or <code>.bash_profile</code> files work</li>
+<li><code>export SOME_VAR=some_value</code> will create a global Variable</li>
+<li>You may access it's value inside scripts</li>
+</ul>
+<h1 id="special-characters">Special characters<a class="headerlink" href="#special-characters" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Most characters like <code>* and '</code> are not interpreted if placed inside double quotes ("")</li>
+<li>However, double-quotes <code>"</code>, dollar-signs <code>$</code>, back-ticks, and slashes <code>\</code> are still interpreted by the shell, even when they're in double quotes.</li>
+<li>These need to be <em>escaped</em> using the back-slash <code>\</code></li>
+</ul>
+<h1 id="loops-with-for-and-do-done">Loops with <code>for</code> and <code>do ... done</code><a class="headerlink" href="#loops-with-for-and-do-done" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Initialize a loop as <code>for i in ...</code></li>
+<li>Use <code>seq</code> to generate sequences to iterate over</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> i in <span class="sb">`</span>seq -s<span class="s2">&quot; &quot;</span> <span class="m">1</span> <span class="m">10</span><span class="sb">`</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<h1 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="o">[</span> condition <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="c1"># action</span>
+<span class="k">elif</span> <span class="o">[</span> condition <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="c1"># action</span>
+<span class="k">else</span>
+  <span class="c1"># action</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<ul>
+<li>The <code>condition</code> must be surrounded by spaces</li>
+<li>Operators,</li>
+<li>For numeric data, use <code>-eq</code>, <code>-lt</code>, <code>-gt</code>, <code>-le</code>, <code>-ge</code></li>
+<li>For strings, use <code>=</code> and <code>!=</code></li>
+<li><code>-n</code> for non-zero length</li>
+<li><code>-f "$SOME_PATH"</code> for checking if a file exists at given path</li>
+<li><code>-x "$SOME_PATH"</code> for checking if a file is executable at given path</li>
+<li><code>"$PATH_2" -nt "$PATH_1"</code> for checking if file at PATH_2 is newer than the one at PATH_1</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">echo</span> <span class="s2">&quot;enter name of file in pwd: &quot;</span>
+<span class="nb">read</span> fn
+<span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$fn</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Exists&quot;</span>
+<span class="k">else</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Cannot find file&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<ul>
+<li>For expressing complex logic, use AND, <code>&amp;&amp;</code> along with OR, <code>||</code></li>
+</ul>
+<h1 id="special-variables">Special Variables<a class="headerlink" href="#special-variables" title="Permanent link">&para;</a></h1>
+<ul>
+<li>contain useful information, which can be used by the script to know about the environment in which it is running.</li>
+<li><code>$0</code> is the <em>basename</em> of the program (or the name of the script.)</li>
+<li><code>$1 .. $9</code> are the first 9 parameters the script was called with</li>
+<li><code>$@</code> is all parameters passed</li>
+<li><code>$$</code> variable is the PID (Process IDentifier) of the currently running shell.</li>
+<li><code>$!</code> variable is the PID of the last run background process.</li>
+</ul>
+<h1 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h1>
+<ul>
+<li>For simple scripts, a function may be simply declared within the same file as it is called.</li>
+<li>When writing a complex program, it is useful to write a "library" of useful functions, and <code>source</code> that file at the start of the other scripts which use the functions.</li>
+<li>A function may return a value in one of four different ways:</li>
+<li><em>Change the state</em> of a variable or variables</li>
+<li>Use the <code>exit</code> command to end the shell script</li>
+<li>Use the <code>return</code> command to end the function, and return the supplied value to the calling section of the shell script</li>
+<li><code>echo</code> output to stdout, which will be caught by the caller just as c=<code>expr $a + $b</code> is caught</li>
+<li>Syntax</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># function declarations</span>
+some_func<span class="o">()</span>
+<span class="o">{</span>
+  <span class="c1"># commands</span>
+<span class="o">}</span>
+
+<span class="c1"># function usage</span>
+some_func arg_1 arg_2 arg_3 ...
+</code></pre></div>
+- example</p>
+<h1 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h1>
+<ul>
+<li><code>&gt; /dev/null 2&gt;&amp;1</code> redirects any output or errors to the special "null" device instead of going to the user's screen.</li>
+<li>The <em>backtick</em> is used to indicate that the enclosed text is to be executed as a command.</li>
+<li>For example,</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ <span class="nv">MYNAME</span><span class="o">=</span><span class="sb">`</span>grep <span class="s2">&quot;^</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">:&quot;</span> /etc/passwd <span class="p">|</span> cut -d: -f5<span class="sb">`</span>
+$ <span class="nb">echo</span> <span class="nv">$MYNAME</span>
+</code></pre></div>
+                
+              
               
                 
 
@@ -537,6 +729,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../08_awk_v2/" title="AWK" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                AWK
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../07_datamash/" title="Datamash" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Datamash
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -604,15 +831,15 @@
       
     </div>
     
-      <script src="/cli4ds/assets/javascripts/vendor.d1f5a259.min.js"></script>
-      <script src="/cli4ds/assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: "/cli4ds/",
+          base: "..",
           features: ["tabs"],
           search: Object.assign({
-            worker: "/cli4ds/assets/javascripts/worker/search.fae956e7.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

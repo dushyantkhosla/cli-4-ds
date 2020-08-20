@@ -11,23 +11,23 @@
         <meta name="description" content="Learn how to crunch fits-on-disk data using Open Source CLI Tools!">
       
       
-        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/">
+        <link rel="canonical" href="https://dushyantkhosla.github.io/cli4ds/00_dbs_flights_kdd/">
       
       
         <meta name="author" content="Dushyant Khosla">
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
     
     
       
-        <title>CLI Tools and Tricks for Data Science</title>
+        <title>Example 2 - CLI Tools and Tricks for Data Science</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.b8ac9624.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="assets/stylesheets/palette.28f3ef9a.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
       
       
         
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#create-an-empty-sqlite-database-file" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Home
+              Example 2
             
           </span>
         </div>
@@ -154,14 +154,16 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href="." class="md-tabs__link md-tabs__link--active">
+      <a href=".." class="md-tabs__link">
         Home
       </a>
     
@@ -173,7 +175,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="01_UnixCoreutils/" class="md-tabs__link">
+        <a href="../01_UnixCoreutils/" class="md-tabs__link">
           Unix Tools
         </a>
       
@@ -186,7 +188,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="02_csvkit/" class="md-tabs__link">
+        <a href="../02_csvkit/" class="md-tabs__link">
           CLI Tools
         </a>
       
@@ -201,7 +203,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="00_dbs_catalogue-of-life/" class="md-tabs__link">
+        <a href="../00_dbs_catalogue-of-life/" class="md-tabs__link md-tabs__link--active">
           Databases
         </a>
       
@@ -253,20 +255,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="." title="Home" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
-    
   </li>
 
     
@@ -301,7 +294,7 @@
 
 
   <li class="md-nav__item">
-    <a href="01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
+    <a href="../01_UnixCoreutils/" title="Coreutils" class="md-nav__link">
       Coreutils
     </a>
   </li>
@@ -313,7 +306,7 @@
 
 
   <li class="md-nav__item">
-    <a href="08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -325,7 +318,7 @@
 
 
   <li class="md-nav__item">
-    <a href="01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
+    <a href="../01-Bash-Programming/" title="Bash Programming" class="md-nav__link">
       Bash Programming
     </a>
   </li>
@@ -337,7 +330,7 @@
 
 
   <li class="md-nav__item">
-    <a href="07_datamash/" title="Datamash" class="md-nav__link">
+    <a href="../07_datamash/" title="Datamash" class="md-nav__link">
       Datamash
     </a>
   </li>
@@ -379,7 +372,7 @@
 
 
   <li class="md-nav__item">
-    <a href="02_csvkit/" title="CSVKit" class="md-nav__link">
+    <a href="../02_csvkit/" title="CSVKit" class="md-nav__link">
       CSVKit
     </a>
   </li>
@@ -391,7 +384,7 @@
 
 
   <li class="md-nav__item">
-    <a href="03_csvtk/" title="CSVTK" class="md-nav__link">
+    <a href="../03_csvtk/" title="CSVTK" class="md-nav__link">
       CSVTK
     </a>
   </li>
@@ -403,7 +396,7 @@
 
 
   <li class="md-nav__item">
-    <a href="04_xsv/" title="XSV" class="md-nav__link">
+    <a href="../04_xsv/" title="XSV" class="md-nav__link">
       XSV
     </a>
   </li>
@@ -415,7 +408,7 @@
 
 
   <li class="md-nav__item">
-    <a href="05_miller/" title="Miller" class="md-nav__link">
+    <a href="../05_miller/" title="Miller" class="md-nav__link">
       Miller
     </a>
   </li>
@@ -427,7 +420,7 @@
 
 
   <li class="md-nav__item">
-    <a href="06_q_textql/" title="Q" class="md-nav__link">
+    <a href="../06_q_textql/" title="Q" class="md-nav__link">
       Q
     </a>
   </li>
@@ -444,7 +437,7 @@
 
 
   <li class="md-nav__item">
-    <a href="Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
+    <a href="../Python__FilesLargerThanRAM_PandasDaskSpark/" title="Larger Than RAM" class="md-nav__link">
       Larger Than RAM
     </a>
   </li>
@@ -454,10 +447,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Databases
@@ -481,7 +476,7 @@
 
 
   <li class="md-nav__item">
-    <a href="00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
+    <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-nav__link">
       Example 1
     </a>
   </li>
@@ -491,11 +486,20 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="00_dbs_flights_kdd/" title="Example 2" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Example 2" class="md-nav__link md-nav__link--active">
       Example 2
     </a>
+    
   </li>
 
         
@@ -505,7 +509,7 @@
 
 
   <li class="md-nav__item">
-    <a href="00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
+    <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-nav__link">
       Example 3
     </a>
   </li>
@@ -522,7 +526,7 @@
 
 
   <li class="md-nav__item">
-    <a href="CLI-Fu/" title="CLI-Fu" class="md-nav__link">
+    <a href="../CLI-Fu/" title="CLI-Fu" class="md-nav__link">
       CLI-Fu
     </a>
   </li>
@@ -555,7 +559,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/dushyantkhosla/cli4ds/edit/master/docs/00_dbs_flights_kdd.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -563,193 +567,279 @@
                   
                 
                 
-                <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p>Say a you have a <code>.csv</code> file with a few columns. You have to run basic descriptive statistics on these columns, and maybe a few group-by operations (okay, pivot-tables.) If the file is a few thousand rows (under 100MB in size), you will probably double-click on it straight away and run the analysis in Excel.  </p>
-<p>Give yourself a pat on the back, you chose the right tool for the right job.  </p>
-<p><em>Who's a good analyst? Yes, you are!</em></p>
-<p>But what if the file was 750MB? Assuming you have enough RAM (8GB or more), of course you'll use <code>dplyr</code> in R, or <code>pandas</code> in Python or (gasp) write a data step in <code>SAS</code>.  </p>
-<p><em>Right? Excellent.</em></p>
-<p>But what if the file was 6GB?</p>
-<p>15GB?</p>
-<p>If the word <code>Hadoop</code> is stuck in your throat, I implore you to swallow it.
-This repository focues on open-source command-line utilities that can do the same.</p>
-<p>Yes, there are Python libraries that allow you to work with larger-than-RAM files on a single machine (<code>Spark</code>, <code>Dask</code> and perhaps some more), but we'll keep that for later.</p>
-<h1 id="why">Why<a class="headerlink" href="#why" title="Permanent link">&para;</a></h1>
-<ul>
-<li>Because I've met too many 'data scientists' who</li>
-<li>have a complete lack of awareness of the limits of their own hardware.<ul>
-<li>See <a href="https://www.chrisstucchio.com/blog/2013/hadoop_hatred.html">Don't use Hadoop - your data isn't that big</a></li>
-</ul>
-</li>
-<li>are forgetting Statistics! Sometimes you can fit a model on a (representative) <em>sample</em> of data, and you might not need distributed ML.<ul>
-<li>See <a href="https://simplystatistics.org/2017/05/31/deeplearning-vs-leekasso/">Don't use deep learning your data isn't that big</a></li>
-<li>Also see <a href="http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html">learning curves</a></li>
-</ul>
-</li>
-<li>Because there is an entire ecosystem of wonderful open-source software for data analysis</li>
-<li>Because renting servers with more RAM or more cores is now easier and cheaper than ever.</li>
-<li>Because too many businesses do not have massive data and are spending money and resources trying to solve their problems with the wrong (and expensive) tools</li>
-<li>The closest analogy I can think of is someone trying to break a pebble with a sledgehammer. Of course, the pebble will break, but wouldn't you rather first try using the hammer hanging in your toolshed?  </li>
-<li>But mostly, because I like to teach! 😇</li>
-</ul>
-<h1 id="some-quotes">Some Quotes<a class="headerlink" href="#some-quotes" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>In forecasting applications, we <strong>never</strong> observe the whole population. The problem is to forecast from <em>a finite sample.</em> Hence statistics such as means and standard deviations must be estimated with error.</p>
-<p>"At Facebook, 90% of the jobs have input sizes under 100GB."</p>
-<p>"For workloads that process multi-GB rather than multi-TB, a big memory server will provide better performance-per-dollar than a cluster."</p>
-</blockquote>
-<h1 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h1>
-<ul>
-<li><a href="https://www.gnu.org/software/coreutils/manual/coreutils.html">GNU Coreutils</a> everyday tools like <code>grep</code>, <code>sed</code>, <code>cut</code>, <code>shuf</code> and <code>cat</code> for working on text-files</li>
-<li><a href="https://www.gnu.org/software/gawk/manual/gawk.html">GNU awk</a>, a <em>programming language</em> designed for text processing and typically used as a data extraction and reporting tool</li>
-<li><a href="https://www.gnu.org/software/datamash/manual/html_node/Usage-Examples.html">GNU Datamash</a>, a command-line program which performs basic numeric, textual and statistical operations on input textual data files.</li>
-<li><a href="https://github.com/BurntSushi/xsv">xsv</a>, a fast CSV toolkit written in Rust</li>
-<li><a href="http://csvkit.readthedocs.io/en/1.0.2/">csvkit</a>, a suite of command-line tools for converting to and working with CSV. Written in Python</li>
-<li><a href="http://johnkerl.org/miller/doc/">Miller</a> is like awk, sed, cut, join, and sort for <em>name-indexed data</em> such as CSV, TSV, and tabular JSON. Written in C.</li>
-<li><a href="http://bioinf.shenwei.me/csvtk/">csvtk</a> A cross-platform, efficient, practical and pretty CSV/TSV toolkit in Golang.</li>
-<li><a href="https://github.com/dinedal/textql">textql</a> Execute SQL against structured text like CSV or TSV. Written in Golang.<ul>
-<li>SQLlite-like <a href="https://www.sqlite.org/lang_datefunc.html">datetime</a> support!</li>
-</ul>
-</li>
-<li><a href="http://harelba.github.io/q/examples.html">q</a> allows direct execution of SQL-like queries on CSVs/TSVs (and any other tabular text files)</li>
-</ul>
-<h1 id="docker-image">Docker Image<a class="headerlink" href="#docker-image" title="Permanent link">&para;</a></h1>
-<ul>
-<li>I've created a Docker image with all of these tools, and tutorials on how to use them.</li>
-<li>It also contains</li>
-<li>Miniconda3</li>
-<li>A conda environment <code>ds-py3</code> configured with the PyData stack (<code>pandas</code>, <code>scikit-learn</code> ...)</li>
-<li>Build (or pull) the docker image</li>
-</ul>
-<div class="highlight"><pre><span></span><code># clone this repo, and 
-cd docker/
-docker build -t cli-4-ds .
-# or
-docker pull dushyantkhosla/cli-4-ds:latest
+                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/home/data/&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+</code></pre></div>
+
+<h2 id="create-an-empty-sqlite-database-file">Create an empty sqlite database file<a class="headerlink" href="#create-an-empty-sqlite-database-file" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;sqlite.db&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <ul>
-<li>Run a container with the image</li>
+<li>alternatively, use</li>
 </ul>
-<div class="highlight"><pre><span></span><code>docker run -it --privileged \
-           -v $(pwd):/home \
-           -p 8888:8888 \
-           -p 5000:5000 \
-           -p 3128:3128 \
-           dushyantkhosla/cli-4-ds:latest
+<div class="highlight"><pre><span></span><code><span class="n">con</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///tutorial.db&#39;</span><span class="p">)</span>
 </code></pre></div>
 
+<h2 id="create-a-cursor-object-to-interact-with-it">Create a <em>cursor</em> object to interact with it<a class="headerlink" href="#create-a-cursor-object-to-interact-with-it" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">convert_types</span><span class="p">(</span><span class="n">COL</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If the passed COL is numeric,</span>
+<span class="sd">    downcast it to the lowest size.</span>
+<span class="sd">    Else,</span>
+<span class="sd">    Return as-is.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    COL: pandas.Series</span>
+<span class="sd">        The Series to shrink</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    if numeric, a compressed series</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">COL</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">COL</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;integer&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">COL</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">COL</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">COL</span>
+</code></pre></div>
+
+<hr />
+<h1 id="loading-data-into-the-database">Loading Data into the Database<a class="headerlink" href="#loading-data-into-the-database" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Learn how to use these tools using the notebooks in <code>tutorials/</code></li>
 <li>
-<p>There is a dedicated notebook for each of the tools above</p>
+<p>This step might take a while if your CSV file is larger than a few GBs, </p>
 </li>
 <li>
-<p>Run the <code>start.sh</code> script to see helpful messages</p>
+<p>But the benefits outweigh the wait time;</p>
+<ul>
+<li>you can use <code>pd.read_sql</code> tools to pull data from the database without worrying about memory constraints.</li>
+<li>you can use tools like <code>Metabase</code> or any SQL editor to write aggregations and reductions on big data locally.  </li>
+</ul>
+</li>
+<li>
+<p>[Note] Avoid using <code>SELECT *</code> as it will load all data into memory. </p>
+</li>
+<li>
+<p>Use <code>WHERE</code> statements and the <code>LIMIT</code> clause each time.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>bash /root/start.sh
+<h3 id="load-kdd-data">Load KDD Data<a class="headerlink" href="#load-kdd-data" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">kdd_chunks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;kdd_flights/kdd.csv&quot;</span><span class="p">,</span> 
+    <span class="n">chunksize</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> 
+    <span class="n">error_bad_lines</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<h1 id="get-the-data">Get the Data<a class="headerlink" href="#get-the-data" title="Permanent link">&para;</a></h1>
-<ul>
-<li>To generate data for these tutorials, <code>cd</code> into the <code>data/</code> directory and</li>
-<li>Run the <code>get-csvs.sh</code> script to download <code>flightDelays</code> and <code>KDDCup</code> datasets</li>
-<li>PS: This will download ~1.5GB data</li>
-</ul>
-<div class="highlight"><pre><span></span><code>cd data/
-bash get-csvs.sh
-python make-data.py
+<div class="highlight"><pre><span></span><code><span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">kdd_chunks</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fill the table by reading a large text file in chunks.</span>
+<span class="sd">    Each chunk is just a pandas DataFrame</span>
+<span class="sd">    Filter/transform the data as needed here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">(</span><span class="n">chunk</span>
+     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_types</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">to_sql</span><span class="p">(</span>
+         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;kdd&#39;</span><span class="p">,</span> 
+         <span class="n">con</span><span class="o">=</span><span class="n">con</span><span class="p">,</span> 
+         <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span>
+         <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading into db finished in </span><span class="si">{}</span><span class="s2"> seconds.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
 </code></pre></div>
 
-<ul>
-<li>Run the <code>make-data.py</code> to create a synthetic dataset with 10 million rows</li>
-</ul>
+<div class="highlight"><pre><span></span><code>Loading into db finished in 35.13177156448364 seconds.
+</code></pre></div>
+
+<h3 id="load-flights-data">Load Flights Data<a class="headerlink" href="#load-flights-data" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">flights_chunks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s1">&#39;kdd_flights/flights.csv&#39;</span><span class="p">,</span> 
+    <span class="n">chunksize</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">error_bad_lines</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">flights_chunks</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fill the table by reading a large text file in chunks.</span>
+<span class="sd">    Each chunk is just a pandas DataFrame</span>
+<span class="sd">    Filter/transform the data as needed here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="p">(</span><span class="n">chunk</span>
+     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_types</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">to_sql</span><span class="p">(</span>
+         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;flightDelays&#39;</span><span class="p">,</span> 
+         <span class="n">con</span><span class="o">=</span><span class="n">con</span><span class="p">,</span> 
+         <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;append&#39;</span><span class="p">,</span>
+         <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading into db finished in </span><span class="si">{}</span><span class="s2"> seconds.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Loading into db finished in 80.80561757087708 seconds.
+</code></pre></div>
+
 <hr />
-<h1 id="part-2-sql-analytics-with-metabase">Part 2: SQL Analytics with <a href="https://www.metabase.com/">Metabase</a><a class="headerlink" href="#part-2-sql-analytics-with-metabase" title="Permanent link">&para;</a></h1>
-<ul>
-<li>You might want to try out <code>Metabase</code>, which has a nice front-end for writing SQL</li>
-</ul>
-<p><div class="highlight"><pre><span></span><code>docker pull metabase/metabase:v0.19.0
-</code></pre></div>
-  - I recommend this version against the latest because it works with SQLite
-  - If you want to run other DBs like Postgresql, you can get the latest image instead</p>
-<ul>
-<li>Then, run a container</li>
-</ul>
-<div class="highlight"><pre><span></span><code>docker run -d -v $(pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
+<h2 id="check-if-loading-went-well">Check if loading went well<a class="headerlink" href="#check-if-loading-went-well" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT name FROM sqlite_master WHERE type=&#39;table&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 </code></pre></div>
 
-<ul>
-<li>The <code>-d</code> switch is for running the container in <em>detached</em> mode</li>
-<li>Navigate to <code>localhost:3000</code>, connect to a <code>.db</code> file or run another DB and connect to it</li>
-</ul>
+<div class="highlight"><pre><span></span><code>[(&#39;nyc_taxi&#39;,), (&#39;kdd&#39;,), (&#39;flightDelays&#39;,)]
+</code></pre></div>
+
 <hr />
-<h1 id="appendix">Appendix<a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h1>
-<ul>
-<li>There are no rules, of thumb; but we can try</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Data Size</th>
-<th>Remedy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>up to 1GB</td>
-<td>Pandas</td>
-</tr>
-<tr>
-<td>up to 10GB</td>
-<td>Get more RAM. Try Spark/Dask.</td>
-</tr>
-<tr>
-<td>up to 100GB</td>
-<td>Postgres</td>
-</tr>
-<tr>
-<td>500GB+</td>
-<td>Hadoop</td>
-</tr>
-</tbody>
+<h2 id="run-sql-queries">Run SQL queries<a class="headerlink" href="#run-sql-queries" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SELECT Origin,Dest,count(*) as Flights</span>
+<span class="sd">    FROM flightDelays </span>
+<span class="sd">    GROUP BY 1,2</span>
+<span class="sd">    ORDER BY 3 DESC</span>
+<span class="sd">    LIMIT 10</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="p">,</span> 
+    <span class="n">con</span><span class="o">=</span><span class="n">con</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Origin</th>
+      <th>Dest</th>
+      <th>Flights</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>OGG</td>
+      <td>HNL</td>
+      <td>16099</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>HNL</td>
+      <td>OGG</td>
+      <td>15876</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>LAX</td>
+      <td>LAS</td>
+      <td>14385</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>LAS</td>
+      <td>LAX</td>
+      <td>13815</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>HNL</td>
+      <td>LIH</td>
+      <td>13156</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>LIH</td>
+      <td>HNL</td>
+      <td>13030</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>SAN</td>
+      <td>LAX</td>
+      <td>12779</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>LAX</td>
+      <td>SAN</td>
+      <td>12767</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>BOS</td>
+      <td>LGA</td>
+      <td>12263</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>LAS</td>
+      <td>PHX</td>
+      <td>12228</td>
+    </tr>
+  </tbody>
 </table>
-<hr />
-<h1 id="tldr">tl;dr<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h1>
-<p>As long as your data fits-on-disk (ie, a few hundred GBs or less,)</p>
-<ul>
-<li>For <code>filter</code> or <code>transform</code> jobs (like <code>WHERE</code> and <code>CASE WHEN</code>) , use</li>
-<li>cli-tools or python scripts (line-by-line or stream processing)</li>
-<li>
-<p>break files into chunks, use pandas (chunk processing)</p>
-</li>
-<li>
-<p>For <code>reductions</code> or <code>groupby</code> jobs (like <code>AVERAGE</code> and <code>PIVOT</code>),</p>
-</li>
-<li>think deeply about your data, draw representative samples<ul>
-<li><em>you're a better statistician than a programmer afterall, aren't you?</em></li>
-</ul>
-</li>
-<li>
-<p>use bootstrap measures to quantify uncertainty</p>
-</li>
-<li>
-<p>For <code>machine-learning</code> jobs,</p>
-</li>
-<li>Cluster your data, then pull samples from each group. (stratify)</li>
-<li>Fit your first model on a 10% sample.<ul>
-<li>Build a Learning Curve.</li>
-<li>Use cross-validated measures to quantify uncertainty</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h1>
-<ul>
-<li>In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing</li>
-<li>For now, <a href="http://randyzwitch.com/gnu-parallel-medium-data/">here's</a> something to munch on </li>
-</ul>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT count(*) FROM kdd&quot;</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="n">con</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count(*)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4898431</td>
+    </tr>
+  </tbody>
+</table>
+</div>
                 
               
               
@@ -768,14 +858,28 @@ python make-data.py
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
+          <a href="../00_dbs_catalogue-of-life/" title="Example 1" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Example 1
+              </div>
+            </div>
+          </a>
         
-          <a href="01_UnixCoreutils/" title="Coreutils" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="../00_dbs_sqllite_nyc_taxi/" title="Example 3" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Coreutils
+                Example 3
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -852,15 +956,15 @@ python make-data.py
       
     </div>
     
-      <script src="assets/javascripts/vendor.d1f5a259.min.js"></script>
-      <script src="assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: ".",
+          base: "..",
           features: ["tabs"],
           search: Object.assign({
-            worker: "assets/javascripts/worker/search.fae956e7.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
