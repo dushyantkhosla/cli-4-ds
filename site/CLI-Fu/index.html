@@ -27,12 +27,6 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#ff7043">
       
     
     
@@ -52,10 +46,7 @@
   </head>
   
   
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+    <body dir="ltr">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -64,7 +55,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#readme" class="md-skip">
+        <a href="#introduction" class="md-skip">
           Skip to content
         </a>
       
@@ -304,7 +295,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -563,17 +554,74 @@
                   
                 
                 
-                <h1 id="readme">README<a class="headerlink" href="#readme" title="Permanent link">&para;</a></h1>
-<hr />
+                <div class="toc">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#00-import-inspect">00 - Import, Inspect</a><ul>
+<li><a href="#conversion">conversion</a></li>
+<li><a href="#display">display</a></li>
+<li><a href="#count">count</a></li>
+<li><a href="#types">types</a></li>
+<li><a href="#column-names">column names</a></li>
+</ul>
+</li>
+<li><a href="#01-subset">01 - Subset​</a><ul>
+<li><a href="#rename">rename</a></li>
+<li><a href="#index">index</a></li>
+<li><a href="#subset-columns">subset columns</a></li>
+<li><a href="#subset-rows">subset rows</a></li>
+<li><a href="#sample">sample</a></li>
+<li><a href="#split">split</a></li>
+</ul>
+</li>
+<li><a href="#02-clean">02-Clean​</a><ul>
+<li><a href="#missing-values">missing values</a></li>
+<li><a href="#duplicates">duplicates</a></li>
+</ul>
+</li>
+<li><a href="#03-mutate">03-Mutate​</a><ul>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#format">format</a></li>
+<li><a href="#time-conversions">time conversions</a></li>
+<li><a href="#functions">functions</a></li>
+<li><a href="#discretize">discretize</a></li>
+<li><a href="#reshape">reshape</a></li>
+</ul>
+</li>
+<li><a href="#04-mergejoinconcat">04-Merge/Join/Concat</a><ul>
+<li><a href="#join">join</a></li>
+<li><a href="#concat">concat</a></li>
+<li><a href="#compare-intersect">compare, intersect</a></li>
+</ul>
+</li>
+<li><a href="#05-explore">05-Explore</a><ul>
+<li><a href="#aggregate">aggregate</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#uniques">uniques</a></li>
+<li><a href="#frequencies">frequencies</a></li>
+<li><a href="#crosstabs">crosstabs</a></li>
+</ul>
+</li>
+<li><a href="#06-analyzevisualize">06-Analyze/Visualize​</a><ul>
+<li><a href="#univariate">univariate</a></li>
+<li><a href="#bivariate">bivariate</a></li>
+<li><a href="#visualize">visualize</a></li>
+</ul>
+</li>
+<li><a href="#07-advanced">07-Advanced</a><ul>
+<li><a href="#generate">generate</a></li>
+<li><a href="#query">query</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
 <p>This document serves as an accompanying guide/index to the command-line tools discussed in the notebooks. Here we have presented the relevant functions/verbs from command-line-tools that work with tabular data in the context of data-analysis tasks.</p>
-<p>Expand each section for names of functions that help in performing said task, then access the respective notebook for specific examples.</p>
-<hr />
-<h1 id="00-import-inspect"><span class="arithmatex">\(00 - Import, Inspect\)</span><a class="headerlink" href="#00-import-inspect" title="Permanent link">&para;</a></h1>
+<h1 id="00-import-inspect">00 - Import, Inspect<a class="headerlink" href="#00-import-inspect" title="Permanent link">&para;</a></h1>
 <h2 id="conversion"><code>conversion</code><a class="headerlink" href="#conversion" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>from/to csv</em></li>
 </ul>
-<hr />
 <div class="highlight"><pre><span></span><code>in2csv, csv2json
 csvtk csv2tab, space2tab, tab2csv
 xsv fmt
@@ -583,7 +631,6 @@ mlr cat
 mlr --prepipe
 </code></pre></div>
 
-<hr />
 <h2 id="display"><code>display</code><a class="headerlink" href="#display" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>head, tail
 csvlook
@@ -592,7 +639,6 @@ xsv table
 mlr head, tail
 </code></pre></div>
 
-<hr />
 <h2 id="count"><code>count</code><a class="headerlink" href="#count" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>rows, columns</em></li>
@@ -601,17 +647,14 @@ mlr head, tail
 xsv count
 </code></pre></div>
 
-<hr />
 <h2 id="types"><code>types</code><a class="headerlink" href="#types" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>detect types, conversion</em></li>
 </ul>
-<hr />
 <div class="highlight"><pre><span></span><code>mlr put is_*
 mlr put boolean, int, float, string
 </code></pre></div>
 
-<hr />
 <h2 id="column-names"><code>column names</code><a class="headerlink" href="#column-names" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>csvcut -n
 xsv headers
@@ -619,8 +662,7 @@ csvtk headers
 mlr label
 </code></pre></div>
 
-<h1 id="01-subset"><span class="arithmatex">\(01 - Subset\)</span><a class="headerlink" href="#01-subset" title="Permanent link">&para;</a></h1>
-<hr />
+<h1 id="01-subset">01 - Subset​<a class="headerlink" href="#01-subset" title="Permanent link">&para;</a></h1>
 <h2 id="rename"><code>rename</code><a class="headerlink" href="#rename" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>one/many columns</em></li>
@@ -629,7 +671,6 @@ mlr label
 mlr rename
 </code></pre></div>
 
-<hr />
 <h2 id="index"><code>index</code><a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>create row names/indentifiers</em></li>
@@ -638,7 +679,6 @@ mlr rename
 xsv index
 </code></pre></div>
 
-<hr />
 <h2 id="subset-columns"><code>subset columns</code><a class="headerlink" href="#subset-columns" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>select/exclude cols</em></li>
@@ -651,7 +691,6 @@ mlr cut
 mlr having-fields
 </code></pre></div>
 
-<hr />
 <h2 id="subset-rows"><code>subset rows</code><a class="headerlink" href="#subset-rows" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>select/exclude rows</em></li>
@@ -663,7 +702,6 @@ xsv search
 mlr filter
 </code></pre></div>
 
-<hr />
 <h2 id="sample"><code>sample</code><a class="headerlink" href="#sample" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>with (bootstrap) or without replacement (permutation)</em></li>
@@ -674,41 +712,28 @@ xsv sample
 mlr bootstrap, sample, shuffle, decimate
 </code></pre></div>
 
-<hr />
 <h2 id="split"><code>split</code><a class="headerlink" href="#split" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>large file into smaller files</em></li>
 </ul>
-<hr />
 <div class="highlight"><pre><span></span><code>split
 csplit
 xsv split
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<h1 id="02-clean"><span class="arithmatex">\(02-Clean\)</span><a class="headerlink" href="#02-clean" title="Permanent link">&para;</a></h1>
-<h2 id="missing"><code>missing</code><a class="headerlink" href="#missing" title="Permanent link">&para;</a></h2>
-<h2 id="detect-count-replace"><em>detect, count, replace</em><a class="headerlink" href="#detect-count-replace" title="Permanent link">&para;</a></h2>
-<hr />
+<h1 id="02-clean">02-Clean​<a class="headerlink" href="#02-clean" title="Permanent link">&para;</a></h1>
+<h2 id="missing-values"><code>missing values</code><a class="headerlink" href="#missing-values" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>awk
 csvstat --nulls
 mlr put is_null, is_not_null
 </code></pre></div>
 
 <h2 id="duplicates"><code>duplicates</code><a class="headerlink" href="#duplicates" title="Permanent link">&para;</a></h2>
-<h2 id="identify-remove-dups"><em>identify, remove dups</em><a class="headerlink" href="#identify-remove-dups" title="Permanent link">&para;</a></h2>
-<hr />
 <div class="highlight"><pre><span></span><code>mlr repeat <span class="c1"># create dups</span>
 datamash rmdup
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<h1 id="03-mutate"><span class="arithmatex">\(03-Mutate\)</span><a class="headerlink" href="#03-mutate" title="Permanent link">&para;</a></h1>
-<hr />
+<h1 id="03-mutate">03-Mutate​<a class="headerlink" href="#03-mutate" title="Permanent link">&para;</a></h1>
 <h2 id="mutate"><code>mutate</code><a class="headerlink" href="#mutate" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>create/drop rows, cols</em></li>
@@ -718,7 +743,6 @@ mlr put
 csvtk mutate
 </code></pre></div>
 
-<hr />
 <h2 id="format"><code>format</code><a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>numerical formatting</em></li>
@@ -727,7 +751,6 @@ csvtk mutate
 datamash round, ceil, floor, trunc, frac
 </code></pre></div>
 
-<hr />
 <h2 id="time-conversions"><code>time conversions</code><a class="headerlink" href="#time-conversions" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>from/to epoch</em></li>
@@ -736,7 +759,6 @@ datamash round, ceil, floor, trunc, frac
 mlr sec2gmt, sec2gmtdate
 </code></pre></div>
 
-<hr />
 <h2 id="functions"><code>functions</code><a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>apply, map</em></li>
@@ -745,17 +767,14 @@ mlr sec2gmt, sec2gmtdate
 mlr put
 </code></pre></div>
 
-<hr />
 <h2 id="discretize"><code>discretize</code><a class="headerlink" href="#discretize" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>cut numerics into categoricals</em></li>
 </ul>
-<hr />
 <div class="highlight"><pre><span></span><code>datamash bin
 mlr histogram --nbins
 </code></pre></div>
 
-<hr />
 <h2 id="reshape"><code>reshape</code><a class="headerlink" href="#reshape" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>long/wide to wide/long</em></li>
@@ -768,9 +787,7 @@ datamash transpose
 mlr reshape
 </code></pre></div>
 
-<hr />
-<h1 id="04-mergejoinconcat"><span class="arithmatex">\(04-Merge/Join/Concat\)</span><a class="headerlink" href="#04-mergejoinconcat" title="Permanent link">&para;</a></h1>
-<hr />
+<h1 id="04-mergejoinconcat">04-Merge/Join/Concat<a class="headerlink" href="#04-mergejoinconcat" title="Permanent link">&para;</a></h1>
 <h2 id="join"><code>join</code><a class="headerlink" href="#join" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>merge tables</em></li>
@@ -780,7 +797,6 @@ csvtk join
 xsv join
 </code></pre></div>
 
-<hr />
 <h2 id="concat"><code>concat</code><a class="headerlink" href="#concat" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>append/concat tables</em></li>
@@ -793,7 +809,6 @@ xsv cat
 mlr unsparsify
 </code></pre></div>
 
-<hr />
 <h2 id="compare-intersect"><code>compare, intersect</code><a class="headerlink" href="#compare-intersect" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>rows in A &amp; B, rows in A not in B etc.</em></li>
@@ -802,7 +817,7 @@ mlr unsparsify
 csvtk intersect
 </code></pre></div>
 
-<h1 id="05-explore"><span class="arithmatex">\(05-Explore\)</span><a class="headerlink" href="#05-explore" title="Permanent link">&para;</a></h1>
+<h1 id="05-explore">05-Explore<a class="headerlink" href="#05-explore" title="Permanent link">&para;</a></h1>
 <h2 id="aggregate"><code>aggregate</code><a class="headerlink" href="#aggregate" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>group-by, pivot</em></li>
@@ -811,19 +826,16 @@ csvtk intersect
 mlr
 </code></pre></div>
 
-<hr />
 <h2 id="sort"><code>sort</code><a class="headerlink" href="#sort" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>sort
 csvsort
 </code></pre></div>
 
-<hr />
 <h2 id="uniques"><code>uniques</code><a class="headerlink" href="#uniques" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>uniq
 csvtk uniq
 </code></pre></div>
 
-<hr />
 <h2 id="frequencies"><code>frequencies</code><a class="headerlink" href="#frequencies" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>uniq -c
 csvtk freq
@@ -833,14 +845,11 @@ mlr least-frequent, most-frequent
 mlr fraction <span class="c1"># convert frequencies to percentages</span>
 </code></pre></div>
 
-<hr />
 <h2 id="crosstabs"><code>crosstabs</code><a class="headerlink" href="#crosstabs" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>datamash crosstab
 </code></pre></div>
 
-<hr />
-<h1 id="06-analyzevisualize"><span class="arithmatex">\(06-Analyze/Visualize\)</span><a class="headerlink" href="#06-analyzevisualize" title="Permanent link">&para;</a></h1>
-<hr />
+<h1 id="06-analyzevisualize">06-Analyze/Visualize​<a class="headerlink" href="#06-analyzevisualize" title="Permanent link">&para;</a></h1>
 <h2 id="univariate"><code>univariate</code><a class="headerlink" href="#univariate" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>mean/stddev, median, percentiles, skewness/kurtosis, mode, min/max</em></li>
@@ -852,7 +861,6 @@ mlr stats1, stats2
 datamash
 </code></pre></div>
 
-<hr />
 <h2 id="bivariate"><code>bivariate</code><a class="headerlink" href="#bivariate" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>correlation/covariance, regression, r-squared</em></li>
@@ -860,7 +868,6 @@ datamash
 <div class="highlight"><pre><span></span><code>mlr stats2
 </code></pre></div>
 
-<hr />
 <h2 id="visualize"><code>visualize</code><a class="headerlink" href="#visualize" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>histograms, scatterplots</em></li>
@@ -869,9 +876,7 @@ datamash
 mlr bar
 </code></pre></div>
 
-<h1 id="07-advanced"><span class="arithmatex">\(07-Advanced\)</span><a class="headerlink" href="#07-advanced" title="Permanent link">&para;</a></h1>
-<p><br><br><br><br></p>
-<hr />
+<h1 id="07-advanced">07-Advanced<a class="headerlink" href="#07-advanced" title="Permanent link">&para;</a></h1>
 <h2 id="generate"><code>generate</code><a class="headerlink" href="#generate" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>random data</em></li>
@@ -881,7 +886,6 @@ mlr seqgen
 mlr put &quot;urand(), urandint()&quot;
 </code></pre></div>
 
-<hr />
 <h2 id="query"><code>query</code><a class="headerlink" href="#query" title="Permanent link">&para;</a></h2>
 <ul>
 <li><em>run sql queries</em></li>
@@ -892,571 +896,6 @@ q -H -d, <span class="s2">&quot;&quot;&quot;query&quot;&quot;&quot;</span>
 <span class="c1"># generate a CREATE TABLE query for your csv</span>
 <span class="c1"># super useful when pushing data into a local db (mysql, postgresql etc.)</span>
 csvsql -i sqlite joined.csv
-</code></pre></div>
-
-<hr />
-<p><br><br><br><br></p>
-<h1 id="appendix"><span class="arithmatex">\(Appendix\)</span><a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h1>
-<hr />
-<p>Expand the sections below to read through the help pages of these tools and for a list of the most frequently used verbs.</p>
-<h2 id="datamash"><code>datamash</code><a class="headerlink" href="#datamash" title="Permanent link">&para;</a></h2>
-<hr />
-<div class="highlight"><pre><span></span><code>Primary operations:
-  groupby, crosstab, transpose, reverse, check
-
-Line-Filtering operations:
-  rmdup
-
-Per-Line operations:
-  base64, debase64, md5, sha1, sha256, sha512,
-  bin, strbin, round, floor, ceil, trunc, frac
-
-Numeric Grouping operations:
-  sum, min, max, absmin, absmax
-
-Textual/Numeric Grouping operations:
-  count, first, last, rand, unique, collapse, countunique
-
-Statistical Grouping operations:
-  mean, median, q1, q3, iqr, mode, antimode, pstdev, sstdev, pvar,
-  svar, mad, madraw, pskew, sskew, pkurt, skurt, dpo, jarque,
-  scov, pcov, spearson, ppearson
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">datamash</span> <span class="o">--</span><span class="n">help</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Usage: datamash [OPTION] op [fld] [op fld ...]
-
-Performs numeric/string operations on input from stdin.
-
-&#39;op&#39; is the operation to perform.  If a primary operation is used,
-it must be listed first, optionally followed by other operations.
-&#39;fld&#39; is the input field to use.  &#39;fld&#39; can be a number (1=first field),
-or a field name when using the -H or --header-in options.
-Multiple fields can be listed with a comma (e.g. 1,6,8).  A range of
-fields can be listed with a dash (e.g. 2-8).  Use colons for operations
-which require a pair of fields (e.g. &#39;pcov 2:6&#39;).
-
-
-Primary operations:
-  groupby, crosstab, transpose, reverse, check
-Line-Filtering operations:
-  rmdup
-Per-Line operations:
-  base64, debase64, md5, sha1, sha256, sha512,
-  bin, strbin, round, floor, ceil, trunc, frac
-Numeric Grouping operations:
-  sum, min, max, absmin, absmax
-Textual/Numeric Grouping operations:
-  count, first, last, rand, unique, collapse, countunique
-Statistical Grouping operations:
-  mean, median, q1, q3, iqr, mode, antimode, pstdev, sstdev, pvar,
-  svar, mad, madraw, pskew, sskew, pkurt, skurt, dpo, jarque,
-  scov, pcov, spearson, ppearson
-
-
-Grouping Options:
-  -f, --full                print entire input line before op results
-                              (default: print only the grouped keys)
-  -g, --group=X[,Y,Z]       group via fields X,[Y,Z];
-                              equivalent to primary operation &#39;groupby&#39;
-      --header-in           first input line is column headers
-      --header-out          print column headers as first line
-  -H, --headers             same as &#39;--header-in --header-out&#39;
-  -i, --ignore-case         ignore upper/lower case when comparing text;
-                              this affects grouping, and string operations
-  -s, --sort                sort the input before grouping; this removes the
-                              need to manually pipe the input through &#39;sort&#39;
-File Operation Options:
-      --no-strict           allow lines with varying number of fields
-      --filler=X            fill missing values with X (default %s)
-
-General Options:
-  -t, --field-separator=X   use X instead of TAB as field delimiter
-      --narm                skip NA/NaN values
-  -W, --whitespace          use whitespace (one or more spaces and/or tabs)
-                              for field delimiters
-  -z, --zero-terminated     end lines with 0 byte, not newline
-      --help     display this help and exit
-      --version  output version information and exit
-
-
-Examples:
-
-Print the sum and the mean of values from column 1:
-  $ seq 10 | datamash sum 1 mean 1
-  55  5.5
-
-Transpose input:
-  $ seq 10 | paste - - | datamash transpose
-  1    3    5    7    9
-  2    4    6    8    10
-
-For detailed usage information and examples, see
-  man GNU datamash
-The manual and more examples are available at
-  http://www.gnu.org/software/datamash
-</code></pre></div>
-
-<h2 id="mlr"><code>mlr</code><a class="headerlink" href="#mlr" title="Permanent link">&para;</a></h2>
-<hr />
-<div class="highlight"><pre><span></span><code>Verbs
-
-   bar bootstrap cat check count-distinct cut decimate filter grep group-by
-   group-like having-fields head histogram join label least-frequent
-   merge-fields most-frequent nest nothing fraction put regularize rename
-   reorder repeat reshape sample sec2gmt sec2gmtdate seqgen shuffle sort stats1
-   stats2 step tac tail tee top uniq unsparsify
-
-   Use <span class="s2">&quot;mlr {verb} -h&quot;</span> <span class="k">for</span> <span class="nb">help</span>
-
-Functions <span class="o">(</span><span class="k">for</span> the <span class="sb">`</span>filter<span class="sb">`</span> and <span class="sb">`</span>put<span class="sb">`</span> verbs<span class="o">)</span>
-
-    <span class="c1"># arithmetic, logical, conditional operators</span>
-   + + - - * / // % ** <span class="p">|</span> ^ <span class="p">&amp;</span> ~ &lt;&lt; &gt;&gt; <span class="o">==</span> !<span class="o">=</span> <span class="o">=</span>~ !<span class="o">=</span>~ &gt; &gt;<span class="o">=</span> &lt; &lt;<span class="o">=</span> <span class="o">&amp;&amp;</span> <span class="o">||</span> ^^ ! ? : .
-
-   <span class="c1"># string functions</span>
-   gsub strlen sub substr tolower toupper   
-
-   <span class="c1"># math</span>
-   abs ceil floor log log10 log1p
-   max min msub exp pow qnorm  
-   sgn sqrt cbrt
-
-   <span class="c1"># random numbers</span>
-   urand urand32 urandint 
-
-   <span class="c1"># date, time</span>
-   dhms2fsec dhms2sec fsec2dhms fsec2hms
-   gmt2sec hms2fsec hms2sec sec2dhms sec2gmt sec2gmt sec2gmtdate sec2hms
-   strftime strptime systime 
-
-   <span class="c1"># booleans</span>
-   is_absent is_bool is_boolean is_empty is_empty_map
-   is_float is_int is_map is_nonempty_map is_not_empty is_not_map is_not_null
-   is_null is_numeric is_present is_string 
-
-   <span class="c1"># type-conversoin, rounding, formatting </span>
-   boolean float int string
-   round roundm
-   fmtnum hexfmt 
-
-Use <span class="s2">&quot;mlr --help-function {function name}&quot;</span> <span class="k">for</span> <span class="k">function</span>-specific help.
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">mlr</span> <span class="o">-</span><span class="n">h</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Usage: mlr [I/O options] {verb} [verb-dependent options ...] {zero or more file names}
-
-Command-line-syntax examples:
-  mlr --csv cut -f hostname,uptime mydata.csv
-  mlr --tsv --rs lf filter &#39;$status != &quot;down&quot; &amp;&amp; $upsec &gt;= 10000&#39; *.tsv
-  mlr --nidx put &#39;$sum = $7 &lt; 0.0 ? 3.5 : $7 + 2.1*$8&#39; *.dat
-  grep -v &#39;^#&#39; /etc/group | mlr --ifs : --nidx --opprint label group,pass,gid,member then sort -f group
-  mlr join -j account_id -f accounts.dat then group-by account_name balances.dat
-  mlr --json put &#39;$attr = sub($attr, &quot;([0-9]+)_([0-9]+)_.*&quot;, &quot;\1:\2&quot;)&#39; data/*.json
-  mlr stats1 -a min,mean,max,p10,p50,p90 -f flag,u,v data/*
-  mlr stats2 -a linreg-pca -f u,v -g shape data/*
-  mlr put -q &#39;@sum[$a][$b] += $x; end {emit @sum, &quot;a&quot;, &quot;b&quot;}&#39; data/*
-  mlr --from estimates.tbl put &#39;
-  for (k,v in $*) {
-    if (is_numeric(v) &amp;&amp; k =~ &quot;^[t-z].*$&quot;) {
-      $sum += v; $count += 1
-    }
-  }
-  $mean = $sum / $count # no assignment if count unset&#39;
-  mlr --from infile.dat put -f analyze.mlr
-  mlr --from infile.dat put &#39;tee &gt; &quot;./taps/data-&quot;.$a.&quot;-&quot;.$b, $*&#39;
-  mlr --from infile.dat put &#39;tee | &quot;gzip &gt; ./taps/data-&quot;.$a.&quot;-&quot;.$b.&quot;.gz&quot;, $*&#39;
-  mlr --from infile.dat put -q &#39;@v=$*; dump | &quot;jq .[]&quot;&#39;
-  mlr --from infile.dat put  &#39;(NR % 1000 == 0) { print &gt; stderr, &quot;Checkpoint &quot;.NR}&#39;
-
-Data-format examples:
-  DKVP: delimited key-value pairs (Miller default format)
-  +---------------------+
-  | apple=1,bat=2,cog=3 | Record 1: &quot;apple&quot; =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
-  | dish=7,egg=8,flint  | Record 2: &quot;dish&quot; =&gt; &quot;7&quot;, &quot;egg&quot; =&gt; &quot;8&quot;, &quot;3&quot; =&gt; &quot;flint&quot;
-  +---------------------+
-
-  NIDX: implicitly numerically indexed (Unix-toolkit style)
-  +---------------------+
-  | the quick brown     | Record 1: &quot;1&quot; =&gt; &quot;the&quot;, &quot;2&quot; =&gt; &quot;quick&quot;, &quot;3&quot; =&gt; &quot;brown&quot;
-  | fox jumped          | Record 2: &quot;1&quot; =&gt; &quot;fox&quot;, &quot;2&quot; =&gt; &quot;jumped&quot;
-  +---------------------+
-
-  CSV/CSV-lite: comma-separated values with separate header line
-  +---------------------+
-  | apple,bat,cog       |
-  | 1,2,3               | Record 1: &quot;apple =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
-  | 4,5,6               | Record 2: &quot;apple&quot; =&gt; &quot;4&quot;, &quot;bat&quot; =&gt; &quot;5&quot;, &quot;cog&quot; =&gt; &quot;6&quot;
-  +---------------------+
-
-  Tabular JSON: nested objects are supported, although arrays within them are not:
-  +---------------------+
-  | {                   |
-  |  &quot;apple&quot;: 1,        | Record 1: &quot;apple&quot; =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
-  |  &quot;bat&quot;: 2,          |
-  |  &quot;cog&quot;: 3           |
-  | }                   |
-  | {                   |
-  |   &quot;dish&quot;: {         | Record 2: &quot;dish:egg&quot; =&gt; &quot;7&quot;, &quot;dish:flint&quot; =&gt; &quot;8&quot;, &quot;garlic&quot; =&gt; &quot;&quot;
-  |     &quot;egg&quot;: 7,       |
-  |     &quot;flint&quot;: 8      |
-  |   },                |
-  |   &quot;garlic&quot;: &quot;&quot;      |
-  | }                   |
-  +---------------------+
-
-  PPRINT: pretty-printed tabular
-  +---------------------+
-  | apple bat cog       |
-  | 1     2   3         | Record 1: &quot;apple =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
-  | 4     5   6         | Record 2: &quot;apple&quot; =&gt; &quot;4&quot;, &quot;bat&quot; =&gt; &quot;5&quot;, &quot;cog&quot; =&gt; &quot;6&quot;
-  +---------------------+
-
-  XTAB: pretty-printed transposed tabular
-  +---------------------+
-  | apple 1             | Record 1: &quot;apple&quot; =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
-  | bat   2             |
-  | cog   3             |
-  |                     |
-  | dish 7              | Record 2: &quot;dish&quot; =&gt; &quot;7&quot;, &quot;egg&quot; =&gt; &quot;8&quot;
-  | egg  8              |
-  +---------------------+
-
-  Markdown tabular (supported for output only):
-  +-----------------------+
-  | | apple | bat | cog | |
-  | | ---   | --- | --- | |
-  | | 1     | 2   | 3   | | Record 1: &quot;apple =&gt; &quot;1&quot;, &quot;bat&quot; =&gt; &quot;2&quot;, &quot;cog&quot; =&gt; &quot;3&quot;
-  | | 4     | 5   | 6   | | Record 2: &quot;apple&quot; =&gt; &quot;4&quot;, &quot;bat&quot; =&gt; &quot;5&quot;, &quot;cog&quot; =&gt; &quot;6&quot;
-  +-----------------------+
-
-Help options:
-  -h or --help                 Show this message.
-  --version                    Show the software version.
-  {verb name} --help           Show verb-specific help.
-  --help-all-verbs             Show help on all verbs.
-  -l or --list-all-verbs       List only verb names.
-  -L                           List only verb names, one per line.
-  -f or --help-all-functions   Show help on all built-in functions.
-  -F                           Show a bare listing of built-in functions by name.
-  -k or --help-all-keywords    Show help on all keywords.
-  -K                           Show a bare listing of keywords by name.
-
-Verbs:
-   bar bootstrap cat check count-distinct cut decimate filter grep group-by
-   group-like having-fields head histogram join label least-frequent
-   merge-fields most-frequent nest nothing fraction put regularize rename
-   reorder repeat reshape sample sec2gmt sec2gmtdate seqgen shuffle sort stats1
-   stats2 step tac tail tee top uniq unsparsify
-
-Functions for the filter and put verbs:
-   + + - - * / // % ** | ^ &amp; ~ &lt;&lt; &gt;&gt; == != =~ !=~ &gt; &gt;= &lt; &lt;= &amp;&amp; || ^^ ! ? : .
-   gsub strlen sub substr tolower toupper abs acos acosh asin asinh atan atan2
-   atanh cbrt ceil cos cosh erf erfc exp expm1 floor invqnorm log log10 log1p
-   logifit madd max mexp min mmul msub pow qnorm round roundm sgn sin sinh sqrt
-   tan tanh urand urand32 urandint dhms2fsec dhms2sec fsec2dhms fsec2hms
-   gmt2sec hms2fsec hms2sec sec2dhms sec2gmt sec2gmt sec2gmtdate sec2hms
-   strftime strptime systime is_absent is_bool is_boolean is_empty is_empty_map
-   is_float is_int is_map is_nonempty_map is_not_empty is_not_map is_not_null
-   is_null is_numeric is_present is_string asserting_absent asserting_bool
-   asserting_boolean asserting_empty asserting_empty_map asserting_float
-   asserting_int asserting_map asserting_nonempty_map asserting_not_empty
-   asserting_not_map asserting_not_null asserting_null asserting_numeric
-   asserting_present asserting_string boolean float fmtnum hexfmt int string
-   typeof depth haskey joink joinkv joinv leafcount length mapdiff mapsum
-   splitkv splitkvx splitnv splitnvx
-
-Please use &quot;mlr --help-function {function name}&quot; for function-specific help.
-
-Data-format options, for input, output, or both:
-  --idkvp   --odkvp   --dkvp      Delimited key-value pairs, e.g &quot;a=1,b=2&quot;
-                                  (this is Miller&#39;s default format).
-
-  --inidx   --onidx   --nidx      Implicitly-integer-indexed fields
-                                  (Unix-toolkit style).
-
-  --icsv    --ocsv    --csv       Comma-separated value (or tab-separated
-                                  with --fs tab, etc.)
-
-  --itsv    --otsv    --tsv       Keystroke-savers for &quot;--icsv --ifs tab&quot;,
-                                  &quot;--ocsv --ofs tab&quot;, &quot;--csv --fs tab&quot;.
-
-  --ipprint --opprint --pprint    Pretty-printed tabular (produces no
-                                  output until all input is in).
-                      --right     Right-justifies all fields for PPRINT output.
-                      --barred    Prints a border around PPRINT output
-                                  (only available for output).
-
-            --omd                 Markdown-tabular (only available for output).
-
-  --ixtab   --oxtab   --xtab      Pretty-printed vertical-tabular.
-                      --xvright   Right-justifies values for XTAB format.
-
-  --ijson   --ojson   --json      JSON tabular: sequence or list of one-level
-                                  maps: {...}{...} or [{...},{...}].
-    --json-map-arrays-on-input    JSON arrays are unmillerable. --json-map-arrays-on-input
-    --json-skip-arrays-on-input   is the default: arrays are converted to integer-indexed
-    --json-fatal-arrays-on-input  maps. The other two options cause them to be skipped, or
-                                  to be treated as errors.  Please use the jq tool for full
-                                  JSON (pre)processing.
-                      --jvstack   Put one key-value pair per line for JSON
-                                  output.
-                      --jlistwrap Wrap JSON output in outermost [ ].
-                    --jknquoteint Do not quote non-string map keys in JSON output.
-                     --jvquoteall Quote map values in JSON output, even if they&#39;re
-                                  numeric.
-              --jflatsep {string} Separator for flattening multi-level JSON keys,
-                                  e.g. &#39;{&quot;a&quot;:{&quot;b&quot;:3}}&#39; becomes a:b =&gt; 3 for
-                                  non-JSON formats. Defaults to :.
-
-  -p is a keystroke-saver for --nidx --fs space --repifs
-
-  Examples: --csv for CSV-formatted input and output; --idkvp --opprint for
-  DKVP-formatted input and pretty-printed output.
-
-Format-conversion keystroke-saver options, for input, output, or both:
-As keystroke-savers for format-conversion you may use the following:
-  --c2t --c2d --c2n --c2j --c2x --c2p --c2m
-  --t2c       --t2d --t2n --t2j --t2x --t2p --t2m
-  --d2c --d2t       --d2n --d2j --d2x --d2p --d2m
-  --n2c --n2t --n2d       --n2j --n2x --n2p --n2m
-  --j2c --j2t --j2d --j2n       --j2x --j2p --j2m
-  --x2c --x2t --x2d --x2n --x2j       --x2p --x2m
-  --p2c --p2t --p2d --p2n --p2j --p2x       --p2m
-The letters c t d n j x p m refer to formats CSV, TSV, DKVP, NIDX, JSON, XTAB,
-PPRINT, and markdown, respectively. Note that markdown format is available for
-output only.
-
-Compressed-data options:
-  --prepipe {command} This allows Miller to handle compressed inputs. You can do
-  without this for single input files, e.g. &quot;gunzip &lt; myfile.csv.gz | mlr ...&quot;.
-  However, when multiple input files are present, between-file separations are
-  lost; also, the FILENAME variable doesn&#39;t iterate. Using --prepipe you can
-  specify an action to be taken on each input file. This pre-pipe command must
-  be able to read from standard input; it will be invoked with
-    {command} &lt; {filename}.
-  Examples:
-    mlr --prepipe &#39;gunzip&#39;
-    mlr --prepipe &#39;zcat -cf&#39;
-    mlr --prepipe &#39;xz -cd&#39;
-    mlr --prepipe cat
-  Note that this feature is quite general and is not limited to decompression
-  utilities. You can use it to apply per-file filters of your choice.
-  For output compression (or other) utilities, simply pipe the output:
-    mlr ... | {your compression command}
-
-Separator options, for input, output, or both:
-  --rs     --irs     --ors              Record separators, e.g. &#39;lf&#39; or &#39;\r\n&#39;
-  --fs     --ifs     --ofs  --repifs    Field separators, e.g. comma
-  --ps     --ips     --ops              Pair separators, e.g. equals sign
-
-  Notes about line endings:
-  * Default line endings (--irs and --ors) are &quot;auto&quot; which means autodetect from
-    the input file format, as long as the input file(s) have lines ending in either
-    LF (also known as linefeed, &#39;\n&#39;, 0x0a, Unix-style) or CRLF (also known as
-    carriage-return/linefeed pairs, &#39;\r\n&#39;, 0x0d 0x0a, Windows style).
-  * If both irs and ors are auto (which is the default) then LF input will lead to LF
-    output and CRLF input will lead to CRLF output, regardless of the platform you&#39;re
-    running on.
-  * The line-ending autodetector triggers on the first line ending detected in the input
-    stream. E.g. if you specify a CRLF-terminated file on the command line followed by an
-    LF-terminated file then autodetected line endings will be CRLF.
-  * If you use --ors {something else} with (default or explicitly specified) --irs auto
-    then line endings are autodetected on input and set to what you specify on output.
-  * If you use --irs {something else} with (default or explicitly specified) --ors auto
-    then the output line endings used are LF on Unix/Linux/BSD/MacOSX, and CRLF on Windows.
-
-  Notes about all other separators:
-  * IPS/OPS are only used for DKVP and XTAB formats, since only in these formats
-    do key-value pairs appear juxtaposed.
-  * IRS/ORS are ignored for XTAB format. Nominally IFS and OFS are newlines;
-    XTAB records are separated by two or more consecutive IFS/OFS -- i.e.
-    a blank line. Everything above about --irs/--ors/--rs auto becomes --ifs/--ofs/--fs
-    auto for XTAB format. (XTAB&#39;s default IFS/OFS are &quot;auto&quot;.)
-  * OFS must be single-character for PPRINT format. This is because it is used
-    with repetition for alignment; multi-character separators would make
-    alignment impossible.
-  * OPS may be multi-character for XTAB format, in which case alignment is
-    disabled.
-  * TSV is simply CSV using tab as field separator (&quot;--fs tab&quot;).
-  * FS/PS are ignored for markdown format; RS is used.
-  * All FS and PS options are ignored for JSON format, since they are not relevant
-    to the JSON format.
-  * You can specify separators in any of the following ways, shown by example:
-    - Type them out, quoting as necessary for shell escapes, e.g.
-      &quot;--fs &#39;|&#39; --ips :&quot;
-    - C-style escape sequences, e.g. &quot;--rs &#39;\r\n&#39; --fs &#39;\t&#39;&quot;.
-    - To avoid backslashing, you can use any of the following names:
-      cr crcr newline lf lflf crlf crlfcrlf tab space comma pipe slash colon semicolon equals
-  * Default separators by format:
-      File format  RS       FS       PS
-      dkvp         auto     ,        =
-      json         auto     (N/A)    (N/A)
-      nidx         auto     space    (N/A)
-      csv          auto     ,        (N/A)
-      csvlite      auto     ,        (N/A)
-      markdown     auto     (N/A)    (N/A)
-      pprint       auto     space    (N/A)
-      xtab         (N/A)    auto     space
-
-Relevant to CSV/CSV-lite input only:
-  --implicit-csv-header Use 1,2,3,... as field labels, rather than from line 1
-                     of input files. Tip: combine with &quot;label&quot; to recreate
-                     missing headers.
-  --headerless-csv-output   Print only CSV data lines.
-
-Double-quoting for CSV output:
-  --quote-all        Wrap all fields in double quotes
-  --quote-none       Do not wrap any fields in double quotes, even if they have
-                     OFS or ORS in them
-  --quote-minimal    Wrap fields in double quotes only if they have OFS or ORS
-                     in them (default)
-  --quote-numeric    Wrap fields in double quotes only if they have numbers
-                     in them
-  --quote-original   Wrap fields in double quotes if and only if they were
-                     quoted on input. This isn&#39;t sticky for computed fields:
-                     e.g. if fields a and b were quoted on input and you do
-                     &quot;put &#39;$c = $a . $b&#39;&quot; then field c won&#39;t inherit a or b&#39;s
-                     was-quoted-on-input flag.
-
-Numerical formatting:
-  --ofmt {format}    E.g. %.18lf, %.0lf. Please use sprintf-style codes for
-                     double-precision. Applies to verbs which compute new
-                     values, e.g. put, stats1, stats2. See also the fmtnum
-                     function within mlr put (mlr --help-all-functions).
-                     Defaults to %lf.
-
-Other options:
-  --seed {n} with n of the form 12345678 or 0xcafefeed. For put/filter
-                     urand()/urandint()/urand32().
-  --nr-progress-mod {m}, with m a positive integer: print filename and record
-                     count to stderr every m input records.
-  --from {filename}  Use this to specify an input file before the verb(s),
-                     rather than after. May be used more than once. Example:
-                     &quot;mlr --from a.dat --from b.dat cat&quot; is the same as
-                     &quot;mlr cat a.dat b.dat&quot;.
-  -n                 Process no input files, nor standard input either. Useful
-                     for mlr put with begin/end statements only. (Same as --from
-                     /dev/null.) Also useful in &quot;mlr -n put -v &#39;...&#39;&quot; for
-                     analyzing abstract syntax trees (if that&#39;s your thing).
-  -I                 Process files in-place. For each file name on the command
-                     line, output is written to a temp file in the same
-                     directory, which is then renamed over the original. Each
-                     file is processed in isolation: if the output format is
-                     CSV, CSV headers will be present in each output file;
-                     statistics are only over each file&#39;s own records; and so on.
-
-Then-chaining:
-Output of one verb may be chained as input to another using &quot;then&quot;, e.g.
-  mlr stats1 -a min,mean,max -f flag,u,v -g color then sort -f color
-
-For more information please see http://johnkerl.org/miller/doc and/or
-http://github.com/johnkerl/miller. This is Miller version 5.1.0.
-</code></pre></div>
-
-<h2 id="csvtk"><code>csvtk</code><a class="headerlink" href="#csvtk" title="Permanent link">&para;</a></h2>
-<hr />
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">csvtk</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>A cross-platform, efficient and practical CSV/TSV toolkit
-
-Version: 0.7.1
-
-Author: Wei Shen &lt;shenwei356@gmail.com&gt;
-
-Documents  : http://shenwei356.github.io/csvtk
-Source code: https://github.com/shenwei356/csvtk
-
-Attention:
-
-    1. The CSV parser requires all the lines have same number of fields/columns.
-       Even lines with spaces will cause error.
-    2. By default, csvtk thinks your files have header row, if not, switch flag &quot;-H&quot; on.
-    3. Column names better be unique.
-    4. By default, lines starting with &quot;#&quot; will be ignored, if the header row
-       starts with &quot;#&quot;, please assign flag &quot;-C&quot; another rare symbol, e.g. &#39;$&#39;.
-    5. By default, csvtk handles CSV files, use flag &quot;-t&quot; for tab-delimited files.
-    6. If &quot; exists in tab-delimited files, use flag &quot;-l&quot;.
-
-Usage:
-  csvtk [command]
-
-Available Commands:
-  csv2md      convert CSV to markdown format
-  csv2tab     convert CSV to tabular format
-  cut         select parts of fields
-  filter      filter rows by values of selected fields with artithmetic expression
-  filter2     filter rows by awk-like artithmetic/string expressions
-  freq        frequencies of selected fields
-  grep        grep data by selected fields with patterns/regular expressions
-  head        print first N records
-  headers     print headers
-  help        Help about any command
-  inter       intersection of multiple files
-  join        join multiple CSV files by selected fields
-  mutate      create new column from selected fields by regular expression
-  plot        plot common figures
-  pretty      convert CSV to readable aligned table
-  rename      rename column names
-  rename2     rename column names by regular expression
-  replace     replace data of selected fields by regular expression
-  sample      sampling by proportion
-  sort        sort by selected fields
-  space2tab   convert space delimited format to CSV
-  stats       summary of CSV file
-  stats2      summary of selected digital fields
-  tab2csv     convert tabular format to CSV
-  transpose   transpose CSV data
-  uniq        unique data without sorting
-  version     print version information and check for update
-
-Flags:
-  -c, --chunk-size int         chunk size of CSV reader (default 50)
-  -C, --comment-char string    lines starting with commment-character will be ignored. if your header row starts with &#39;#&#39;, please assign &quot;-C&quot; another rare symbol, e.g. &#39;$&#39; (default &quot;#&quot;)
-  -d, --delimiter string       delimiting character of the input CSV file (default &quot;,&quot;)
-  -l, --lazy-quotes            if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field
-  -H, --no-header-row          specifies that the input CSV file does not have header row
-  -j, --num-cpus int           number of CPUs to use (default value depends on your computer) (default 8)
-  -D, --out-delimiter string   delimiting character of the output CSV file (default &quot;,&quot;)
-  -o, --out-file string        out file (&quot;-&quot; for stdout, suffix .gz for gzipped out) (default &quot;-&quot;)
-  -T, --out-tabs               specifies that the output is delimited with tabs. Overrides &quot;-D&quot;
-  -t, --tabs                   specifies that the input CSV file is delimited with tabs. Overrides &quot;-d&quot;
-
-Use &quot;csvtk [command] --help&quot; for more information about a command.
-</code></pre></div>
-
-<h2 id="xsv"><code>xsv</code><a class="headerlink" href="#xsv" title="Permanent link">&para;</a></h2>
-<hr />
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">xsv</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>xsv is a suite of CSV command line utilities.
-
-Please choose one of the following commands:
-    cat         Concatenate by row or column
-    count       Count records
-    fixlengths  Makes all records have same length
-    flatten     Show one field per line
-    fmt         Format CSV output (change field delimiter)
-    frequency   Show frequency tables
-    headers     Show header names
-    help        Show this usage message.
-    index       Create CSV index for faster access
-    input       Read CSV data with special quoting rules
-    join        Join CSV files
-    sample      Randomly sample CSV data
-    search      Search CSV data with regexes
-    select      Select columns from CSV
-    slice       Slice records from CSV
-    sort        Sort CSV data
-    split       Split CSV data into many files
-    stats       Compute basic statistics
-    table       Align CSV data into columns
 </code></pre></div>
                 
               

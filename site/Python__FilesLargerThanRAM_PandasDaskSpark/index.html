@@ -27,12 +27,6 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#ff7043">
       
     
     
@@ -52,10 +46,7 @@
   </head>
   
   
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+    <body dir="ltr">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -304,7 +295,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -551,15 +542,15 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#blaze" class="md-nav__link">
+    Blaze
+  </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -755,15 +746,15 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#blaze" class="md-nav__link">
+    Blaze
+  </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -806,12 +797,11 @@
 </li>
 <li><a href="#4-use-spark">4. Use Spark</a><ul>
 <li><a href="#spark-vs-dask">Spark vs. Dask</a></li>
-</ul>
-</li>
-<li><a href="#_1"></a></li>
-</ul>
-</li>
 <li><a href="#blaze">Blaze</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <h2 id="start-here">Start here<a class="headerlink" href="#start-here" title="Permanent link">&para;</a></h2>
@@ -819,7 +809,6 @@
 <li><a href="https://www.youtube.com/watch?v=RTiAMB2tQjo">Overview of tools</a></li>
 <li><a href="http://slides.com/israelsaetaperez/distributed-computing-spark-dask/embed">When to use Unix tools, Dask, Spark</a></li>
 </ul>
-<hr />
 <p><br></p>
 <h2 id="1-break-large-flat-file-into-many-smaller-files">1. Break large flat file into many smaller files<a class="headerlink" href="#1-break-large-flat-file-into-many-smaller-files" title="Permanent link">&para;</a></h2>
 <ul>
@@ -830,7 +819,6 @@
 <ul>
 <li>Example on splitting a <a href="http://dsnotes.com/post/2017-02-07-large-data-feature-hashing-and-online-learning-part-2/">large file</a></li>
 </ul>
-<hr />
 <p><br></p>
 <h2 id="2-read-file-with-chunksize-and-push-to-a-db">2. Read file with <code>chunksize</code> and push to a DB<a class="headerlink" href="#2-read-file-with-chunksize-and-push-to-a-db" title="Permanent link">&para;</a></h2>
 <ul>
@@ -856,7 +844,6 @@
 <li><a href="http://sdsawtelle.github.io/blog/output/large-data-files-pandas-sqlite.html">And another, with good advice on compression</a></li>
 <li><a href="https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems">SQLite vs. MySQL vs. PostgreSQL</a></li>
 </ul>
-<hr />
 <p><br></p>
 <h2 id="3-use-dask">3. Use <code>Dask</code><a class="headerlink" href="#3-use-dask" title="Permanent link">&para;</a></h2>
 <blockquote>
@@ -883,14 +870,8 @@ Dask works well on a single machine to make use of all of the cores on your lapt
 <hr />
 <p><br></p>
 <h2 id="4-use-spark">4. Use <code>Spark</code><a class="headerlink" href="#4-use-spark" title="Permanent link">&para;</a></h2>
-<ul>
-<li>a</li>
-<li>b</li>
-<li>c</li>
-</ul>
-<hr />
-<h3 id="spark-vs-dask">Spark vs. Dask<a class="headerlink" href="#spark-vs-dask" title="Permanent link">&para;</a></h3>
 <p><br></p>
+<h3 id="spark-vs-dask">Spark vs. Dask<a class="headerlink" href="#spark-vs-dask" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Apache Spark is an all-inclusive framework combining distributed computing, SQL queries, machine learning, and more that runs on the JVM and is commonly co-deployed with other Big Data frameworks like Hadoop. It was originally optimized for bulk data ingest and querying common in data engineering and business analytics but has since broadened out. Spark is typically used on small to medium sized cluster but also runs well on a single machine.</p>
 </blockquote>
@@ -901,8 +882,8 @@ Dask works well on a single machine to make use of all of the cores on your lapt
 with other libraries</strong> like Numpy and Pandas</p>
 </blockquote>
 <p>For more, see <a href="http://dask.pydata.org/en/latest/spark.html">this</a></p>
-<h2 id="_1"><br><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h1 id="blaze">Blaze<a class="headerlink" href="#blaze" title="Permanent link">&para;</a></h1>
+<p><br></p>
+<h3 id="blaze">Blaze<a class="headerlink" href="#blaze" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="http://chdoig.github.io/ep2015-blaze/#/">slides</a></li>
 <li><a href="https://github.com/blaze/blaze-tutorial">tutorial</a></li>

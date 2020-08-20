@@ -27,12 +27,6 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.b8ac9624.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.28f3ef9a.min.css">
-      
-      
-        
-        
-        <meta name="theme-color" content="#ff7043">
       
     
     
@@ -52,10 +46,7 @@
   </head>
   
   
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="">
+    <body dir="ltr">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -64,7 +55,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#download-and-unzip-data" class="md-skip">
+        <a href="#dbs-1-catalogue-of-life" class="md-skip">
           Skip to content
         </a>
       
@@ -306,7 +297,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../08_awk_v2/" title="AWK" class="md-nav__link">
+    <a href="../08_awk/" title="AWK" class="md-nav__link">
       AWK
     </a>
   </li>
@@ -481,6 +472,8 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
+      
+    
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Example 1
@@ -496,6 +489,8 @@
       
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -624,6 +619,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon">
@@ -709,43 +706,22 @@
                   
                 
                 
-                  <h1>Example 1</h1>
-                
-                <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+                <h1 id="dbs-1-catalogue-of-life">DBs 1: Catalogue of Life<a class="headerlink" href="#dbs-1-catalogue-of-life" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/home/data/&quot;</span><span class="p">)</span>
-</code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
+<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sbp</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">run_on_bash</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">sbp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <h2 id="download-and-unzip-data">Download and Unzip Data<a class="headerlink" href="#download-and-unzip-data" title="Permanent link">&para;</a></h2>
-<p>!wget '<a href="http://www.catalogueoflife.org/DCA_Export/zip-fixed/2018-02-26-archive-complete.zip">http://www.catalogueoflife.org/DCA_Export/zip-fixed/2018-02-26-archive-complete.zip</a>"'
-!dtrx 2018-02-26-archive-complete.zip</p>
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;.DS_Store&#39;,
- &#39;.ipynb_checkpoints&#39;,
- &#39;.notifier&#39;,
- &#39;chinook.db&#39;,
- &#39;clean-kdd.py&#39;,
- &#39;flights.csv&#39;,
- &#39;get-csvs.sh&#39;,
- &#39;get-nyc-taxi.sh&#39;,
- &#39;hsperfdata_metabase&#39;,
- &#39;hsperfdata_root&#39;,
- &#39;kdd.csv&#39;,
- &#39;life.db&#39;,
- &#39;make-data.py&#39;,
- &#39;tutorial.db&#39;,
- &#39;zen.txt&#39;]
+<div class="highlight"><pre><span></span><code>!wget <span class="s1">&#39;http://www.catalogueoflife.org/DCA_Export/zip-fixed/2018-02-26-archive-complete.zip&quot;&#39;</span>
+!dtrx <span class="m">2018</span>-02-26-archive-complete.zip
 </code></pre></div>
 
 <h2 id="check-files">Check files<a class="headerlink" href="#check-files" title="Permanent link">&para;</a></h2>
@@ -775,9 +751,6 @@ zen.txt                   is       0.00 MB and has         21 rows
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initialising new SQLite DB&quot;</span><span class="p">)</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;life.db&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Connecting to Existing DB
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">curs</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>

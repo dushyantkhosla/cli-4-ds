@@ -25,12 +25,13 @@ Yes, there are Python libraries that allow you to work with larger-than-RAM file
 
 ## Why
 
-- Because I've met too many 'data scientists' who
-  - have a complete lack of awareness of the limits of their own hardware.
-    - See [Don't use Hadoop - your data isn't that big](https://www.chrisstucchio.com/blog/2013/hadoop_hatred.html)
-  - are forgetting Statistics! Sometimes you can fit a model on a (representative) _sample_ of data, and you might not need distributed ML.
-    - See [Don't use deep learning your data isn't that big](https://simplystatistics.org/2017/05/31/deeplearning-vs-leekasso/)
-    - Also see [learning curves](http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html)
+Because I've met too many 'data scientists' who
+
+- have a complete lack of awareness of the limits of their own hardware.
+  - See [Don't use Hadoop - your data isn't that big](https://www.chrisstucchio.com/blog/2013/hadoop_hatred.html)
+- are forgetting Statistics! Sometimes you can fit a model on a (representative) _sample_ of data, and you might not need distributed ML.
+  - See [Don't use deep learning your data isn't that big](https://simplystatistics.org/2017/05/31/deeplearning-vs-leekasso/)
+  - Also see [learning curves](http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html)
 - Because there is an entire ecosystem of wonderful open-source software for data analysis
 - Because renting servers with more RAM or more cores is now easier and cheaper than ever.
 - Because too many businesses do not have massive data and are spending money and resources trying to solve their problems with the wrong (and expensive) tools
@@ -67,7 +68,7 @@ Yes, there are Python libraries that allow you to work with larger-than-RAM file
 - Build (or pull) the docker image
 
 ```
-# clone this repo, and 
+# clone this repo, and
 cd docker/
 docker build -t cli-4-ds .
 # or
@@ -160,4 +161,4 @@ As long as your data fits-on-disk (ie, a few hundred GBs or less,)
 ## Further Reading
 
 - In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing
-  - For now, [here's](http://randyzwitch.com/gnu-parallel-medium-data/) something to munch on 
+  - For now, [here's](http://randyzwitch.com/gnu-parallel-medium-data/) something to munch on
