@@ -1,0 +1,438 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.b8ac9624.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="." title="My Docs" class="md-header-nav__button md-logo" aria-label="My Docs">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            My Docs
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="." title="Introduction" class="md-nav__link md-nav__link--active">
+      Introduction
+    </a>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="introduction">Introduction</h1>
+<p>Say a you have a <code>.csv</code> file with a few columns. You have to run basic descriptive statistics on these columns, and maybe a few group-by operations (okay, pivot-tables.) If the file is a few thousand rows (under 100MB in size), you will probably double-click on it straight away and run the analysis in Excel.  </p>
+<p>Give yourself a pat on the back, you chose the right tool for the right job.  </p>
+<p><em>Who's a good analyst? Yes, you are!</em></p>
+<p>But what if the file was 750MB? Assuming you have enough RAM (8GB or more), of course you'll use <code>dplyr</code> in R, or <code>pandas</code> in Python or (gasp) write a data step in <code>SAS</code>.  </p>
+<p><em>Right? Excellent.</em></p>
+<p>But what if the file was 6GB?</p>
+<p>15GB?</p>
+<p>If the word <code>Hadoop</code> is stuck in your throat, I implore you to swallow it.
+This repository focues on open-source command-line utilities that can do the same.</p>
+<p>Yes, there are Python libraries that allow you to work with larger-than-RAM files on a single machine (<code>Spark</code>, <code>Dask</code> and perhaps some more), but we'll keep that for later.</p>
+<h1 id="why">Why</h1>
+<ul>
+<li>Because I've met too many 'data scientists' who</li>
+<li>have a complete lack of awareness of the limits of their own hardware.<ul>
+<li>See <a href="https://www.chrisstucchio.com/blog/2013/hadoop_hatred.html">Don't use Hadoop - your data isn't that big</a></li>
+</ul>
+</li>
+<li>are forgetting Statistics! Sometimes you can fit a model on a (representative) <em>sample</em> of data, and you might not need distributed ML.<ul>
+<li>See <a href="https://simplystatistics.org/2017/05/31/deeplearning-vs-leekasso/">Don't use deep learning your data isn't that big</a></li>
+<li>Also see <a href="http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html">learning curves</a></li>
+</ul>
+</li>
+<li>Because there is an entire ecosystem of wonderful open-source software for data analysis</li>
+<li>Because renting servers with more RAM or more cores is now easier and cheaper than ever.</li>
+<li>Because too many businesses do not have massive data and are spending money and resources trying to solve their problems with the wrong (and expensive) tools</li>
+<li>The closest analogy I can think of is someone trying to break a pebble with a sledgehammer. Of course, the pebble will break, but wouldn't you rather first try using the hammer hanging in your toolshed?  </li>
+<li>But mostly, because I like to teach! 😇</li>
+</ul>
+<h1 id="some-quotes">Some Quotes</h1>
+<blockquote>
+<p>In forecasting applications, we <strong>never</strong> observe the whole population. The problem is to forecast from <em>a finite sample.</em> Hence statistics such as means and standard deviations must be estimated with error.</p>
+<p>"At Facebook, 90% of the jobs have input sizes under 100GB."</p>
+<p>"For workloads that process multi-GB rather than multi-TB, a big memory server will provide better performance-per-dollar than a cluster."</p>
+</blockquote>
+<h1 id="tools">Tools</h1>
+<ul>
+<li><a href="https://www.gnu.org/software/coreutils/manual/coreutils.html">GNU Coreutils</a> everyday tools like <code>grep</code>, <code>sed</code>, <code>cut</code>, <code>shuf</code> and <code>cat</code> for working on text-files</li>
+<li><a href="https://www.gnu.org/software/gawk/manual/gawk.html">GNU awk</a>, a <em>programming language</em> designed for text processing and typically used as a data extraction and reporting tool</li>
+<li><a href="https://www.gnu.org/software/datamash/manual/html_node/Usage-Examples.html">GNU Datamash</a>, a command-line program which performs basic numeric, textual and statistical operations on input textual data files.</li>
+<li><a href="https://github.com/BurntSushi/xsv">xsv</a>, a fast CSV toolkit written in Rust</li>
+<li><a href="http://csvkit.readthedocs.io/en/1.0.2/">csvkit</a>, a suite of command-line tools for converting to and working with CSV. Written in Python</li>
+<li><a href="http://johnkerl.org/miller/doc/">Miller</a> is like awk, sed, cut, join, and sort for <em>name-indexed data</em> such as CSV, TSV, and tabular JSON. Written in C.</li>
+<li><a href="http://bioinf.shenwei.me/csvtk/">csvtk</a> A cross-platform, efficient, practical and pretty CSV/TSV toolkit in Golang.</li>
+<li><a href="https://github.com/dinedal/textql">textql</a> Execute SQL against structured text like CSV or TSV. Written in Golang.<ul>
+<li>SQLlite-like <a href="https://www.sqlite.org/lang_datefunc.html">datetime</a> support!</li>
+</ul>
+</li>
+<li><a href="http://harelba.github.io/q/examples.html">q</a> allows direct execution of SQL-like queries on CSVs/TSVs (and any other tabular text files)</li>
+</ul>
+<h1 id="docker-image">Docker Image</h1>
+<ul>
+<li>I've created a Docker image with all of these tools, and tutorials on how to use them.</li>
+<li>It also contains</li>
+<li>Miniconda3</li>
+<li>A conda environment <code>ds-py3</code> configured with the PyData stack (<code>pandas</code>, <code>scikit-learn</code> ...)</li>
+<li>Build (or pull) the docker image</li>
+</ul>
+<pre><code># clone this repo, and 
+cd docker/
+docker build -t cli-4-ds .
+# or
+docker pull dushyantkhosla/cli-4-ds:latest
+</code></pre>
+
+<ul>
+<li>Run a container with the image</li>
+</ul>
+<pre><code>docker run -it --privileged \
+           -v $(pwd):/home \
+           -p 8888:8888 \
+           -p 5000:5000 \
+           -p 3128:3128 \
+           dushyantkhosla/cli-4-ds:latest
+</code></pre>
+
+<ul>
+<li>Learn how to use these tools using the notebooks in <code>tutorials/</code></li>
+<li>
+<p>There is a dedicated notebook for each of the tools above</p>
+</li>
+<li>
+<p>Run the <code>start.sh</code> script to see helpful messages</p>
+</li>
+</ul>
+<pre><code>bash /root/start.sh
+</code></pre>
+
+<h1 id="get-the-data">Get the Data</h1>
+<ul>
+<li>To generate data for these tutorials, <code>cd</code> into the <code>data/</code> directory and</li>
+<li>Run the <code>get-csvs.sh</code> script to download <code>flightDelays</code> and <code>KDDCup</code> datasets</li>
+<li>PS: This will download ~1.5GB data</li>
+</ul>
+<pre><code>cd data/
+bash get-csvs.sh
+python make-data.py
+</code></pre>
+
+<ul>
+<li>Run the <code>make-data.py</code> to create a synthetic dataset with 10 million rows</li>
+</ul>
+<hr />
+<h1 id="part-2-sql-analytics-with-metabase">Part 2: SQL Analytics with <a href="https://www.metabase.com/">Metabase</a></h1>
+<ul>
+<li>You might want to try out <code>Metabase</code>, which has a nice front-end for writing SQL</li>
+</ul>
+<pre><code>docker pull metabase/metabase:v0.19.0
+</code></pre>
+
+<ul>
+<li>I recommend this version against the latest because it works with SQLite</li>
+<li>
+<p>If you want to run other DBs like Postgresql, you can get the latest image instead</p>
+</li>
+<li>
+<p>Then, run a container</p>
+</li>
+</ul>
+<pre><code>docker run -d -v $(pwd):/tmp -p 3000:3000 metabase/metabase:v0.19.0
+</code></pre>
+
+<ul>
+<li>The <code>-d</code> switch is for running the container in <em>detached</em> mode</li>
+<li>Navigate to <code>localhost:3000</code>, connect to a <code>.db</code> file or run another DB and connect to it</li>
+</ul>
+<hr />
+<h1 id="appendix">Appendix</h1>
+<ul>
+<li>There are no rules, of thumb; but we can try</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Data Size</th>
+<th>Remedy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>up to 1GB</td>
+<td>Pandas</td>
+</tr>
+<tr>
+<td>up to 10GB</td>
+<td>Get more RAM. Try Spark/Dask.</td>
+</tr>
+<tr>
+<td>up to 100GB</td>
+<td>Postgres</td>
+</tr>
+<tr>
+<td>500GB+</td>
+<td>Hadoop</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="tldr">tl;dr</h1>
+<p>As long as your data fits-on-disk (ie, a few hundred GBs or less,)</p>
+<ul>
+<li>For <code>filter</code> or <code>transform</code> jobs (like <code>WHERE</code> and <code>CASE WHEN</code>) , use</li>
+<li>cli-tools or python scripts (line-by-line or stream processing)</li>
+<li>
+<p>break files into chunks, use pandas (chunk processing)</p>
+</li>
+<li>
+<p>For <code>reductions</code> or <code>groupby</code> jobs (like <code>AVERAGE</code> and <code>PIVOT</code>),</p>
+</li>
+<li>think deeply about your data, draw representative samples<ul>
+<li><em>you're a better statistician than a programmer afterall, aren't you?</em></li>
+</ul>
+</li>
+<li>
+<p>use bootstrap measures to quantify uncertainty</p>
+</li>
+<li>
+<p>For <code>machine-learning</code> jobs,</p>
+</li>
+<li>Cluster your data, then pull samples from each group. (stratify)</li>
+<li>Fit your first model on a 10% sample.<ul>
+<li>Build a Learning Curve.</li>
+<li>Use cross-validated measures to quantify uncertainty</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="further-reading">Further Reading</h1>
+<ul>
+<li>In a later post, I'd like to talk about extracting more juice out of your hardware with parallel-processing</li>
+<li>For now, <a href="http://randyzwitch.com/gnu-parallel-medium-data/">here's</a> something to munch on </li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: ".",
+          features: [],
+          search: Object.assign({
+            worker: "assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
